@@ -1,8 +1,16 @@
 {
-  "dependencies": {
-    "three": "^0.173.0"
-  },
-  "devDependencies": {
-    "vite": "^6.1.0"
-  }
+    "name": "wildsmap",
+    "version": "0.0.1",
+    "description": "Map of Monster Hunter Wilds",
+    "scripts": {
+        "build": "vite build",
+        "deploy": "gh-pages -d dist"
+    },
+    "dependencies": {
+        "three": "^0.173.0"
+    },
+    "devDependencies": {
+        "gh-pages": "^6.3.0",
+        "vite": "^6.1.0"
+    }
 }

@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import gimmick_data from "./data/gimmickdata.json";
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
+//import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+//import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
@@ -162,23 +162,8 @@ window.addEventListener('click', (event) => {
         } else {
             selectedItem.innerHTML = `${selectedSprite.gimmickId}`;
         }
-
-        /*selectedItem.innerHTML = `
-            <h2 style="color: cyan;">${selectedSprite.name}</h2>
-            <p><strong>Position:</strong> (${selectedSprite.position.x.toFixed(2)}, ${selectedSprite.position.y.toFixed(2)}, ${selectedSprite.position.z.toFixed(2)})</p>
-            <p><strong>Distance from Camera:</strong> ${camera.position.distanceTo(selectedSprite.position).toFixed(2)}</p>
-        `;*/
-
-        // Slide the pane in from the right
-        //sidePane.style.right = '0';
     }
 });
-
-//document.getElementById("close-pane").addEventListener('click', () => {
-//    sidePane.style.right = '-300px';  // Slide the pane out of view
-//});
-
-
 
 function updateSprites() {
     // should do this based on distance to target
@@ -240,18 +225,11 @@ filters.addEventListener('change', function(event) {
     });
 });
 
-/*const controls = new OrbitControls( camera, renderer.domElement );
-controls.enablePan = false;
-*/
-    //const controls = new DragControls( objects, camera, renderer.domElement );
-// add event listener to highlight dragged objects:w
-//const controls = new TrackballControls(camera, renderer.domElement);
+
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enable = true;
 controls.minDistance = 100;
 controls.maxDistance = 2000;
-//controls.enableDamping = true;
-//controls.dampingFactor = 0.1;
 controls.staticMoving = true;
 controls.zoomSpeed = 1.5;
 camera.position.set( -600, 600, 1300 );
@@ -265,29 +243,19 @@ scene.add( light );
 window.addEventListener( 'resize', onWindowResize );
 function animate() {
     controls.update();
-    //const colorAttribute = line.geometry.getAttribute( 'color' );
-    //updateColors( colorAttribute );
-
-    //renderer.clear();
-
-    //renderer.copyFramebufferToTexture( texture, vector );
+    renderer.clear();
     updateSprites();
-    //renderer.clearDepth();
     const pos = camera.position;
     document.getElementById("camera-position").innerText = `Camera: (${pos.x.toFixed(2)}, ${pos.y.toFixed(2)}, ${pos.z.toFixed(2)})`;
     renderer.render( scene, camera );
 }
 
-
 function onWindowResize() {
-
     const width = window.innerWidth;
     const height = window.innerHeight;
 
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    
 
     renderer.setSize( window.innerWidth, window.innerHeight );
-
 }
