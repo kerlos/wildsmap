@@ -1,15 +1,16 @@
 import * as THREE from 'three';
 import gimmick_data from "./data/gimmickdata.json";
-//import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-//import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import endemic_data from "./data/endemic.json";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+
+document.getElementById('version').innerHTML = `<strong>Version:</strong> ${__APP_VERSION__}`;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
 const canvas = document.getElementById('webgl-canvas');
 const renderer = new THREE.WebGLRenderer({canvas: canvas});
-//renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 renderer.setClearColor(0xffffff, 0);
@@ -60,7 +61,6 @@ spotLight.position.set( 10, 10, 10 );
 scene.add( spotLight );
 
 const gimmicks = new Map();
-//const sprites = new Array();
 function loadGimmicks() {
     Object.entries(gimmick_data).forEach(([key, value]) => {
         var path = "";
@@ -70,14 +70,36 @@ function loadGimmicks() {
         else {
             path ='./assets/gimmick_icons/MHWilds-' + value.icon + ' Icon ' + value.color + '.png';
         }
+        if (value.name !== null) { // make a better solution for this
+            const texture = new THREE.TextureLoader().load( path );
+            gimmicks.set(key, {
+                data: value,
+                texture: texture
+            });
+        }
+    });
+}
+loadGimmicks();
+
+const endemics = new Map();
+function loadEndemic() {
+    Object.entries(endemic_data).forEach(([key, value]) => {
+        var path = "";
+        if (value.map_icon != "INVALID") {
+            path = './assets/enemy_icons/MHWilds-' + key + ' Map Icon.png';
+        } else {
+            path ='./assets/enemy_icons/MHWilds-' + key + ' Icon.png';
+        }
         const texture = new THREE.TextureLoader().load( path );
-        gimmicks.set(key, {
+        endemics.set(key, {
             data: value,
             texture: texture
         });
     });
 }
-loadGimmicks();
+loadEndemic();
+
+
 const sprites = []
 gimmicks.forEach((value, key) => {
     const texture = value.texture;
@@ -89,6 +111,23 @@ gimmicks.forEach((value, key) => {
             sprite.scale.set( 25, 25, 25 );
             sprite.position.set(point[0], point[1] + 5, point[2]);
             sprite.gimmickId = key;
+            sprite.type = "GIMMICK";
+            sprites.push(sprite);
+        }
+    });
+});
+
+endemics.forEach((value, key) => {
+    const texture = value.texture;
+    value.data.st101.points.forEach((point) => {
+        if (point != undefined) {
+            const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
+            const sprite = new THREE.Sprite( spriteMaterial );
+            scene.add( sprite );
+            sprite.scale.set( 25, 25, 25 );
+            sprite.position.set(point[0], point[1] + 5, point[2]);
+            sprite.emId = key;
+            sprite.type = "ENDEMIC";
             sprites.push(sprite)
         }
     });
@@ -99,41 +138,58 @@ const mouse = new THREE.Vector2();
 let hoveredSprite = null;
 let selectedSprite = null;
 
+
+
+
 const tooltip = document.createElement("div");
 tooltip.classList.add("tooltip");
 document.body.appendChild(tooltip);
 
+function setInfo(element, sprite, info_type) {
+    if (hoveredSprite.type === "GIMMICK") {
+        const gimmick = gimmicks.get(hoveredSprite.gimmickId);
+        element.innerHTML = `
+            <div style="font-weight: bold; color: lightgray;">${gimmick.data.name}</div>
+            `;
+            if (gimmick.data.explain !== null)
+                element.innerHTML += `<div>${gimmick.data.explain}</div>`;
+    } else if (hoveredSprite.type === "ENDEMIC") {
+        const endemic = endemics.get(hoveredSprite.emId);
+        element.innerHTML = `
+            <div style="font-weight: bold; color: lightgray;">${endemic.data.name}</div>
+            `;
+        if (info_type == "EXTENDED") {
+            if (endemic.data.memo !== null)
+                element.innerHTML += `<div>${endemic.data.memo}</div>`;
+        } else {
+            if (endemic.data.explain !== null)
+                element.innerHTML += `<div>${endemic.data.explain}</div>`;
+        }
+    }
+    tooltip.style.display = "block";
+}
+
+
 window.addEventListener('mousemove', (event) => {
-    // Convert mouse position to normalized device coordinates (-1 to +1)
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    // Perform raycasting
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(sprites);
 
     if (intersects.length > 0) {
         if (hoveredSprite !== intersects[0].object) {
-            if (hoveredSprite) hoveredSprite.scale.set(1, 1, 1); // Reset previous
             hoveredSprite = intersects[0].object;
-            hoveredSprite.scale.set(1.5, 1.5, 1); // Highlight effect
+        } else {
+            return
         }
+        if (!hoveredSprite.visible) return;
 
-        // Update tooltip
         tooltip.style.left = `${event.clientX + 10}px`;
         tooltip.style.top = `${event.clientY + 10}px`;
-        const gimmick = gimmicks.get(hoveredSprite.gimmickId);
-        if (typeof gimmick !== 'undefined') {
-            tooltip.innerHTML = `
-            <div style="font-weight: bold; color: lightgray;">${gimmick.data.name}</div>
-            <div>${gimmick.data.explain}</div>
-            `;
-        } else {
-            tooltip.innerHTML = `${hoveredSprie.gimmickId}`;
-        }
+        setInfo(tooltip, hoveredSprite, "TOOLTIP");
         tooltip.style.display = "block";
     } else {
-        if (hoveredSprite) hoveredSprite.scale.set(1, 1, 1); // Reset previous
         hoveredSprite = null;
         tooltip.style.display = "none";
     }
@@ -150,26 +206,16 @@ window.addEventListener('click', (event) => {
 
     if (intersects.length > 0) {
         selectedSprite = intersects[0].object;
+        if (!selectedSprite.visible) return;
 
-        // Show side pane and populate with selected sprite info
-        const gimmick = gimmicks.get(selectedSprite.gimmickId);
-        if (typeof gimmick !== 'undefined') {
-            selectedItem.style.display = "flex";
-            selectedItem.innerHTML = `
-            <div style="font-weight: bold; color: lightgray;">${gimmick.data.name}</div>
-            <div>${gimmick.data.explain}</div>
-            `;
-        } else {
-            selectedItem.innerHTML = `${selectedSprite.gimmickId}`;
-        }
+        selectedItem.style.display = "flex";
+        setInfo(selectedItem, selectedSprite, "EXTENDED")
     }
 });
 
 function updateSprites() {
-    // should do this based on distance to target
-    const distance = Math.min(Math.abs(camera.position.y), 1000);
-    const scale = Math.max(35.0 * distance / 500, 10.0); // Adjust scaling factor (tweak this for best effect)
-    //const distance = camera.position.distanceTo(sprite.position);
+    const distance = Math.min(camera.position.distanceTo(controls.target), 800);
+    const scale = Math.max(32.0 * distance / 700, 10.0);
     sprites.forEach(sprite => {
         sprite.scale.set(scale, scale, scale);
     });
@@ -183,11 +229,16 @@ const hiddenToggle = document.getElementById("hidden");
 const trapToggle = document.getElementById("trap");
 const nonFilteringToggle = document.getElementById("non-filtering");
 const slingerToggle = document.getElementById("slinger");
+const endemicToggle = document.getElementById("endemic");
 
-filters.addEventListener('change', function(event) {
-    if (!event.target.classList.contains('all-filters')) {
-        if (allToggle.checked && !event.target.checked) {
-            allToggle.checked = false;
+updateFilters();
+
+function updateFilters(event) {
+    if (event !== undefined) {
+        if (!event.target.classList.contains('all-filters')) {
+            if (allToggle.checked && !event.target.checked) {
+                allToggle.checked = false;
+            }
         }
     }
     if (allToggle.checked) {
@@ -198,32 +249,38 @@ filters.addEventListener('change', function(event) {
         slingerToggle.checked = true;
     }
     sprites.forEach(sprite => {
-        const gimmick = gimmicks.get(sprite.gimmickId);
-        switch (gimmick.data.map_filtering_type) {
-            case "ALL":
-                sprite.visible = allToggle.checked;
-                break;
-            case "COLLECT":
-                sprite.visible = collectToggle.checked;
-                break;
-            case "ENVIRONMENT_TRAP":
-                sprite.visible = trapToggle.checked;
-                break;
-            case "INVISIBLE":
-                sprite.visible = hiddenToggle.checked;
-                break;
-            case "INVISIBLE_ADDBEACON":
-                sprite.visible = hiddenToggle.checked;
-                break;
-            case "NON_FILTERING_TARGET":
-                sprite.visible = hiddenToggle.checked;
-                break;
-            case "SLINGER":
-                sprite.visible = slingerToggle.checked;
-                break;
+        if (sprite.type === "GIMMICK") {
+            const gimmick = gimmicks.get(sprite.gimmickId);
+            switch (gimmick.data.map_filtering_type) {
+                case "ALL":
+                    sprite.visible = allToggle.checked;
+                    break;
+                case "COLLECT":
+                    sprite.visible = collectToggle.checked;
+                    break;
+                case "ENVIRONMENT_TRAP":
+                    sprite.visible = trapToggle.checked;
+                    break;
+                case "INVISIBLE":
+                    sprite.visible = hiddenToggle.checked;
+                    break;
+                case "INVISIBLE_ADDBEACON":
+                    sprite.visible = hiddenToggle.checked;
+                    break;
+                case "NON_FILTERING_TARGET":
+                    sprite.visible = hiddenToggle.checked;
+                    break;
+                case "SLINGER":
+                    sprite.visible = slingerToggle.checked;
+                    break;
+            }
+        } else if (sprite.type === "ENDEMIC") {
+            sprite.visible = endemicToggle.checked;
         }
     });
-});
+}
+
+filters.addEventListener('change', updateFilters);
 
 
 const controls = new OrbitControls(camera, renderer.domElement);
