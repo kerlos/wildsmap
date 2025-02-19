@@ -542,7 +542,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -1094.7307,
+                87.058784,
+                785.6916
+            ]
+        ]
     },
     "GM009_002_00": {
         "name": "Grounding Rock",
@@ -1221,7 +1227,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -1070.7848,
+                15.319534,
+                1298.9568
+            ]
+        ]
     },
     "GM030_013_00": {
         "name": null,
@@ -1486,7 +1498,13 @@
         "color": "",
         "map_icon": "MAP_0000",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -772.0786,
+                57.84536,
+                731.1908
+            ]
+        ]
     },
     "GM030_023_00": {
         "name": "Mucus",
@@ -2198,7 +2216,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -991.67236,
+                65.97437,
+                725.0487
+            ]
+        ]
     },
     "GM800_001_62": {
         "name": null,
@@ -2889,6 +2913,11 @@
         "map_icon": "MAP_0030",
         "map_filtering_type": "NON_FILTERING_TARGET",
         "points": [
+            [
+                -958.9329,
+                4.895598,
+                1351.608
+            ],
             [
                 0.0,
                 0.0,
@@ -5246,7 +5275,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -618.92285,
+                24.944147,
+                736.2871
+            ]
+        ]
     },
     "GM034_013_00": {
         "name": null,
@@ -5327,7 +5362,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -958.5062,
+                5.088243,
+                1350.4937
+            ]
+        ]
     },
     "GM030_015_00": {
         "name": null,
@@ -5390,7 +5431,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -731.5719,
+                3.6447144,
+                1524.5121
+            ]
+        ]
     },
     "GM000_180_00": {
         "name": null,
@@ -5408,7 +5455,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -906.80035,
+                -60.88362,
+                1283.9293
+            ]
+        ]
     },
     "GM152_000_00": {
         "name": null,
@@ -5491,7 +5544,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -731.0369,
+                14.428724,
+                989.62195
+            ]
+        ]
     },
     "GM800_000_01": {
         "name": "Kunafa, Windsong Village",
@@ -5500,7 +5559,13 @@
         "color": "",
         "map_icon": "MAP_0003",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -833.4105,
+                10.74218,
+                1010.594
+            ]
+        ]
     },
     "GM800_002_51": {
         "name": null,
@@ -5518,7 +5583,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -1026.0447,
+                32.090633,
+                964.3236
+            ]
+        ]
     },
     "GM030_056_00": {
         "name": "Half-Eaten Carcass",
@@ -5856,7 +5927,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -467.48724,
+                -0.8226309,
+                999.3108
+            ]
+        ]
     },
     "GM030_114_00": {
         "name": null,
@@ -5944,7 +6021,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -418.34872,
+                8.551121,
+                806.5804
+            ]
+        ]
     },
     "GM100_003_00": {
         "name": "Makeshift Camp",
@@ -6060,7 +6143,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -1097.2708,
+                38.560577,
+                990.01855
+            ]
+        ]
     },
     "GM000_115_00": {
         "name": "Parashroom",
@@ -6368,7 +6457,13 @@
         "color": "Yellow",
         "map_icon": "INVALID",
         "map_filtering_type": "NON_FILTERING_TARGET",
-        "points": []
+        "points": [
+            [
+                -698.8055,
+                0.42693043,
+                1354.5664
+            ]
+        ]
     },
     "GM030_003_00": {
         "name": "Dung",
