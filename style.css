@@ -98,6 +98,18 @@ body {
     align-items: flex-start;
 }
 
+#search-filter {
+    padding: 0.2rem;
+    color: white;
+    background: rgba(52, 152, 219, 0.1);
+    padding: 2px;
+    border-radius: 5px;
+    outline: none;
+}
+.search::placeholder {
+    color: rgba(52, 152, 219, 0.5);
+}
+
 #site-info {
     position: fixed;
     font-size: 0.8rem;
@@ -115,11 +127,11 @@ body {
 }
 
 @media (min-resolution: 2dppx) {
-  .side-pane {
-    font-size: 0.9rem;
-    height: auto;
-    max-width: 45%;
-  }
+    .side-pane {
+        font-size: 0.9rem;
+        height: auto;
+        max-width: 45%;
+    }
 }
 
 @media (min-resolution: 2dppx) {
@@ -133,3 +145,30 @@ body {
         font-size: 0.7rem;
     }
 }
+
+.toggleButton {
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+}
+.toggleButton:hover {
+    background: rgba(52, 152, 219, 0.1); /* Slight hover effect */
+}
+
+.arrow {
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+}
+
+.foldable {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+

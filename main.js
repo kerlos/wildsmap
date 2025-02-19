@@ -149,9 +149,16 @@ function loadAreaNumbers() {
         Object.entries(value).forEach(([area_num, point]) => {
             const path = "./assets/map_nums/" + area_num + ".png";
             const texture = textureLoader.load( path );
+            const area = area_num.split("_");
+            const st = area[0];
+            const num = area[1];
+            const name = `${MAP_NAMES.get(st)} ${num}`;
             areaNumbers.set(area_num, {
-                point: point,
-                areaNum: area_num,
+                data: {
+                    point: point,
+                    areaNum: area_num,
+                    name: name,
+                },
                 texture: texture
             });
         });
@@ -162,7 +169,6 @@ loadAreaNumbers();
 
 const sprites = []
 gimmicks.forEach((value, key) => {
-    const texture = value.texture;
     value.data.points.forEach((point) => {
         if (point != undefined) {
             const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
@@ -183,7 +189,6 @@ gimmicks.forEach((value, key) => {
 });
 
 endemics.forEach((value, key) => {
-    const texture = value.texture;
     value.data.st101.points.forEach((point) => {
         if (point != undefined) {
             const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
@@ -200,11 +205,10 @@ endemics.forEach((value, key) => {
 });
 
 areaNumbers.forEach((value, key) => {
-    const texture = value.texture;
     const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
     const sprite = new THREE.Sprite( spriteMaterial );
     scene.add( sprite );
-    const point = value.point;
+    const point = value.data.point;
     sprite.scale.set( 20, 20, 20 );
     sprite.position.set(point[0], point[1] + 20, point[2]);
     sprite.areaId = key;
@@ -244,7 +248,7 @@ function setInfo(element, sprite, info_type) {
                 element.innerHTML += `<div>${endemic.data.explain}</div>`;
         }
     } else if (hoveredSprite.type === "AREA_NUMBER") {
-        const area = areaNumbers.get(hoveredSprite.areaId).areaNum.split("_");
+        const area = areaNumbers.get(hoveredSprite.areaId).data.areaNum.split("_");
         const st = area[0];
         const num = area[1];
         element.innerHTML = `<div style="font-weight: bold; color: lightgray;">Area ${num}</div>`;
@@ -313,6 +317,7 @@ const nonFilteringToggle = document.getElementById("non-filtering");
 const slingerToggle = document.getElementById("slinger");
 const endemicToggle = document.getElementById("endemic");
 const areaNumToggle = document.getElementById("areanumbers");
+const searchBar = document.getElementById("search-filter")
 
 updateFilters();
 
@@ -333,7 +338,22 @@ function updateFilters(event) {
         endemicToggle.checked = true;
     }
     sprites.forEach(sprite => {
+
+        var data = null;
+        switch (sprite.type) {
+            case "GIMMICK":
+                data = gimmicks.get(sprite.gimmickId).data;
+                break;
+            case "AREA_NUMBER":
+                data = areaNumbers.get(sprite.areaId).data;
+                break;
+            case "ENDEMIC":
+                data = endemics.get(sprite.emId).data;
+                break;
+        }
+
         if (sprite.type === "GIMMICK") {
+
             const gimmick = gimmicks.get(sprite.gimmickId);
             switch (gimmick.data.map_filtering_type) {
                 case "ALL":
@@ -363,6 +383,8 @@ function updateFilters(event) {
         } else if (sprite.type === "AREA_NUMBER") {
             sprite.visible = areaNumToggle.checked;
         }
+        console.log(searchBar.value)
+        sprite.visible = data.name.includes(searchBar.value);
     });
 }
 
@@ -399,3 +421,18 @@ function onWindowResize() {
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
+
+document.querySelectorAll(".toggleButton").forEach(button => {
+    button.addEventListener("click", function () {
+        let content = this.nextElementSibling;
+        let arrow = this.querySelector(".arrow");
+
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            arrow.textContent = "▶"; // Arrow points right when collapsed
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.textContent = "▼"; // Arrow points down when expanded
+        }
+    });
+});
