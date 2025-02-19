@@ -116,15 +116,15 @@ body {
 
 @media (min-resolution: 2dppx) {
   .side-pane {
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: auto;
-    max-width: 50%;
+    max-width: 45%;
   }
 }
 
 @media (min-resolution: 2dppx) {
     .tooltip {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 }
 
