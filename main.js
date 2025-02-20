@@ -15,6 +15,7 @@ MAP_NAMES.set("st103", "Oilwell Basin");
 MAP_NAMES.set("st104", "Iceshard Cliffs");
 MAP_NAMES.set("st503", "Training Area");
 
+let frames = 0, prevTime = performance.now();
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
@@ -25,7 +26,6 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 renderer.setClearColor(0xffffff, 0);
 renderer.shadowMap.enabled = true;
-
 
 const lightA = new THREE.DirectionalLight( 0xFfFfFf, 1.2);
 lightA.position.set(-449, 160, 1500)
@@ -44,62 +44,84 @@ scene.add( lightC );
 //light.position.set(-800, 400, 1000)
 //scene.add( light );
 
+
+
 const textureLoader = new THREE.TextureLoader();
 
-const mapNormal = textureLoader.load( "./assets/mapnormal.png" );
-const mapDiffuse = textureLoader.load( "./assets/maindiffuse.png" );
-const mapMaterial = new THREE.MeshStandardMaterial({
-     map: mapDiffuse,
-     normalMap: mapNormal,
-});
-mapMaterial.normalScale.set(-2, -2);
-mapMaterial.needsUpdate = true;
+class Stage {
+    constructor(id, name, modelPath, scene) {
+        this.id = id;
+        this.name = name;
+        this.model = null;
+        this.areaNumbers = new THREE.Group();
+        this.gimmicks = new THREE.Group();
+        this.endemic = new THREE.Group();
 
-const mapDiffuseWater = textureLoader.load( "./assets/mainotherdiffuse.png" );
-const mapMaterialWater = new THREE.MeshStandardMaterial({
-     map: mapDiffuseWater,
-     normalMap: mapNormal
-});
-mapMaterialWater.normalScale.set(-0.5, -0.5);
+        this.collectables = new THREE.Group();
+        this.environment = new THREE.Group();
+        this.hidden = new THREE.Group();
+        this.nonFiltering = new THREE.Group();
+        this.slinger = new THREE.Group();
+        this.gimmicks.add(this.collectables);
+        this.gimmicks.add(this.environment);
+        this.gimmicks.add(this.endemic);
+        this.gimmicks.add(this.nonFiltering);
+        this.gimmicks.add(this.slinger);
 
-const mapDiffuseWall = textureLoader.load( "./assets/walldiffuse.png" );
-const mapMaterialWall = new THREE.MeshStandardMaterial({
-     map: mapDiffuseWall,
-});
-mapMaterial.normalScale.set(0.2, 0.2);
+        const mapNormal = textureLoader.load( "./assets/mapnormal.png" );
+        const mapDiffuse = textureLoader.load( "./assets/maindiffuse.png" );
+        const mapMaterial = new THREE.MeshStandardMaterial({
+            map: mapDiffuse,
+            normalMap: mapNormal,
+        });
+        mapMaterial.normalScale.set(-2, -2);
+        mapMaterial.needsUpdate = true;
 
-const mapDiffuseOutline = textureLoader.load( "./assets/outlinediffuse.png" );
-const mapMaterialOutline = new THREE.MeshBasicMaterial({
-     map: mapDiffuseOutline,
-});
-const loader = new GLTFLoader();
-loader.load( './assets/st101.glb', function ( model ) {
-    model.scene.traverse( child => {
-        child.castShadow = true;
-        if (child.isMesh) {
-            if (child.name.includes("mainOther")){
-                child.material = mapMaterialWater;
-            }
-            else if (child.name.includes("outline")){
-                child.material = mapMaterialOutline;
-            }
-            else if (child.name.includes("wall")){
-                child.material = mapMaterialWall;
-            }
-            if (child.name.includes("main") && !child.name.includes("Other")){
-                child.material = mapMaterial;
-            }
-        } else {
-            child = null;
-        }
-        
-    })
-    scene.add(model.scene);
-}, undefined, function ( error ) {
-    console.error( error );
-});
+        const mapDiffuseWater = textureLoader.load( "./assets/mainotherdiffuse.png" );
+        const mapMaterialWater = new THREE.MeshStandardMaterial({
+            map: mapDiffuseWater,
+            normalMap: mapNormal
+        });
+        mapMaterialWater.normalScale.set(-0.5, -0.5);
 
-renderer.shadowMap.needsUpdate = true;
+        const mapDiffuseWall = textureLoader.load( "./assets/walldiffuse.png" );
+        const mapMaterialWall = new THREE.MeshStandardMaterial({
+            map: mapDiffuseWall,
+        });
+        mapMaterial.normalScale.set(0.2, 0.2);
+
+        const mapDiffuseOutline = textureLoader.load( "./assets/outlinediffuse.png" );
+        const mapMaterialOutline = new THREE.MeshBasicMaterial({
+            map: mapDiffuseOutline,
+        });
+        const loader = new GLTFLoader();
+        loader.load( modelPath, function ( model ) {
+            model.scene.traverse( child => {
+                child.castShadow = true;
+                if (child.isMesh) {
+                    if (child.name.includes("mainOther")){
+                        child.material = mapMaterialWater;
+                    }
+                    else if (child.name.includes("outline")){
+                        child.material = mapMaterialOutline;
+                    }
+                    else if (child.name.includes("wall")){
+                        child.material = mapMaterialWall;
+                    }
+                    if (child.name.includes("main") && !child.name.includes("Other")){
+                        child.material = mapMaterial;
+                    }
+                } else {
+                    child = null;
+                }
+            });
+            scene.add(model.scene);
+            this.model = model.scene;
+        }.bind(this), undefined, function ( error ) {
+            console.error( error );
+        });
+    }
+}
 
 const gimmicks = new Map();
 function loadGimmicks() {
@@ -167,21 +189,41 @@ function loadAreaNumbers() {
 loadAreaNumbers();
 
 
+const st101 = new Stage("st101", "Windward Plains", "./assets/st101.glb", scene)
 const sprites = []
 gimmicks.forEach((value, key) => {
     value.data.points.forEach((point) => {
         if (point != undefined) {
             const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
             const sprite = new THREE.Sprite( spriteMaterial );
-            scene.add( sprite );
             sprite.scale.set( 25, 25, 25 );
             sprite.position.set(point[0], point[1] + 5, point[2]);
             sprite.gimmickId = key;
             sprite.baseScaling = 1.0;
-            if (value.data.map_filtering_type === "NON_FILTERING_TARGET") {
-                sprite.baseScaling = 1.5;
-                sprite.position.set(point[0], point[1] + 10, point[2]);
+
+            switch (value.data.map_filtering_type) {
+                case "COLLECT":
+                    st101.collectables.add(sprite);
+                    break;
+                case "ENVIRONMENT_TRAP":
+                    st101.environment.add(sprite);
+                    break;
+                case "INVISIBLE":
+                    st101.hidden.add(sprite);
+                    break;
+                case "INVISIBLE_ADDBEACON":
+                    st101.hidden.add(sprite);
+                    break;
+                case "NON_FILTERING_TARGET":
+                    sprite.baseScaling = 1.5;
+                    sprite.position.set(point[0], point[1] + 10, point[2]);
+                    st101.nonFiltering.add(sprite);
+                    break;
+                case "SLINGER":
+                    st101.slinger.add(sprite);
+                    break;
             }
+
             sprite.type = "GIMMICK";
             sprites.push(sprite);
         }
@@ -193,13 +235,13 @@ endemics.forEach((value, key) => {
         if (point != undefined) {
             const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
             const sprite = new THREE.Sprite( spriteMaterial );
-            scene.add( sprite );
             sprite.scale.set( 25, 25, 25 );
             sprite.position.set(point[0], point[1] + 5, point[2]);
             sprite.emId = key;
             sprite.type = "ENDEMIC";
             sprite.baseScaling = 1.0;
             sprites.push(sprite)
+            st101.endemic.add(sprite)
         }
     });
 });
@@ -207,7 +249,6 @@ endemics.forEach((value, key) => {
 areaNumbers.forEach((value, key) => {
     const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
     const sprite = new THREE.Sprite( spriteMaterial );
-    scene.add( sprite );
     const point = value.data.point;
     sprite.scale.set( 20, 20, 20 );
     sprite.position.set(point[0], point[1] + 20, point[2]);
@@ -215,8 +256,12 @@ areaNumbers.forEach((value, key) => {
     sprite.type = "AREA_NUMBER";
     sprite.baseScaling = 1.0;
     sprites.push(sprite);
+    st101.areaNumbers.add(sprite)
 });
 
+scene.add(st101.areaNumbers);
+scene.add(st101.gimmicks);
+scene.add(st101.endemic);
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -227,28 +272,52 @@ const tooltip = document.createElement("div");
 tooltip.classList.add("tooltip");
 document.body.appendChild(tooltip);
 
+let languages = [
+    "Japanese",
+    "English",
+    "French",
+    "Italian",
+    "German",
+    "Spanish",
+    "Russian",
+    "Polish",
+    "PortugueseBr",
+    "Korean",
+    "TransitionalChinese",
+    "SimplelifiedChinese",
+    "Arabic",
+    "LatinAmericanSpanish",
+];
+let lang = document.getElementById("language").value;
+
+document.getElementById("language").addEventListener("change", function() {
+    lang = this.value;
+    setInfo(selectedItem, selectedSprite, "EXTENDED")
+});
+
 function setInfo(element, sprite, info_type) {
-    if (hoveredSprite.type === "GIMMICK") {
-        const gimmick = gimmicks.get(hoveredSprite.gimmickId);
+    if (sprite.type === "GIMMICK") {
+        console.log("here")
+        const gimmick = gimmicks.get(sprite.gimmickId);
         element.innerHTML = `
-            <div style="font-weight: bold; color: lightgray;">${gimmick.data.name}</div>
+            <div style="font-weight: bold; color: lightgray;">${gimmick.data.name_langs[lang]}</div>
             `;
-            if (gimmick.data.explain !== null)
-                element.innerHTML += `<div>${gimmick.data.explain}</div>`;
-    } else if (hoveredSprite.type === "ENDEMIC") {
-        const endemic = endemics.get(hoveredSprite.emId);
+        if (gimmick.data.explain !== null)
+            element.innerHTML += `<div>${gimmick.data.explain_langs[lang]}</div>`;
+    } else if (sprite.type === "ENDEMIC") {
+        const endemic = endemics.get(sprite.emId);
         element.innerHTML = `
-            <div style="font-weight: bold; color: lightgray;">${endemic.data.name}</div>
+            <div style="font-weight: bold; color: lightgray;">${endemic.data.name_langs[lang]}</div>
             `;
         if (info_type == "EXTENDED") {
             if (endemic.data.memo !== null)
-                element.innerHTML += `<div>${endemic.data.memo}</div>`;
+                element.innerHTML += `<div>${endemic.data.memo_langs[lang]}</div>`;
         } else {
             if (endemic.data.explain !== null)
-                element.innerHTML += `<div>${endemic.data.explain}</div>`;
+                element.innerHTML += `<div>${endemic.data.explain_langs[lang]}</div>`;
         }
-    } else if (hoveredSprite.type === "AREA_NUMBER") {
-        const area = areaNumbers.get(hoveredSprite.areaId).data.areaNum.split("_");
+    } else if (sprite.type === "AREA_NUMBER") {
+        const area = areaNumbers.get(sprite.areaId).data.areaNum.split("_");
         const st = area[0];
         const num = area[1];
         element.innerHTML = `<div style="font-weight: bold; color: lightgray;">Area ${num}</div>`;
@@ -257,19 +326,71 @@ function setInfo(element, sprite, info_type) {
     tooltip.style.display = "block";
 }
 
-window.addEventListener('mousemove', (event) => {
+function isVisible(sprite) {
+    let result = false;
+
+    switch (sprite.type) {
+        case "GIMMICK":
+            var data = null;
+            data = gimmicks.get(sprite.gimmickId).data;
+            switch (data.map_filtering_type) {
+                case "COLLECT":
+                    result = collectToggle.checked;
+                    break;
+                case "ENVIRONMENT_TRAP":
+                    result = trapToggle.checked;
+                    break;
+                    break;
+                case "INVISIBLE":
+                    result =  hiddenToggle.checked;
+                    break;
+                case "INVISIBLE_ADDBEACON":
+                    result = hiddenToggle.checked;
+                    break;
+                case "NON_FILTERING_TARGET":
+                    result = nonFilteringToggle.checked;
+                    break;
+                case "SLINGER":
+                    result = slingerToggle.checked;
+                    break;
+            }
+            break;
+        case "AREA_NUMBER":
+            result = areaNumToggle.checked;
+            break;
+        case "ENDEMIC":
+            result = endemicToggle.checked;
+            break;
+    }
+    return result;
+}
+
+function getFirstIntersectingVisibleSprite(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(sprites);
-
     if (intersects.length > 0) {
-        if (hoveredSprite !== intersects[0].object) {
-            hoveredSprite = intersects[0].object;
+        let i = 0;
+        while (typeof intersects[i] !== "undefined" && (!intersects[i].object.visible || !isVisible(intersects[i].object))) {
+            i++;
         }
-        if (!hoveredSprite.visible) return;
+        if (i >= intersects.length) {
+            hoveredSprite = null;
+            return false
+        }
+        if (hoveredSprite !== intersects[i].object) {
+            hoveredSprite = intersects[i].object;
+        }
+        return true;
+    }
+    return false;
+}
 
+window.addEventListener('mousemove', (event) => {
+    const res = getFirstIntersectingVisibleSprite(event);
+    if (res){
         tooltip.style.left = `${event.clientX + 10}px`;
         tooltip.style.top = `${event.clientY + 10}px`;
         setInfo(tooltip, hoveredSprite, "TOOLTIP");
@@ -281,18 +402,10 @@ window.addEventListener('mousemove', (event) => {
 });
 
 const selectedItem = document.getElementById("selected-item");
-
 window.addEventListener('click', (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(sprites);
-    
-    if (intersects.length > 0) {
-        selectedSprite = intersects[0].object;
-        if (!selectedSprite.visible) return;
-
+    const res = getFirstIntersectingVisibleSprite(event);
+    if (res){
+        selectedSprite = hoveredSprite;
         selectedItem.style.display = "flex";
         setInfo(selectedItem, selectedSprite, "EXTENDED")
     }
@@ -309,7 +422,8 @@ function updateSprites() {
 
 
 const filters = document.getElementById("filters");
-const allToggle = document.getElementById("all-gimmicks");
+const selectToggle = document.getElementById("selectall");
+const deselectToggle = document.getElementById("deselect");
 const collectToggle = document.getElementById("collectable");
 const hiddenToggle = document.getElementById("hidden");
 const trapToggle = document.getElementById("trap");
@@ -323,92 +437,110 @@ updateFilters();
 
 function updateFilters(event) {
     if (event !== undefined) {
-        if (!event.target.classList.contains('all-filters')) {
-            if (allToggle.checked && !event.target.checked) {
-                allToggle.checked = false;
+        if (!event.target.classList.contains('selectall')) {
+            if (selectToggle.checked && !event.target.checked) {
+                selectToggle.checked = false;
+            }
+        } else {
+            if (event.target.checked) {
+                collectToggle.checked = true;
+                hiddenToggle.checked = true;
+                trapToggle.checked = true;
+                nonFilteringToggle.checked = true;
+                slingerToggle.checked = true;
+                endemicToggle.checked = true;
+                areaNumToggle.checked = true;
+                deselectToggle.checked = false;
+            }
+        }
+        if (!event.target.classList.contains('deselectall')) {
+            if (deselectToggle.checked && event.target.checked) {
+                deselectToggle.checked = false;
+            }
+        } else {
+            if (event.target.checked) {
+                collectToggle.checked = false;
+                hiddenToggle.checked = false;
+                trapToggle.checked = false;
+                nonFilteringToggle.checked = false;
+                slingerToggle.checked = false;
+                endemicToggle.checked = false;
+                areaNumToggle.checked = false;
+                selectToggle.checked = false;
             }
         }
     }
-    if (allToggle.checked) {
-        collectToggle.checked = true;
-        hiddenToggle.checked = true;
-        trapToggle.checked = true;
-        nonFilteringToggle.checked = true;
-        slingerToggle.checked = true;
-        endemicToggle.checked = true;
+
+    const searchVal = searchBar.value.toLowerCase();
+    st101.endemic.visible = endemicToggle.checked;
+    st101.areaNumbers.visible = areaNumToggle.checked;
+    st101.collectables.visible = collectToggle.checked;
+    st101.environment.visible = trapToggle.checked;
+    st101.endemic.visible = endemicToggle.checked;
+    st101.slinger.visible = slingerToggle.checked;
+    st101.hidden.visible = hiddenToggle.checked;
+    st101.nonFiltering.visible = nonFilteringToggle.checked;
+
+    if (event !== undefined) {
+        if (!event.target.classList.contains('search')) {
+            sprites.forEach(sprite => {
+                var data = null;
+                switch (sprite.type) {
+                    case "GIMMICK":
+                        data = gimmicks.get(sprite.gimmickId).data;
+                        break;
+                    case "AREA_NUMBER":
+                        data = areaNumbers.get(sprite.areaId).data;
+                        break;
+                    case "ENDEMIC":
+                        data = endemics.get(sprite.emId).data;
+                        break;
+                }
+                sprite.visible = data.name.toLowerCase().includes(searchVal);
+            }); 
+        }
     }
-    sprites.forEach(sprite => {
-
-        var data = null;
-        switch (sprite.type) {
-            case "GIMMICK":
-                data = gimmicks.get(sprite.gimmickId).data;
-                break;
-            case "AREA_NUMBER":
-                data = areaNumbers.get(sprite.areaId).data;
-                break;
-            case "ENDEMIC":
-                data = endemics.get(sprite.emId).data;
-                break;
-        }
-
-        if (sprite.type === "GIMMICK") {
-
-            const gimmick = gimmicks.get(sprite.gimmickId);
-            switch (gimmick.data.map_filtering_type) {
-                case "ALL":
-                    sprite.visible = allToggle.checked;
-                    break;
-                case "COLLECT":
-                    sprite.visible = collectToggle.checked;
-                    break;
-                case "ENVIRONMENT_TRAP":
-                    sprite.visible = trapToggle.checked;
-                    break;
-                case "INVISIBLE":
-                    sprite.visible = hiddenToggle.checked;
-                    break;
-                case "INVISIBLE_ADDBEACON":
-                    sprite.visible = hiddenToggle.checked;
-                    break;
-                case "NON_FILTERING_TARGET":
-                    sprite.visible = nonFilteringToggle.checked;
-                    break;
-                case "SLINGER":
-                    sprite.visible = slingerToggle.checked;
-                    break;
-            }
-        } else if (sprite.type === "ENDEMIC") {
-            sprite.visible = endemicToggle.checked;
-        } else if (sprite.type === "AREA_NUMBER") {
-            sprite.visible = areaNumToggle.checked;
-        }
-        console.log(searchBar.value)
-        sprite.visible = data.name.includes(searchBar.value);
-    });
 }
 
 filters.addEventListener('change', updateFilters);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enable = true;
-controls.minDistance = 100;
-controls.maxDistance = 2000;
-controls.staticMoving = true;
-controls.zoomSpeed = 1.5;
 camera.position.set( -600, 600, 1300 );
-controls.target.set( -700, 0, 1400);
-camera.lookAt(controls.target);
+function initControls(camera) {
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enable = true;
+    controls.minDistance = 100;
+    controls.maxDistance = 2000;
+    controls.staticMoving = true;
+    controls.zoomSpeed = 1.5;
+    controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
+    controls.target.set( -700, 0, 1400);
+    camera.lookAt(controls.target);
+    return controls
+}
+
+const controls = initControls(camera);
 controls.update();
 
-//renderer.setClearColor( 0xffffff, 1 );
 window.addEventListener( 'resize', onWindowResize );
 function animate() {
+
+    /*frames ++;
+    const time = performance.now();
+
+    if ( time >= prevTime + 1000 ) {
+
+        console.log( Math.round( ( frames * 1000 ) / ( time - prevTime ) ) );
+
+        frames = 0;
+        prevTime = time;
+
+    }*/
+
     controls.update();
     renderer.clear();
     updateSprites();
     const pos = camera.position;
-    document.getElementById("camera-position").innerText = `Camera: (${pos.x.toFixed(2)}, ${pos.y.toFixed(2)}, ${pos.z.toFixed(2)})`;
+    document.getElementById("camera-position").innerText = `xyz (${pos.x.toFixed(0)}, ${pos.y.toFixed(0)}, ${pos.z.toFixed(0)})`;
     renderer.render( scene, camera );
 }
 
