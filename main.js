@@ -288,6 +288,23 @@ let languages = [
     "Arabic",
     "LatinAmericanSpanish",
 ];
+
+let area_langs = {
+    Japanese: "Area",
+    English: "Area",
+    French: "Zone",
+    Italian: "Area",
+    German: "Area",
+    Spanish: "Area",
+    Russian: "Area",
+    Polish: "Area",
+    PortugueseBr: "Area",
+    Korean: "Area",
+    TransitionalChinese: "区域 ",
+    SimplelifiedChinese: "区域 ",
+    Arabic: "Area",
+    LatinAmericanSpanish: "Area",
+}
 let lang = document.getElementById("language").value;
 
 document.getElementById("language").addEventListener("change", function() {
@@ -320,8 +337,8 @@ function setInfo(element, sprite, info_type) {
         const area = areaNumbers.get(sprite.areaId).data.areaNum.split("_");
         const st = area[0];
         const num = area[1];
-        element.innerHTML = `<div style="font-weight: bold; color: lightgray;">Area ${num}</div>`;
-        element.innerHTML += `<div>An area in the ${MAP_NAMES.get(st)}</div>`;
+        element.innerHTML = `<div style="font-weight: bold; color: lightgray;">${area_langs[lang]} ${num}</div>`;
+        //element.innerHTML += `<div>An area in the ${MAP_NAMES.get(st)}</div>`;
     }
     tooltip.style.display = "block";
 }
