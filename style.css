@@ -143,30 +143,44 @@ body {
 
 
 @media (min-resolution: 2dppx) {
-    #camera-position {
+    #filters {
         font-size: 0.7rem;
+        max-width: 40%;
     }
-}
-
-@media (min-resolution: 2dppx) {
     .side-pane {
         font-size: 0.9rem;
         height: auto;
-        max-width: 45%;
+        max-width: 35%;
     }
-}
-
-@media (min-resolution: 2dppx) {
     .tooltip {
         font-size: 0.8rem;
     }
-}
-
-@media (min-resolution: 2dppx) {
     #site-info {
         font-size: 0.7rem;
     }
+    .language-box {
+        flex-direction: row;
+        gap: 0.1rem;
+        max-width: 40%rem;
+        justify-content: center;
+        width: 40%rem;
+    }
+
+
+    #selected-item {
+        max-width: 40%rem;
+        display: none;
+    }
+
+    #camera-position {
+        text-align: center;
+        align-items: center;
+        max-width: 40%rem;
+    }
 }
+
+
+
 
 .toggleButton {
     display: flex;

@@ -113,7 +113,11 @@
                 22.292112350463867,
                 784.8583984375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": true
     },
     "GM504_000_00": {
         "name": null,
@@ -467,7 +471,13 @@
                 0.9360138773918152,
                 917.9893188476562
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM205_002_00": {
         "name": "Tinged Meat",
@@ -767,7 +777,13 @@
                 -53.731414794921875,
                 1216.6214599609375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM002_002_00": {
         "name": "Quicksand",
@@ -1177,7 +1193,11 @@
                 98.37602233886719,
                 861.3026123046875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_repop": true
     },
     "GM015_000_00": {
         "name": "Ancient Wyvern Coin",
@@ -1339,7 +1359,13 @@
                 68.02176666259766,
                 719.2385864257812
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_000_54": {
         "name": "Area 4 West",
@@ -1524,7 +1550,13 @@
                 8.359966278076172,
                 790.2025146484375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_100_00": {
         "name": null,
@@ -1776,7 +1808,13 @@
                 44.066078186035156,
                 814.3068237304688
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_003_00": {
         "name": null,
@@ -2058,7 +2096,13 @@
                 56.81644821166992,
                 760.2047119140625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_008_00": {
         "name": "Spit-Up Mucus",
@@ -2557,7 +2601,11 @@
                 13.686381340026855,
                 692.7826538085938
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": true
     },
     "GM034_021_00": {
         "name": null,
@@ -2832,7 +2880,11 @@
                 99.69999694824219,
                 877.9255981445312
             ]
-        ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_repop": true
     },
     "GM552_001_00": {
         "name": null,
@@ -2949,7 +3001,13 @@
                 -3.7997000217437744,
                 1521.34765625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_006_00": {
         "name": null,
@@ -3056,7 +3114,13 @@
                 18.996360778808594,
                 1639.8330078125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_007_00": {
         "name": "Thorngrass Pod",
@@ -3166,7 +3230,13 @@
                 -4.7748799324035645,
                 1455.15283203125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_002_54": {
         "name": null,
@@ -3391,7 +3461,13 @@
                 -67.1280517578125,
                 1241.9649658203125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_107_00": {
         "name": null,
@@ -3608,7 +3684,13 @@
                 4.374699592590332,
                 1361.2158203125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM410_000_00": {
         "name": null,
@@ -3815,7 +3897,11 @@
                 91.0536880493164,
                 864.5839233398438
             ]
-        ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_repop": true
     },
     "GM800_008_00": {
         "name": null,
@@ -4028,7 +4114,13 @@
                 1.031788945198059,
                 1493.8253173828125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_001_57": {
         "name": null,
@@ -4515,7 +4607,13 @@
                 -61.549110412597656,
                 1307.076904296875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_002_01": {
         "name": null,
@@ -4616,7 +4714,11 @@
                 12.594127655029297,
                 672.1507568359375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": true
     },
     "GM000_004_00": {
         "name": "Sparkflint",
@@ -4706,7 +4808,13 @@
                 -2.0760135650634766,
                 1375.24609375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_143_00": {
         "name": null,
@@ -4754,7 +4862,13 @@
                 -0.34720277786254883,
                 933.7569580078125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_157_00": {
         "name": "Sandpepper",
@@ -4854,7 +4968,11 @@
                 7.459354400634766,
                 740.1819458007812
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": false
     },
     "GM800_001_56": {
         "name": null,
@@ -4975,7 +5093,13 @@
                 -74.36853790283203,
                 1266.2049560546875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_120_00": {
         "name": null,
@@ -5093,7 +5217,13 @@
                 16.013832092285156,
                 960.4461669921875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM034_024_00": {
         "name": null,
@@ -5239,7 +5369,13 @@
                 -59.701576232910156,
                 1270.307373046875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM036_003_00": {
         "name": "Grounding Pod",
@@ -5380,7 +5516,13 @@
                 57.54999923706055,
                 753.5
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_008_00": {
         "name": null,
@@ -5606,7 +5748,13 @@
                 95.90666198730469,
                 1545.7635498046875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM555_000_00": {
         "name": null,
@@ -6255,7 +6403,13 @@
                 -20.24335479736328,
                 1638.044921875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_148_00": {
         "name": "Giant Windward Succulent",
@@ -6350,7 +6504,13 @@
                 4.470283031463623,
                 1341.5465087890625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_146_00": {
         "name": "Windward Succulent",
@@ -6500,7 +6660,13 @@
                 5.1298346519470215,
                 1340.74560546875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_011_00": {
         "name": null,
@@ -6896,7 +7062,13 @@
                 -39.531742095947266,
                 1310.4442138671875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM551_001_00": {
         "name": null,
@@ -7288,7 +7460,13 @@
                 -8.786548614501953,
                 1061.6444091796875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM408_000_00": {
         "name": null,
@@ -7411,7 +7589,11 @@
                 4.6415815353393555,
                 732.5975341796875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": true
     },
     "GM036_005_00": {
         "name": null,
@@ -7581,7 +7763,13 @@
                 36.31483840942383,
                 845.3674926757812
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_000_02": {
         "name": "Makeshift Camp",
@@ -7671,7 +7859,13 @@
                 0.0,
                 -8.58306884765625e-06
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM034_007_00": {
         "name": null,
@@ -7798,7 +7992,13 @@
                 11.181571006774902,
                 784.011474609375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM002_000_00": {
         "name": "Giant Sand Pit",
@@ -7883,7 +8083,13 @@
                 27.246810913085938,
                 1184.001953125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM001_001_00": {
         "name": "Giant Falling Boulder",
@@ -7968,7 +8174,11 @@
                 2.0,
                 801.0
             ]
-        ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_repop": true
     },
     "GM001_000_00": {
         "name": "Falling Boulder",
@@ -8078,7 +8288,13 @@
                 26.259199142456055,
                 803.3751220703125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM001_002_00": {
         "name": "Livestock Fence",
@@ -8129,7 +8345,13 @@
                 10.149999618530273,
                 1014.0
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM003_000_00": {
         "name": "Lightning Rod",
@@ -8569,7 +8791,11 @@
                 140.0,
                 1519.748046875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM034_076_00": {
         "name": null,
@@ -9777,7 +10003,13 @@
                 10.590700149536133,
                 867.9716796875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM034_067_00": {
         "name": null,
@@ -10170,7 +10402,13 @@
                 9.090126037597656,
                 900.2965087890625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_099_00": {
         "name": null,
@@ -10324,7 +10562,13 @@
                 27.5192928314209,
                 771.8565673828125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_041_00": {
         "name": null,
@@ -10420,7 +10664,13 @@
                 23.633399963378906,
                 1066.5439453125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_004_56": {
         "name": null,
@@ -10629,7 +10879,13 @@
                 -59.244606018066406,
                 1251.9266357421875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_025_00": {
         "name": null,
@@ -10787,7 +11043,13 @@
                 -2.3286235332489014,
                 1206.292236328125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_003_51": {
         "name": null,
@@ -10830,7 +11092,13 @@
                 -5.632816314697266,
                 1518.73388671875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": true
     },
     "GM800_002_52": {
         "name": null,
@@ -11125,7 +11393,13 @@
                 -0.8063541650772095,
                 1066.85498046875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM001_009_00": {
         "name": "Fulgurite Pillar",
@@ -11191,7 +11465,13 @@
                 28.175466537475586,
                 1163.8466796875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM451_000_00": {
         "name": null,
@@ -11455,7 +11735,13 @@
                 58.576194763183594,
                 698.166259765625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_004_50": {
         "name": null,
@@ -11629,7 +11915,13 @@
                 0.0,
                 -7.62939453125e-06
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_001_52": {
         "name": null,
@@ -11757,7 +12049,13 @@
                 -62.5530891418457,
                 1297.4600830078125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM000_161_00": {
         "name": null,
@@ -12520,7 +12818,13 @@
                 33.59907150268555,
                 980.0512084960938
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_001_53": {
         "name": null,
@@ -13127,7 +13431,13 @@
                 100.32469940185547,
                 806.314453125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_047_00": {
         "name": null,
@@ -13345,7 +13655,13 @@
                 99.00888061523438,
                 846.5806274414062
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_001_54": {
         "name": null,
@@ -13714,7 +14030,11 @@
                 12.516976356506348,
                 755.1284790039062
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": true
     },
     "GM800_000_56": {
         "name": "Area 10 Southeast",
@@ -13884,7 +14204,13 @@
                 4.8955979347229,
                 1351.6080322265625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM502_000_00": {
         "name": null,
@@ -14255,7 +14581,13 @@
                 -0.14353039860725403,
                 1208.43896484375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM509_000_00": {
         "name": null,
@@ -14441,7 +14773,13 @@
                 5.956121444702148,
                 896.7913208007812
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_001_55": {
         "name": null,
@@ -14597,7 +14935,13 @@
                 1.9850504398345947,
                 916.501953125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM030_115_00": {
         "name": "Mucus",
@@ -14765,7 +15109,11 @@
                 9.811681747436523,
                 899.7281494140625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": false
     },
     "GM034_019_00": {
         "name": null,
@@ -14877,7 +15225,13 @@
                 -39.439231872558594,
                 1318.9482421875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM031_006_00": {
         "name": null,
@@ -15270,7 +15624,13 @@
                 40.88663101196289,
                 960.2569580078125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM800_000_60": {
         "name": "Area 16 Northwest",
@@ -15585,7 +15945,11 @@
                 -56.583194732666016,
                 1212.9559326171875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY"
+        ],
+        "weather_repop": false
     },
     "GM030_018_00": {
         "name": null,
@@ -15886,7 +16250,13 @@
                 -17.770000457763672,
                 1575.6400146484375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM811_008_00": {
         "name": null,
@@ -16046,7 +16416,13 @@
                 9.800000190734863,
                 991.0
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM001_004_00": {
         "name": null,
@@ -16348,7 +16724,13 @@
                 4.012423038482666,
                 909.8411865234375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM811_004_00": {
         "name": null,
@@ -16403,7 +16785,13 @@
                 -28.329450607299805,
                 1310.594970703125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_repop": false
     },
     "GM554_000_00": {
         "name": null,
@@ -16472,7 +16860,7 @@
         "points": []
     },
     "GM001_007_00": {
-        "name": null,
+        "name": "GM001_007_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16481,6 +16869,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -925.0,
+                -4.050005912780762,
+                888.0
+            ],
             [
                 -936.0,
                 -5.299953937530518,
@@ -16491,10 +16884,15 @@
                 -0.30000001192092896,
                 993.0
             ]
-        ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": true
     },
     "GM001_011_00": {
-        "name": null,
+        "name": "GM001_011_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16503,6 +16901,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -617.2852172851562,
+                -0.057165149599313736,
+                1014.3790283203125
+            ],
             [
                 -619.2404174804688,
                 -0.0679168701171875,
@@ -16713,43 +17116,17 @@
                 -5.277642250061035,
                 1456.5894775390625
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM008_000_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM008_001_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM010_000_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM012_000_00": {
-        "name": null,
+        "name": "GM008_000_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16758,6 +17135,83 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -768.1683959960938,
+                -3.795525074005127,
+                1179.737060546875
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM008_001_00": {
+        "name": "GM008_001_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -966.0,
+                -40.0,
+                1258.699951171875
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM010_000_00": {
+        "name": "GM010_000_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -910.5,
+                -1.5499999523162842,
+                870.7000122070312
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM012_000_00": {
+        "name": "GM012_000_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -1031.1956787109375,
+                22.9013671875,
+                902.4849243164062
+            ],
             [
                 -930.9209594726562,
                 -8.215134620666504,
@@ -16793,10 +17247,17 @@
                 -0.7661486864089966,
                 942.7860717773438
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM012_001_00": {
-        "name": null,
+        "name": "GM012_001_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16805,6 +17266,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -926.6771240234375,
+                -6.277545928955078,
+                828.968017578125
+            ],
             [
                 -922.851806640625,
                 -5.348574161529541,
@@ -16870,10 +17336,71 @@
                 3.5160374641418457,
                 766.8158569335938
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM013_000_00": {
-        "name": null,
+        "name": "GM013_000_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -955.2999877929688,
+                -9.670000076293945,
+                1075.0999755859375
+            ],
+            [
+                -911.5999755859375,
+                -14.449999809265137,
+                1086.3499755859375
+            ],
+            [
+                -892.4500122070312,
+                -11.640000343322754,
+                1090.9000244140625
+            ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": true
+    },
+    "GM013_004_00": {
+        "name": "GM013_004_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -955.2999877929688,
+                -9.670000076293945,
+                1075.0999755859375
+            ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": true
+    },
+    "GM013_005_00": {
+        "name": "GM013_005_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16886,49 +17413,38 @@
                 -911.5999755859375,
                 -14.449999809265137,
                 1086.3499755859375
-            ],
+            ]
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": true
+    },
+    "GM013_006_00": {
+        "name": "GM013_006_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
             [
                 -892.4500122070312,
                 -11.640000343322754,
                 1090.9000244140625
             ]
-        ]
-    },
-    "GM013_004_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM013_005_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM013_006_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
+        ],
+        "weather_environments": [
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": true
     },
     "GM400_022_00": {
-        "name": null,
+        "name": "GM400_022_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16937,37 +17453,27 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -1000.5020141601562,
+                31.087400436401367,
+                869.834228515625
+            ],
             [
                 -1008.4710083007812,
                 29.289230346679688,
                 878.5634155273438
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_000_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_001_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_003_00": {
-        "name": null,
+        "name": "GM400_000_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -16977,36 +17483,21 @@
         "map_filtering_type": null,
         "points": [
             [
-                -838.5,
-                12.969889640808105,
-                1035.6500244140625
+                -839.8560180664062,
+                11.718299865722656,
+                1017.4730224609375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
-    "GM400_006_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_007_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM302_000_00": {
-        "name": null,
+    "GM400_001_00": {
+        "name": "GM400_001_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17015,6 +17506,112 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -842.2150268554688,
+                11.715399742126465,
+                1018.2050170898438
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_003_00": {
+        "name": "GM400_003_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -836.6799926757812,
+                12.970020294189453,
+                1038.5999755859375
+            ],
+            [
+                -838.5,
+                12.969889640808105,
+                1035.6500244140625
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_006_00": {
+        "name": "GM400_006_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -848.8499755859375,
+                14.38700008392334,
+                1051.989990234375
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_007_00": {
+        "name": "GM400_007_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -842.1900024414062,
+                9.619999885559082,
+                1000.02001953125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM302_000_00": {
+        "name": "GM302_000_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -840.9730224609375,
+                10.309200286865234,
+                1014.2449951171875
+            ],
             [
                 -845.271484375,
                 8.932698249816895,
@@ -17090,10 +17687,17 @@
                 10.063119888305664,
                 1016.2030029296875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_008_00": {
-        "name": null,
+        "name": "GM400_008_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17102,6 +17706,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -818.5341186523438,
+                7.095666885375977,
+                978.6337280273438
+            ],
             [
                 -818.9713134765625,
                 7.103339195251465,
@@ -17192,10 +17801,17 @@
                 9.425215721130371,
                 1000.4760131835938
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_009_00": {
-        "name": null,
+        "name": "GM400_009_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17204,6 +17820,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -818.1514892578125,
+                7.159379005432129,
+                978.25341796875
+            ],
             [
                 -817.8250122070312,
                 7.195920944213867,
@@ -17264,21 +17885,17 @@
                 9.38532829284668,
                 1000.4099731445312
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM401_000_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_010_00": {
-        "name": null,
+        "name": "GM401_000_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17287,26 +17904,51 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -828.70947265625,
+                7.732684135437012,
+                936.1491088867188
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_010_00": {
+        "name": "GM400_010_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -867.0999755859375,
+                9.369999885559082,
+                998.6599731445312
+            ],
             [
                 -870.202392578125,
                 9.369999885559082,
                 994.739990234375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_011_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_012_00": {
-        "name": null,
+        "name": "GM400_011_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17315,70 +17957,51 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -837.3900146484375,
+                11.6899995803833,
+                1019.1799926757812
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_012_00": {
+        "name": "GM400_012_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -862.61181640625,
+                9.314179420471191,
+                1026.8199462890625
+            ],
             [
                 -868.5051879882812,
                 9.31999683380127,
                 1015.5919799804688
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_015_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_013_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_014_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_017_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_016_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM004_000_00": {
-        "name": null,
+        "name": "GM400_015_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17388,25 +18011,21 @@
         "map_filtering_type": null,
         "points": [
             [
-                -852.4000244140625,
-                12.86907958984375,
-                1024.199951171875
+                -821.7100219726562,
+                11.9399995803833,
+                1018.5599975585938
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
-    "GM303_000_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM300_009_00": {
-        "name": null,
+    "GM400_013_00": {
+        "name": "GM400_013_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17415,6 +18034,160 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -815.5599975585938,
+                7.53000020980835,
+                975.47998046875
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_014_00": {
+        "name": "GM400_014_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -817.9921875,
+                11.899470329284668,
+                1022.0549926757812
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_017_00": {
+        "name": "GM400_017_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -843.5599975585938,
+                9.319999694824219,
+                1002.5999755859375
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_016_00": {
+        "name": "GM400_016_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -844.9600219726562,
+                14.403427124023438,
+                1045.800048828125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM004_000_00": {
+        "name": "GM004_000_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -853.0800170898438,
+                13.712940216064453,
+                1029.5
+            ],
+            [
+                -852.4000244140625,
+                12.86907958984375,
+                1024.199951171875
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM303_000_00": {
+        "name": "GM303_000_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -852.1099243164062,
+                9.05144214630127,
+                1005.719970703125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM300_009_00": {
+        "name": "GM300_009_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -851.0927124023438,
+                10.318090438842773,
+                1020.6849975585938
+            ],
             [
                 -851.1409912109375,
                 10.362600326538086,
@@ -17480,10 +18253,17 @@
                 9.028702735900879,
                 1003.7360229492188
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM301_004_00": {
-        "name": null,
+        "name": "GM301_004_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17492,6 +18272,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -864.03759765625,
+                10.040459632873535,
+                1010.9130249023438
+            ],
             [
                 -847.0308227539062,
                 13.119919776916504,
@@ -17527,10 +18312,17 @@
                 13.49155044555664,
                 1046.698974609375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM300_013_00": {
-        "name": null,
+        "name": "GM300_013_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17539,6 +18331,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -864.0302734375,
+                11.000309944152832,
+                1010.9140014648438
+            ],
             [
                 -844.6494750976562,
                 10.159910202026367,
@@ -17574,32 +18371,17 @@
                 14.441729545593262,
                 1046.7120361328125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM300_010_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM301_003_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM301_002_00": {
-        "name": null,
+        "name": "GM300_010_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17609,14 +18391,21 @@
         "map_filtering_type": null,
         "points": [
             [
-                -833.9813232421875,
-                14.859450340270996,
-                1054.3399658203125
+                -848.4086303710938,
+                13.88994026184082,
+                1037.115966796875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
-    "GM300_012_00": {
-        "name": null,
+    "GM301_003_00": {
+        "name": "GM301_003_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17625,6 +18414,64 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -848.4176025390625,
+                12.957969665527344,
+                1037.134033203125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM301_002_00": {
+        "name": "GM301_002_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -861.6312255859375,
+                10.018019676208496,
+                1010.572998046875
+            ],
+            [
+                -833.9813232421875,
+                14.859450340270996,
+                1054.3399658203125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM300_012_00": {
+        "name": "GM300_012_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -856.5750122070312,
+                9.513555526733398,
+                1000.864990234375
+            ],
             [
                 -827.0084838867188,
                 6.899221897125244,
@@ -17645,10 +18492,17 @@
                 11.010760307312012,
                 1022.7540283203125
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM300_008_00": {
-        "name": null,
+        "name": "GM300_008_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17657,6 +18511,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -855.6420288085938,
+                9.512242317199707,
+                1000.2009887695312
+            ],
             [
                 -855.6801147460938,
                 9.493428230285645,
@@ -17692,10 +18551,17 @@
                 11.088629722595215,
                 1021.3099975585938
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM300_011_00": {
-        "name": null,
+        "name": "GM300_011_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17704,6 +18570,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -827.8399047851562,
+                6.911993026733398,
+                969.7335815429688
+            ],
             [
                 -827.3148803710938,
                 6.866133213043213,
@@ -17734,10 +18605,17 @@
                 8.918411254882812,
                 1005.1699829101562
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM300_007_00": {
-        "name": null,
+        "name": "GM300_007_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17746,6 +18624,11 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -865.6096801757812,
+                9.814227104187012,
+                1003.7680053710938
+            ],
             [
                 -863.8536987304688,
                 9.911432266235352,
@@ -17786,43 +18669,17 @@
                 9.967340469360352,
                 1004.68701171875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_020_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_018_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_019_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM400_021_00": {
-        "name": null,
+        "name": "GM400_020_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17831,26 +18688,99 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -836.2445068359375,
+                8.983960151672363,
+                980.0166015625
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_018_00": {
+        "name": "GM400_018_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -841.7861938476562,
+                9.00100040435791,
+                970.1749877929688
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_019_00": {
+        "name": "GM400_019_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -840.3936767578125,
+                11.869999885559082,
+                1027.43798828125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM400_021_00": {
+        "name": "GM400_021_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -872.9000244140625,
+                9.329999923706055,
+                1021.5999755859375
+            ],
             [
                 -862.77001953125,
                 9.289999961853027,
                 1034.5
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_023_00": {
-        "name": null,
-        "name_lang": null,
-        "explain": null,
-        "explain_lang": null,
-        "icon": "Question Mark",
-        "color": "None",
-        "map_icon": null,
-        "map_filtering_type": null,
-        "points": []
-    },
-    "GM102_001_00": {
-        "name": null,
+        "name": "GM400_023_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17859,15 +18789,51 @@
         "map_icon": null,
         "map_filtering_type": null,
         "points": [
+            [
+                -749.9627685546875,
+                57.492958068847656,
+                751.239501953125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
+    },
+    "GM102_001_00": {
+        "name": "GM102_001_00",
+        "name_lang": null,
+        "explain": null,
+        "explain_lang": null,
+        "icon": "Question Mark",
+        "color": "None",
+        "map_icon": null,
+        "map_filtering_type": null,
+        "points": [
+            [
+                -752.7456665039062,
+                57.554805755615234,
+                764.7645263671875
+            ],
             [
                 -794.4182739257812,
                 57.0,
                 758.7884521484375
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM101_001_00": {
-        "name": null,
+        "name": "GM101_001_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17877,14 +18843,26 @@
         "map_filtering_type": null,
         "points": [
             [
+                -753.9884643554688,
+                57.540000915527344,
+                766.6578979492188
+            ],
+            [
                 -794.0438232421875,
                 57.0,
                 761.0419921875
             ]
-        ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_025_00": {
-        "name": null,
+        "name": "GM400_025_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17892,10 +18870,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -758.0767822265625,
+                57.54999923706055,
+                744.08837890625
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM406_000_00": {
-        "name": null,
+        "name": "GM406_000_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17903,10 +18894,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -772.3494262695312,
+                57.5194091796875,
+                741.6741943359375
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_032_00": {
-        "name": null,
+        "name": "GM400_032_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17914,10 +18918,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -755.7588500976562,
+                60.13092041015625,
+                718.5906982421875
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM051_000_00": {
-        "name": null,
+        "name": "GM051_000_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17925,10 +18942,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -899.8054809570312,
+                -61.26097869873047,
+                1282.614501953125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM400_056_00": {
-        "name": null,
+        "name": "GM400_056_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17936,10 +18966,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -777.9215698242188,
+                57.47055435180664,
+                740.3868408203125
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM010_001_00": {
-        "name": null,
+        "name": "GM010_001_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17947,10 +18990,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -1743.571044921875,
+                6.884561061859131,
+                1739.4510498046875
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM010_002_00": {
-        "name": null,
+        "name": "GM010_002_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17958,10 +19014,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -1739.0,
+                8.0,
+                1741.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_003_00": {
-        "name": null,
+        "name": "GM006_003_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17969,10 +19038,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -800.0,
+                40.0,
+                840.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_107_00": {
-        "name": null,
+        "name": "GM006_107_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17980,10 +19062,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -837.0,
+                10.0,
+                1018.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_002_00": {
-        "name": null,
+        "name": "GM006_002_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -17991,10 +19086,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -947.5,
+                2.0,
+                1360.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_005_00": {
-        "name": null,
+        "name": "GM006_005_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18002,10 +19110,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -790.0,
+                -3.200000047683716,
+                1370.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_006_00": {
-        "name": null,
+        "name": "GM006_006_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18013,10 +19134,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -764.0,
+                -15.0,
+                1296.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_007_00": {
-        "name": null,
+        "name": "GM006_007_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18024,10 +19158,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -804.0,
+                2.5,
+                1228.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_008_00": {
-        "name": null,
+        "name": "GM006_008_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18035,10 +19182,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -848.0,
+                4.5,
+                1160.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_009_00": {
-        "name": null,
+        "name": "GM006_009_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18046,10 +19206,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -937.5,
+                1.7999980449676514,
+                969.5
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_100_00": {
-        "name": null,
+        "name": "GM006_100_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18057,10 +19230,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -890.0,
+                4.800000190734863,
+                892.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_101_00": {
-        "name": null,
+        "name": "GM006_101_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18068,10 +19254,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -884.0,
+                14.0,
+                840.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_102_00": {
-        "name": null,
+        "name": "GM006_102_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18079,10 +19278,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -836.0,
+                5.0,
+                776.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_103_00": {
-        "name": null,
+        "name": "GM006_103_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18090,10 +19302,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -933.0,
+                40.0,
+                747.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_104_00": {
-        "name": null,
+        "name": "GM006_104_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18101,10 +19326,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -993.0,
+                43.0,
+                862.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_105_00": {
-        "name": null,
+        "name": "GM006_105_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18112,10 +19350,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -1046.0,
+                17.0,
+                982.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_106_00": {
-        "name": null,
+        "name": "GM006_106_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18123,10 +19374,23 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -1044.0,
+                4.0,
+                1176.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     },
     "GM006_108_00": {
-        "name": null,
+        "name": "GM006_108_00",
         "name_lang": null,
         "explain": null,
         "explain_lang": null,
@@ -18134,6 +19398,19 @@
         "color": "None",
         "map_icon": null,
         "map_filtering_type": null,
-        "points": []
+        "points": [
+            [
+                -888.0,
+                -3.0,
+                771.0
+            ]
+        ],
+        "weather_environments": [
+            "FERTILITY",
+            "RUIN",
+            "ABNORMAL"
+        ],
+        "weather_event": null,
+        "weather_repop": false
     }
 }

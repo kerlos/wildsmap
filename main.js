@@ -44,7 +44,7 @@ scene.add( lightC );
 //light.position.set(-800, 400, 1000)
 //scene.add( light );
 
-
+const GROUP_NAMES = ["COLLECT", "INVISIBLE"];
 
 const textureLoader = new THREE.TextureLoader();
 
@@ -53,20 +53,50 @@ class Stage {
         this.id = id;
         this.name = name;
         this.model = null;
-        this.areaNumbers = new THREE.Group();
-        this.gimmicks = new THREE.Group();
-        this.endemic = new THREE.Group();
 
-        this.collectables = new THREE.Group();
-        this.environment = new THREE.Group();
-        this.hidden = new THREE.Group();
-        this.nonFiltering = new THREE.Group();
-        this.slinger = new THREE.Group();
-        this.gimmicks.add(this.collectables);
-        this.gimmicks.add(this.environment);
-        this.gimmicks.add(this.endemic);
-        this.gimmicks.add(this.nonFiltering);
-        this.gimmicks.add(this.slinger);
+        // main
+        this.areaNumbers = new THREE.Group();
+        this.endemic = new THREE.Group();
+        this.gimmicks = [];
+
+
+        this.categories = new Map();
+        this.categoryToggles = new Map();
+        this.weatherCategories = new Set();
+        this.weatherCategories.add('FERTILITY');
+        this.weatherCategories.add('RUIN');
+        this.weatherCategories.add('ABNORMAL');
+
+        //weather 
+        this.fertility = [];
+        this.ruin = [];
+        this.abnormal = [];
+
+        this.collectables = [];
+        this.environment = [];
+        this.hidden = [];
+        this.nonFiltering = [];
+        this.slinger = [];
+
+        this.categories.set('COLLECT', this.collectables);
+        this.categories.set('ENVIRONMENT_TRAP', this.environment);
+        this.categories.set('INVISIBLE', this.hidden);
+        this.categories.set('INVISIBLE_BEACON', this.hidden);
+        this.categories.set('NON_FILTERING_TARGET', this.nonFiltering );
+        this.categories.set('SLINGER', this.slinger);
+        this.categories.set('FERTILITY', this.fertility);
+        this.categories.set('RUIN', this.ruin);
+        this.categories.set('ABNORMAL', this.abnormal);
+
+        this.categoryToggles.set('COLLECT', document.getElementById('collectable'));
+        this.categoryToggles.set('ENVIRONMENT_TRAP', document.getElementById('trap'));
+        this.categoryToggles.set('INVISIBLE', document.getElementById('hidden'));
+        this.categoryToggles.set('INVISIBLE_BEACON', document.getElementById('hidden'));
+        this.categoryToggles.set('NON_FILTERING_TARGET', document.getElementById('non-filtering'));
+        this.categoryToggles.set('SLINGER', document.getElementById('slinger'));
+        this.categoryToggles.set('FERTILITY', document.getElementById('fertility'));
+        this.categoryToggles.set('RUIN', document.getElementById('ruin'));
+        this.categoryToggles.set('ABNORMAL', document.getElementById('abnormal'));
 
         const mapNormal = textureLoader.load( "./assets/mapnormal.png" );
         const mapDiffuse = textureLoader.load( "./assets/maindiffuse.png" );
@@ -133,13 +163,11 @@ function loadGimmicks() {
         else {
             path ='./assets/gimmick_icons/MHWilds-' + value.icon + ' Icon ' + value.color + '.png';
         }
-        if (value.name !== null) { // make a better solution for this
-            const texture = textureLoader.load( path );
-            gimmicks.set(key, {
-                data: value,
-                texture: texture
-            });
-        }
+        const texture = textureLoader.load( path );
+        gimmicks.set(key, {
+            data: value,
+            texture: texture
+        });
     });
 }
 loadGimmicks();
@@ -193,39 +221,31 @@ const st101 = new Stage("st101", "Windward Plains", "./assets/st101.glb", scene)
 const sprites = []
 gimmicks.forEach((value, key) => {
     value.data.points.forEach((point) => {
-        if (point != undefined) {
+        if (point !== undefined) {
             const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
             const sprite = new THREE.Sprite( spriteMaterial );
             sprite.scale.set( 25, 25, 25 );
             sprite.position.set(point[0], point[1] + 5, point[2]);
             sprite.gimmickId = key;
             sprite.baseScaling = 1.0;
-
-            switch (value.data.map_filtering_type) {
-                case "COLLECT":
-                    st101.collectables.add(sprite);
-                    break;
-                case "ENVIRONMENT_TRAP":
-                    st101.environment.add(sprite);
-                    break;
-                case "INVISIBLE":
-                    st101.hidden.add(sprite);
-                    break;
-                case "INVISIBLE_ADDBEACON":
-                    st101.hidden.add(sprite);
-                    break;
-                case "NON_FILTERING_TARGET":
-                    sprite.baseScaling = 1.5;
-                    sprite.position.set(point[0], point[1] + 10, point[2]);
-                    st101.nonFiltering.add(sprite);
-                    break;
-                case "SLINGER":
-                    st101.slinger.add(sprite);
-                    break;
+            if (value.data.map_filtering_type === "NON_FILTERING_TARGET") {
+                sprite.baseScaling = 1.5;
+                sprite.position.set(point[0], point[1] + 10, point[2]);
+            }
+            if (value.data.map_filtering_type !== null) {
+                st101.categories.get(value.data.map_filtering_type).push(sprite);
+            } else {
+                st101.categories.get('INVISIBLE').push(sprite);
+            }
+            const weather = value.data.weather_environments;
+            if (weather !== undefined) {
+                weather.forEach((w) => st101.categories.get(w).push(sprite))
             }
 
             sprite.type = "GIMMICK";
             sprites.push(sprite);
+            st101.gimmicks.push(sprite);
+            scene.add(sprite);
         }
     });
 });
@@ -260,7 +280,6 @@ areaNumbers.forEach((value, key) => {
 });
 
 scene.add(st101.areaNumbers);
-scene.add(st101.gimmicks);
 scene.add(st101.endemic);
 
 const raycaster = new THREE.Raycaster();
@@ -309,23 +328,23 @@ let lang = document.getElementById("language").value;
 
 document.getElementById("language").addEventListener("change", function() {
     lang = this.value;
-    setInfo(selectedItem, selectedSprite, "EXTENDED")
+    if (selectedSprite !== null)
+        setInfo(selectedItem, selectedSprite, "EXTENDED")
 });
 
 function setInfo(element, sprite, info_type) {
+    element.innerHTML = '';
     if (sprite.type === "GIMMICK") {
-        console.log("here")
         const gimmick = gimmicks.get(sprite.gimmickId);
-        element.innerHTML = `
-            <div style="font-weight: bold; color: lightgray;">${gimmick.data.name_langs[lang]}</div>
-            `;
-        if (gimmick.data.explain !== null)
+        if (gimmick.data.name_langs !== null)
+            element.innerHTML = ` <div style="font-weight: bold; color: lightgray;">${gimmick.data.name_langs[lang]}</div> `;
+        if (gimmick.data.explain_langs !== null)
             element.innerHTML += `<div>${gimmick.data.explain_langs[lang]}</div>`;
+        //element.innerHTML += `<div>${sprite.gimmickId}</div>`;
     } else if (sprite.type === "ENDEMIC") {
         const endemic = endemics.get(sprite.emId);
-        element.innerHTML = `
-            <div style="font-weight: bold; color: lightgray;">${endemic.data.name_langs[lang]}</div>
-            `;
+        if (endemic.data.name_langs !== null)
+            element.innerHTML = ` <div style="font-weight: bold; color: lightgray;">${endemic.data.name_langs[lang]}</div> `;
         if (info_type == "EXTENDED") {
             if (endemic.data.memo !== null)
                 element.innerHTML += `<div>${endemic.data.memo_langs[lang]}</div>`;
@@ -350,27 +369,9 @@ function isVisible(sprite) {
         case "GIMMICK":
             var data = null;
             data = gimmicks.get(sprite.gimmickId).data;
-            switch (data.map_filtering_type) {
-                case "COLLECT":
-                    result = collectToggle.checked;
-                    break;
-                case "ENVIRONMENT_TRAP":
-                    result = trapToggle.checked;
-                    break;
-                    break;
-                case "INVISIBLE":
-                    result =  hiddenToggle.checked;
-                    break;
-                case "INVISIBLE_ADDBEACON":
-                    result = hiddenToggle.checked;
-                    break;
-                case "NON_FILTERING_TARGET":
-                    result = nonFilteringToggle.checked;
-                    break;
-                case "SLINGER":
-                    result = slingerToggle.checked;
-                    break;
-            }
+            if (data.map_filtering_type !== null) {
+                result = st101.categoryToggles.get(data.map_filtering_type).checked;
+            } 
             break;
         case "AREA_NUMBER":
             result = areaNumToggle.checked;
@@ -379,7 +380,7 @@ function isVisible(sprite) {
             result = endemicToggle.checked;
             break;
     }
-    return result;
+    return result && sprite.visible;
 }
 
 function getFirstIntersectingVisibleSprite(event) {
@@ -441,81 +442,92 @@ function updateSprites() {
 const filters = document.getElementById("filters");
 const selectToggle = document.getElementById("selectall");
 const deselectToggle = document.getElementById("deselect");
-const collectToggle = document.getElementById("collectable");
-const hiddenToggle = document.getElementById("hidden");
-const trapToggle = document.getElementById("trap");
-const nonFilteringToggle = document.getElementById("non-filtering");
-const slingerToggle = document.getElementById("slinger");
 const endemicToggle = document.getElementById("endemic");
 const areaNumToggle = document.getElementById("areanumbers");
+
 const searchBar = document.getElementById("search-filter")
 
-updateFilters();
-
-function updateFilters(event) {
-    if (event !== undefined) {
-        if (!event.target.classList.contains('selectall')) {
-            if (selectToggle.checked && !event.target.checked) {
-                selectToggle.checked = false;
-            }
-        } else {
-            if (event.target.checked) {
-                collectToggle.checked = true;
-                hiddenToggle.checked = true;
-                trapToggle.checked = true;
-                nonFilteringToggle.checked = true;
-                slingerToggle.checked = true;
-                endemicToggle.checked = true;
-                areaNumToggle.checked = true;
-                deselectToggle.checked = false;
-            }
-        }
-        if (!event.target.classList.contains('deselectall')) {
-            if (deselectToggle.checked && event.target.checked) {
-                deselectToggle.checked = false;
-            }
-        } else {
-            if (event.target.checked) {
-                collectToggle.checked = false;
-                hiddenToggle.checked = false;
-                trapToggle.checked = false;
-                nonFilteringToggle.checked = false;
-                slingerToggle.checked = false;
-                endemicToggle.checked = false;
-                areaNumToggle.checked = false;
-                selectToggle.checked = false;
-            }
-        }
-    }
-
+function updateSearch() {
     const searchVal = searchBar.value.toLowerCase();
+    sprites.forEach(sprite => {
+        var data = null;
+        switch (sprite.type) {
+            case "GIMMICK":
+                data = gimmicks.get(sprite.gimmickId).data;
+                break;
+            case "AREA_NUMBER":
+                data = areaNumbers.get(sprite.areaId).data;
+                break;
+            case "ENDEMIC":
+                data = endemics.get(sprite.emId).data;
+                break;
+        }
+        if (data.name_langs !== null && data.name_langs !== undefined)
+            sprite.visible = data.name_langs[lang].toLowerCase().includes(searchVal);
+    }); 
+}
+
+function updateToggles() {
     st101.endemic.visible = endemicToggle.checked;
     st101.areaNumbers.visible = areaNumToggle.checked;
-    st101.collectables.visible = collectToggle.checked;
-    st101.environment.visible = trapToggle.checked;
-    st101.endemic.visible = endemicToggle.checked;
-    st101.slinger.visible = slingerToggle.checked;
-    st101.hidden.visible = hiddenToggle.checked;
-    st101.nonFiltering.visible = nonFilteringToggle.checked;
 
+    st101.categoryToggles.entries().forEach(([category, toggle]) => {
+        if (!st101.weatherCategories.has(category))
+            st101.categories.get(category).forEach((sprite) => sprite.visible = toggle.checked)
+    });
+
+    st101.gimmicks.forEach((sprite) => {
+        const gimmick = gimmicks.get(sprite.gimmickId);
+        if (gimmick.data.weather_environments !== undefined && !gimmick.data.weather_repop) {
+            const envs = gimmick.data.weather_environments;
+            if (!(((envs.includes("FERTILITY") && st101.categoryToggles.get('FERTILITY').checked) ||
+                (envs.includes("RUIN") && st101.categoryToggles.get('RUIN').checked) ||
+                (envs.includes("ABNORMAL") && st101.categoryToggles.get('ABNORMAL').checked))
+                && sprite.visible)) {
+                sprite.visible = false;
+            }
+        } 
+    });
+}
+
+updateSearch();
+updateToggles();
+function updateFilters(event) {
     if (event !== undefined) {
-        if (!event.target.classList.contains('search')) {
-            sprites.forEach(sprite => {
-                var data = null;
-                switch (sprite.type) {
-                    case "GIMMICK":
-                        data = gimmicks.get(sprite.gimmickId).data;
-                        break;
-                    case "AREA_NUMBER":
-                        data = areaNumbers.get(sprite.areaId).data;
-                        break;
-                    case "ENDEMIC":
-                        data = endemics.get(sprite.emId).data;
-                        break;
+        if (event.target.classList.contains('search')) {
+            updateSearch();
+        } else {
+            if (!event.target.classList.contains('selectall')) {
+                if (selectToggle.checked && !event.target.checked) {
+                    selectToggle.checked = false;
                 }
-                sprite.visible = data.name.toLowerCase().includes(searchVal);
-            }); 
+            } else {
+                if (event.target.checked) {
+                    st101.categoryToggles.forEach((toggle) => {
+                        toggle.checked = true;
+                    })
+                    endemicToggle.checked = true;
+                    areaNumToggle.checked = true;
+                    deselectToggle.checked = false;
+                }
+            }
+            if (!event.target.classList.contains('deselectall')) {
+                if (deselectToggle.checked && event.target.checked) {
+                    deselectToggle.checked = false;
+                }
+            } else {
+                if (event.target.checked) {
+                    st101.categoryToggles.forEach((toggle) => {
+                        toggle.checked = false;
+                    })
+                    endemicToggle.checked = false;
+                    areaNumToggle.checked = false;
+                    selectToggle.checked = false;
+                }
+            }
+            updateToggles();
         }
+
     }
 }
 
@@ -540,19 +552,6 @@ controls.update();
 
 window.addEventListener( 'resize', onWindowResize );
 function animate() {
-
-    /*frames ++;
-    const time = performance.now();
-
-    if ( time >= prevTime + 1000 ) {
-
-        console.log( Math.round( ( frames * 1000 ) / ( time - prevTime ) ) );
-
-        frames = 0;
-        prevTime = time;
-
-    }*/
-
     controls.update();
     renderer.clear();
     updateSprites();
