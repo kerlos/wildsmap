@@ -13,7 +13,10 @@ MAP_NAMES.set("st101", "Windward Plains");
 MAP_NAMES.set("st102", "Scarlet Forest");
 MAP_NAMES.set("st103", "Oilwell Basin");
 MAP_NAMES.set("st104", "Iceshard Cliffs");
+MAP_NAMES.set("st105", "Ruins of Wyveria");
 MAP_NAMES.set("st503", "Training Area");
+
+const STAGES = ["st101", "st102", "st103", "st104", "st105", "st401", "st201", "st202", "st203", "st203", "st204", "st402", "st403", "st404", "st503"];
 
 let frames = 0, prevTime = performance.now();
 
@@ -59,7 +62,6 @@ class Stage {
         this.endemic = new THREE.Group();
         this.gimmicks = [];
 
-
         this.categories = new Map();
         this.categoryToggles = new Map();
         this.weatherCategories = new Set();
@@ -77,12 +79,21 @@ class Stage {
         this.hidden = [];
         this.nonFiltering = [];
         this.slinger = [];
+        this.allCategory = [];
+
+        //stages
+        this.stages = new Map();
+        STAGES.forEach(stid => {
+            this.stages.set(stid, []);
+            //this.categories.set(stid, []);
+        });
 
         this.categories.set('COLLECT', this.collectables);
         this.categories.set('ENVIRONMENT_TRAP', this.environment);
         this.categories.set('INVISIBLE', this.hidden);
         this.categories.set('INVISIBLE_BEACON', this.hidden);
         this.categories.set('NON_FILTERING_TARGET', this.nonFiltering );
+        this.categories.set('ALL', this.allCategory);
         this.categories.set('SLINGER', this.slinger);
         this.categories.set('FERTILITY', this.fertility);
         this.categories.set('RUIN', this.ruin);
@@ -93,32 +104,52 @@ class Stage {
         this.categoryToggles.set('INVISIBLE', document.getElementById('hidden'));
         this.categoryToggles.set('INVISIBLE_BEACON', document.getElementById('hidden'));
         this.categoryToggles.set('NON_FILTERING_TARGET', document.getElementById('non-filtering'));
+        //this.categoryToggles.set('ALL', document.getElementById('all-category'));
         this.categoryToggles.set('SLINGER', document.getElementById('slinger'));
         this.categoryToggles.set('FERTILITY', document.getElementById('fertility'));
         this.categoryToggles.set('RUIN', document.getElementById('ruin'));
         this.categoryToggles.set('ABNORMAL', document.getElementById('abnormal'));
 
-        const mapNormal = textureLoader.load( "./assets/mapnormal.png" );
+
+        // stages
+
+        const mapNormal = textureLoader.load( "./assets/normalv2.png" );
+        mapNormal.wrapS = THREE.RepeatWrapping;
+        mapNormal.wrapT = THREE.RepeatWrapping;
         const mapDiffuse = textureLoader.load( "./assets/maindiffuse.png" );
         const mapMaterial = new THREE.MeshStandardMaterial({
             map: mapDiffuse,
             normalMap: mapNormal,
         });
-        mapMaterial.normalScale.set(-2, -2);
-        mapMaterial.needsUpdate = true;
 
         const mapDiffuseWater = textureLoader.load( "./assets/mainotherdiffuse.png" );
+        mapDiffuseWater.wrapS = THREE.RepeatWrapping;
+        mapDiffuseWater.wrapT = THREE.RepeatWrapping;
         const mapMaterialWater = new THREE.MeshStandardMaterial({
             map: mapDiffuseWater,
             normalMap: mapNormal
         });
-        mapMaterialWater.normalScale.set(-0.5, -0.5);
+
+        const mapTexMainOther01 = textureLoader.load( "./assets/mainOther01Diffuse.png" );
+        mapTexMainOther01.wrapS = THREE.RepeatWrapping;
+        mapTexMainOther01.wrapT = THREE.RepeatWrapping;
+        const mapMainOther01 = new THREE.MeshStandardMaterial({
+            map: mapTexMainOther01,
+            normalMap: mapNormal
+        });
+
+        const mapTexMainOther02 = textureLoader.load( "./assets/mainOther02Diffuse.png" );
+        mapTexMainOther02.wrapS = THREE.RepeatWrapping;
+        mapTexMainOther02.wrapT = THREE.RepeatWrapping;
+        const mapMainOther02 = new THREE.MeshStandardMaterial({
+            map: mapTexMainOther02,
+            normalMap: mapNormal
+        });
 
         const mapDiffuseWall = textureLoader.load( "./assets/walldiffuse.png" );
         const mapMaterialWall = new THREE.MeshStandardMaterial({
             map: mapDiffuseWall,
         });
-        mapMaterial.normalScale.set(0.2, 0.2);
 
         const mapDiffuseOutline = textureLoader.load( "./assets/outlinediffuse.png" );
         const mapMaterialOutline = new THREE.MeshBasicMaterial({
@@ -129,8 +160,14 @@ class Stage {
             model.scene.traverse( child => {
                 child.castShadow = true;
                 if (child.isMesh) {
-                    if (child.name.includes("mainOther")){
+                    if (child.name.includes("mainOther00")){
                         child.material = mapMaterialWater;
+                    }
+                    else if (child.name.includes("mainOther01")){
+                        child.material = mapMainOther01;
+                    }
+                    else if (child.name.includes("mainOther02")){
+                        child.material = mapMainOther02;
                     }
                     else if (child.name.includes("outline")){
                         child.material = mapMaterialOutline;
@@ -193,9 +230,6 @@ loadEndemic();
 const areaNumbers = new Map();
 function loadAreaNumbers() {
     Object.entries(map_area_data).forEach(([key, value]) => {
-        if (key !== "ST101") {
-            return;
-        }
         Object.entries(value).forEach(([area_num, point]) => {
             const path = "./assets/map_nums/" + area_num + ".png";
             const texture = textureLoader.load( path );
@@ -251,17 +285,22 @@ gimmicks.forEach((value, key) => {
 });
 
 endemics.forEach((value, key) => {
-    value.data.st101.points.forEach((point) => {
-        if (point != undefined) {
-            const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
-            const sprite = new THREE.Sprite( spriteMaterial );
-            sprite.scale.set( 25, 25, 25 );
-            sprite.position.set(point[0], point[1] + 5, point[2]);
-            sprite.emId = key;
-            sprite.type = "ENDEMIC";
-            sprite.baseScaling = 1.0;
-            sprites.push(sprite)
-            st101.endemic.add(sprite)
+    STAGES.forEach((stid) => {
+        if (value.data[stid] !== undefined) {
+            value.data[stid].points.forEach((point) => {
+                if (point != undefined) {
+                    const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
+                    const sprite = new THREE.Sprite( spriteMaterial );
+                    sprite.scale.set( 25, 25, 25 );
+                    sprite.position.set(point[0], point[1] + 5, point[2]);
+                    sprite.emId = key;
+                    sprite.stageId = stid;
+                    sprite.type = "ENDEMIC";
+                    sprite.baseScaling = 1.0;
+                    sprites.push(sprite)
+                    st101.endemic.add(sprite)
+                }
+            });
         }
     });
 });
