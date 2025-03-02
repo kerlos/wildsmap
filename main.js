@@ -251,7 +251,7 @@ function loadAreaNumbers() {
 loadAreaNumbers();
 
 
-const st101 = new Stage("st101", "Windward Plains", "./assets/st101.glb", scene)
+const st101 = new Stage("st101", "Windward Plains", "./assets/map.glb", scene)
 const sprites = []
 gimmicks.forEach((value, key) => {
     value.data.points.forEach((point) => {
