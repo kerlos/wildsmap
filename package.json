@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "deploy": "node deploy.js"
+        "deploy": "gh-pages -d dist",
+        "deploy-script": "node deploy.js"
     },
     "devDependencies": {
         "gh-pages": "^6.3.0",
