@@ -1,12 +1,13 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import gimmick_data from "./data/gimmickdata.json";
 import endemic_data from "./data/endemic.json";
 import map_area_data from "./data/map_area_points.json";
 
-document.getElementById('version').innerHTML = `<strong>Version:</strong> ${__APP_VERSION__}`;
+document.getElementById("version").innerHTML =
+    `<strong>Version:</strong> ${__APP_VERSION__}`;
 
 let MAP_NAMES = new Map();
 MAP_NAMES.set("st101", "Windward Plains");
@@ -16,32 +17,54 @@ MAP_NAMES.set("st104", "Iceshard Cliffs");
 MAP_NAMES.set("st105", "Ruins of Wyveria");
 MAP_NAMES.set("st503", "Training Area");
 
-const STAGES = ["st101", "st102", "st103", "st104", "st105", "st401", "st201", "st202", "st203", "st203", "st204", "st402", "st403", "st404", "st503"];
+const STAGES = [
+    "st101",
+    "st102",
+    "st103",
+    "st104",
+    "st105",
+    "st401",
+    "st201",
+    "st202",
+    "st203",
+    "st203",
+    "st204",
+    "st402",
+    "st403",
+    "st404",
+    "st503",
+];
 
-let frames = 0, prevTime = performance.now();
+let frames = 0,
+    prevTime = performance.now();
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 3000 );
-const canvas = document.getElementById('webgl-canvas');
-const renderer = new THREE.WebGLRenderer({canvas: canvas});
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    3000
+);
+const canvas = document.getElementById("webgl-canvas");
+const renderer = new THREE.WebGLRenderer({ canvas: canvas });
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setAnimationLoop(animate);
 renderer.setClearColor(0xffffff, 0);
 renderer.shadowMap.enabled = true;
 
-const lightA = new THREE.DirectionalLight( 0xFfFfFf, 1.2);
-lightA.position.set(-449, 160, 1500)
-lightA.target.position.set(-449, 160, 1500)
+const lightA = new THREE.DirectionalLight(0xffffff, 1.2);
+lightA.position.set(-449, 160, 1500);
+lightA.target.position.set(-449, 160, 1500);
 //lightA.target.position.set(-800, 0, 1000)
-scene.add( lightA );
-const lightB = new THREE.DirectionalLight( 0xFFFFFF, 1.2);
-lightB.position.set(-400, 815, -400)
-lightB.target.position.set(-400, 815, -400)
+scene.add(lightA);
+const lightB = new THREE.DirectionalLight(0xffffff, 1.2);
+lightB.position.set(-400, 815, -400);
+lightB.target.position.set(-400, 815, -400);
 //lightB.target.position.set(-800, 0, 1000)
-scene.add( lightB );
-const lightC = new THREE.DirectionalLight( 0xFFFFFF, 1.2);
-scene.add( lightC );
+scene.add(lightB);
+const lightC = new THREE.DirectionalLight(0xffffff, 1.2);
+scene.add(lightC);
 
 //const light = new THREE.PointLight( 0xFFFFFF, 2, 0, 0);
 //light.position.set(-800, 400, 1000)
@@ -65,11 +88,11 @@ class Stage {
         this.categories = new Map();
         this.categoryToggles = new Map();
         this.weatherCategories = new Set();
-        this.weatherCategories.add('FERTILITY');
-        this.weatherCategories.add('RUIN');
-        this.weatherCategories.add('ABNORMAL');
+        this.weatherCategories.add("FERTILITY");
+        this.weatherCategories.add("RUIN");
+        this.weatherCategories.add("ABNORMAL");
 
-        //weather 
+        //weather
         this.fertility = [];
         this.ruin = [];
         this.abnormal = [];
@@ -83,110 +106,142 @@ class Stage {
 
         //stages
         this.stages = new Map();
-        STAGES.forEach(stid => {
+        STAGES.forEach((stid) => {
             this.stages.set(stid, []);
             //this.categories.set(stid, []);
         });
 
-        this.categories.set('COLLECT', this.collectables);
-        this.categories.set('ENVIRONMENT_TRAP', this.environment);
-        this.categories.set('INVISIBLE', this.hidden);
-        this.categories.set('INVISIBLE_BEACON', this.hidden);
-        this.categories.set('NON_FILTERING_TARGET', this.nonFiltering );
-        this.categories.set('ALL', this.allCategory);
-        this.categories.set('SLINGER', this.slinger);
-        this.categories.set('FERTILITY', this.fertility);
-        this.categories.set('RUIN', this.ruin);
-        this.categories.set('ABNORMAL', this.abnormal);
+        this.categories.set("COLLECT", this.collectables);
+        this.categories.set("ENVIRONMENT_TRAP", this.environment);
+        this.categories.set("INVISIBLE", this.hidden);
+        this.categories.set("INVISIBLE_BEACON", this.hidden);
+        this.categories.set("NON_FILTERING_TARGET", this.nonFiltering);
+        this.categories.set("ALL", this.allCategory);
+        this.categories.set("SLINGER", this.slinger);
+        this.categories.set("FERTILITY", this.fertility);
+        this.categories.set("RUIN", this.ruin);
+        this.categories.set("ABNORMAL", this.abnormal);
 
-        this.categoryToggles.set('COLLECT', document.getElementById('collectable'));
-        this.categoryToggles.set('ENVIRONMENT_TRAP', document.getElementById('trap'));
-        this.categoryToggles.set('INVISIBLE', document.getElementById('hidden'));
-        this.categoryToggles.set('INVISIBLE_BEACON', document.getElementById('hidden'));
-        this.categoryToggles.set('NON_FILTERING_TARGET', document.getElementById('non-filtering'));
+        this.categoryToggles.set(
+            "COLLECT",
+            document.getElementById("collectable")
+        );
+        this.categoryToggles.set(
+            "ENVIRONMENT_TRAP",
+            document.getElementById("trap")
+        );
+        this.categoryToggles.set(
+            "INVISIBLE",
+            document.getElementById("hidden")
+        );
+        this.categoryToggles.set(
+            "INVISIBLE_BEACON",
+            document.getElementById("hidden")
+        );
+        this.categoryToggles.set(
+            "NON_FILTERING_TARGET",
+            document.getElementById("non-filtering")
+        );
         //this.categoryToggles.set('ALL', document.getElementById('all-category'));
-        this.categoryToggles.set('SLINGER', document.getElementById('slinger'));
-        this.categoryToggles.set('FERTILITY', document.getElementById('fertility'));
-        this.categoryToggles.set('RUIN', document.getElementById('ruin'));
-        this.categoryToggles.set('ABNORMAL', document.getElementById('abnormal'));
-
+        this.categoryToggles.set("SLINGER", document.getElementById("slinger"));
+        this.categoryToggles.set(
+            "FERTILITY",
+            document.getElementById("fertility")
+        );
+        this.categoryToggles.set("RUIN", document.getElementById("ruin"));
+        this.categoryToggles.set(
+            "ABNORMAL",
+            document.getElementById("abnormal")
+        );
 
         // stages
 
-        const mapNormal = textureLoader.load( "./assets/normalv2.png" );
+        const mapNormal = textureLoader.load("./assets/normalv2.png");
         mapNormal.wrapS = THREE.RepeatWrapping;
         mapNormal.wrapT = THREE.RepeatWrapping;
-        const mapDiffuse = textureLoader.load( "./assets/maindiffuse.png" );
+        const mapDiffuse = textureLoader.load("./assets/maindiffuse.png");
         const mapMaterial = new THREE.MeshStandardMaterial({
             map: mapDiffuse,
             normalMap: mapNormal,
         });
 
-        const mapDiffuseWater = textureLoader.load( "./assets/mainotherdiffuse.png" );
+        const mapDiffuseWater = textureLoader.load(
+            "./assets/mainotherdiffuse.png"
+        );
         mapDiffuseWater.wrapS = THREE.RepeatWrapping;
         mapDiffuseWater.wrapT = THREE.RepeatWrapping;
         const mapMaterialWater = new THREE.MeshStandardMaterial({
             map: mapDiffuseWater,
-            normalMap: mapNormal
+            normalMap: mapNormal,
         });
 
-        const mapTexMainOther01 = textureLoader.load( "./assets/mainOther01Diffuse.png" );
+        const mapTexMainOther01 = textureLoader.load(
+            "./assets/mainOther01Diffuse.png"
+        );
         mapTexMainOther01.wrapS = THREE.RepeatWrapping;
         mapTexMainOther01.wrapT = THREE.RepeatWrapping;
         const mapMainOther01 = new THREE.MeshStandardMaterial({
             map: mapTexMainOther01,
-            normalMap: mapNormal
+            normalMap: mapNormal,
         });
 
-        const mapTexMainOther02 = textureLoader.load( "./assets/mainOther02Diffuse.png" );
+        const mapTexMainOther02 = textureLoader.load(
+            "./assets/mainOther02Diffuse.png"
+        );
         mapTexMainOther02.wrapS = THREE.RepeatWrapping;
         mapTexMainOther02.wrapT = THREE.RepeatWrapping;
         const mapMainOther02 = new THREE.MeshStandardMaterial({
             map: mapTexMainOther02,
-            normalMap: mapNormal
+            normalMap: mapNormal,
         });
 
-        const mapDiffuseWall = textureLoader.load( "./assets/walldiffuse.png" );
+        const mapDiffuseWall = textureLoader.load("./assets/walldiffuse.png");
         const mapMaterialWall = new THREE.MeshStandardMaterial({
             map: mapDiffuseWall,
         });
 
-        const mapDiffuseOutline = textureLoader.load( "./assets/outlinediffuse.png" );
+        const mapDiffuseOutline = textureLoader.load(
+            "./assets/outlinediffuse.png"
+        );
         const mapMaterialOutline = new THREE.MeshBasicMaterial({
             map: mapDiffuseOutline,
         });
         const loader = new GLTFLoader();
-        loader.load( modelPath, function ( model ) {
-            model.scene.traverse( child => {
-                child.castShadow = true;
-                if (child.isMesh) {
-                    if (child.name.includes("mainOther00")){
-                        child.material = mapMaterialWater;
+        loader.load(
+            modelPath,
+            function (model) {
+                model.scene.traverse((child) => {
+                    child.castShadow = true;
+                    if (child.isMesh) {
+                        if (child.name.includes("mainOther00")) {
+                            child.material = mapMaterialWater;
+                        } else if (child.name.includes("mainOther01")) {
+                            child.material = mapMainOther01;
+                        } else if (child.name.includes("mainOther02")) {
+                            child.material = mapMainOther02;
+                        } else if (child.name.includes("outline")) {
+                            child.material = mapMaterialOutline;
+                        } else if (child.name.includes("wall")) {
+                            child.material = mapMaterialWall;
+                        }
+                        if (
+                            child.name.includes("main") &&
+                            !child.name.includes("Other")
+                        ) {
+                            child.material = mapMaterial;
+                        }
+                    } else {
+                        child = null;
                     }
-                    else if (child.name.includes("mainOther01")){
-                        child.material = mapMainOther01;
-                    }
-                    else if (child.name.includes("mainOther02")){
-                        child.material = mapMainOther02;
-                    }
-                    else if (child.name.includes("outline")){
-                        child.material = mapMaterialOutline;
-                    }
-                    else if (child.name.includes("wall")){
-                        child.material = mapMaterialWall;
-                    }
-                    if (child.name.includes("main") && !child.name.includes("Other")){
-                        child.material = mapMaterial;
-                    }
-                } else {
-                    child = null;
-                }
-            });
-            scene.add(model.scene);
-            this.model = model.scene;
-        }.bind(this), undefined, function ( error ) {
-            console.error( error );
-        });
+                });
+                scene.add(model.scene);
+                this.model = model.scene;
+            }.bind(this),
+            undefined,
+            function (error) {
+                console.error(error);
+            }
+        );
     }
 }
 
@@ -195,15 +250,19 @@ function loadGimmicks() {
     Object.entries(gimmick_data).forEach(([key, value]) => {
         var path = "";
         if (value.map_icon != "INVALID") {
-            path = './assets/gimmick_icons/MHWilds-' + key + ' Map Icon.png';
+            path = "./assets/gimmick_icons/MHWilds-" + key + " Map Icon.png";
+        } else {
+            path =
+                "./assets/gimmick_icons/MHWilds-" +
+                value.icon +
+                " Icon " +
+                value.color +
+                ".png";
         }
-        else {
-            path ='./assets/gimmick_icons/MHWilds-' + value.icon + ' Icon ' + value.color + '.png';
-        }
-        const texture = textureLoader.load( path );
+        const texture = textureLoader.load(path);
         gimmicks.set(key, {
             data: value,
-            texture: texture
+            texture: texture,
         });
     });
 }
@@ -214,14 +273,14 @@ function loadEndemic() {
     Object.entries(endemic_data).forEach(([key, value]) => {
         var path = "";
         if (value.map_icon != "INVALID") {
-            path = './assets/enemy_icons/MHWilds-' + key + ' Map Icon.png';
+            path = "./assets/enemy_icons/MHWilds-" + key + " Map Icon.png";
         } else {
-            path ='./assets/enemy_icons/MHWilds-' + key + ' Icon.png';
+            path = "./assets/enemy_icons/MHWilds-" + key + " Icon.png";
         }
-        const texture = textureLoader.load( path );
+        const texture = textureLoader.load(path);
         endemics.set(key, {
             data: value,
-            texture: texture
+            texture: texture,
         });
     });
 }
@@ -232,7 +291,7 @@ function loadAreaNumbers() {
     Object.entries(map_area_data).forEach(([key, value]) => {
         Object.entries(value).forEach(([area_num, point]) => {
             const path = "./assets/map_nums/" + area_num + ".png";
-            const texture = textureLoader.load( path );
+            const texture = textureLoader.load(path);
             const area = area_num.split("_");
             const st = area[0];
             const num = area[1];
@@ -243,22 +302,23 @@ function loadAreaNumbers() {
                     areaNum: area_num,
                     name: name,
                 },
-                texture: texture
+                texture: texture,
             });
         });
     });
 }
 loadAreaNumbers();
 
-
-const st101 = new Stage("st101", "Windward Plains", "./assets/map.glb", scene)
-const sprites = []
+const st101 = new Stage("st101", "Windward Plains", "./assets/map.glb", scene);
+const sprites = [];
 gimmicks.forEach((value, key) => {
     value.data.points.forEach((point) => {
         if (point !== undefined) {
-            const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
-            const sprite = new THREE.Sprite( spriteMaterial );
-            sprite.scale.set( 25, 25, 25 );
+            const spriteMaterial = new THREE.SpriteMaterial({
+                map: value.texture,
+            });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(25, 25, 25);
             sprite.position.set(point[0], point[1] + 5, point[2]);
             sprite.gimmickId = key;
             sprite.baseScaling = 1.0;
@@ -267,13 +327,15 @@ gimmicks.forEach((value, key) => {
                 sprite.position.set(point[0], point[1] + 10, point[2]);
             }
             if (value.data.map_filtering_type !== null) {
-                st101.categories.get(value.data.map_filtering_type).push(sprite);
+                st101.categories
+                    .get(value.data.map_filtering_type)
+                    .push(sprite);
             } else {
-                st101.categories.get('INVISIBLE').push(sprite);
+                st101.categories.get("INVISIBLE").push(sprite);
             }
             const weather = value.data.weather_environments;
             if (weather !== undefined) {
-                weather.forEach((w) => st101.categories.get(w).push(sprite))
+                weather.forEach((w) => st101.categories.get(w).push(sprite));
             }
 
             sprite.type = "GIMMICK";
@@ -289,16 +351,18 @@ endemics.forEach((value, key) => {
         if (value.data[stid] !== undefined) {
             value.data[stid].points.forEach((point) => {
                 if (point != undefined) {
-                    const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
-                    const sprite = new THREE.Sprite( spriteMaterial );
-                    sprite.scale.set( 25, 25, 25 );
+                    const spriteMaterial = new THREE.SpriteMaterial({
+                        map: value.texture,
+                    });
+                    const sprite = new THREE.Sprite(spriteMaterial);
+                    sprite.scale.set(25, 25, 25);
                     sprite.position.set(point[0], point[1] + 5, point[2]);
                     sprite.emId = key;
                     sprite.stageId = stid;
                     sprite.type = "ENDEMIC";
                     sprite.baseScaling = 1.0;
-                    sprites.push(sprite)
-                    st101.endemic.add(sprite)
+                    sprites.push(sprite);
+                    st101.endemic.add(sprite);
                 }
             });
         }
@@ -306,16 +370,16 @@ endemics.forEach((value, key) => {
 });
 
 areaNumbers.forEach((value, key) => {
-    const spriteMaterial = new THREE.SpriteMaterial( { map: value.texture } );
-    const sprite = new THREE.Sprite( spriteMaterial );
+    const spriteMaterial = new THREE.SpriteMaterial({ map: value.texture });
+    const sprite = new THREE.Sprite(spriteMaterial);
     const point = value.data.point;
-    sprite.scale.set( 20, 20, 20 );
+    sprite.scale.set(20, 20, 20);
     sprite.position.set(point[0], point[1] + 20, point[2]);
     sprite.areaId = key;
     sprite.type = "AREA_NUMBER";
     sprite.baseScaling = 1.0;
     sprites.push(sprite);
-    st101.areaNumbers.add(sprite)
+    st101.areaNumbers.add(sprite);
 });
 
 scene.add(st101.areaNumbers);
@@ -362,17 +426,17 @@ let area_langs = {
     SimplelifiedChinese: "区域 ",
     Arabic: "Area",
     LatinAmericanSpanish: "Area",
-}
+};
 let lang = document.getElementById("language").value;
 
-document.getElementById("language").addEventListener("change", function() {
+document.getElementById("language").addEventListener("change", function () {
     lang = this.value;
     if (selectedSprite !== null)
-        setInfo(selectedItem, selectedSprite, "EXTENDED")
+        setInfo(selectedItem, selectedSprite, "EXTENDED");
 });
 
 function setInfo(element, sprite, info_type) {
-    element.innerHTML = '';
+    element.innerHTML = "";
     if (sprite.type === "GIMMICK") {
         const gimmick = gimmicks.get(sprite.gimmickId);
         if (gimmick.data.name_langs !== null)
@@ -409,8 +473,10 @@ function isVisible(sprite) {
             var data = null;
             data = gimmicks.get(sprite.gimmickId).data;
             if (data.map_filtering_type !== null) {
-                result = st101.categoryToggles.get(data.map_filtering_type).checked;
-            } 
+                result = st101.categoryToggles.get(
+                    data.map_filtering_type
+                ).checked;
+            }
             break;
         case "AREA_NUMBER":
             result = areaNumToggle.checked;
@@ -430,12 +496,15 @@ function getFirstIntersectingVisibleSprite(event) {
     const intersects = raycaster.intersectObjects(sprites);
     if (intersects.length > 0) {
         let i = 0;
-        while (typeof intersects[i] !== "undefined" && (!intersects[i].object.visible || !isVisible(intersects[i].object))) {
+        while (
+            typeof intersects[i] !== "undefined" &&
+            (!intersects[i].object.visible || !isVisible(intersects[i].object))
+        ) {
             i++;
         }
         if (i >= intersects.length) {
             hoveredSprite = null;
-            return false
+            return false;
         }
         if (hoveredSprite !== intersects[i].object) {
             hoveredSprite = intersects[i].object;
@@ -445,9 +514,9 @@ function getFirstIntersectingVisibleSprite(event) {
     return false;
 }
 
-window.addEventListener('mousemove', (event) => {
+window.addEventListener("mousemove", (event) => {
     const res = getFirstIntersectingVisibleSprite(event);
-    if (res){
+    if (res) {
         tooltip.style.left = `${event.clientX + 10}px`;
         tooltip.style.top = `${event.clientY + 10}px`;
         setInfo(tooltip, hoveredSprite, "TOOLTIP");
@@ -459,24 +528,23 @@ window.addEventListener('mousemove', (event) => {
 });
 
 const selectedItem = document.getElementById("selected-item");
-window.addEventListener('click', (event) => {
+window.addEventListener("click", (event) => {
     const res = getFirstIntersectingVisibleSprite(event);
-    if (res){
+    if (res) {
         selectedSprite = hoveredSprite;
         selectedItem.style.display = "flex";
-        setInfo(selectedItem, selectedSprite, "EXTENDED")
+        setInfo(selectedItem, selectedSprite, "EXTENDED");
     }
 });
 
 function updateSprites() {
     const distance = Math.min(camera.position.distanceTo(controls.target), 800);
-    const scale = Math.max(32.0 * distance / 700, 10.0);
-    sprites.forEach(sprite => {
+    const scale = Math.max((32.0 * distance) / 700, 10.0);
+    sprites.forEach((sprite) => {
         const s = scale * sprite.baseScaling;
         sprite.scale.set(s, s, s);
     });
 }
-
 
 const filters = document.getElementById("filters");
 const selectToggle = document.getElementById("selectall");
@@ -484,11 +552,11 @@ const deselectToggle = document.getElementById("deselect");
 const endemicToggle = document.getElementById("endemic");
 const areaNumToggle = document.getElementById("areanumbers");
 
-const searchBar = document.getElementById("search-filter")
+const searchBar = document.getElementById("search-filter");
 
 function updateSearch() {
     const searchVal = searchBar.value.toLowerCase();
-    sprites.forEach(sprite => {
+    sprites.forEach((sprite) => {
         var data = null;
         switch (sprite.type) {
             case "GIMMICK":
@@ -502,8 +570,10 @@ function updateSearch() {
                 break;
         }
         if (data.name_langs !== null && data.name_langs !== undefined)
-            sprite.visible = data.name_langs[lang].toLowerCase().includes(searchVal);
-    }); 
+            sprite.visible = data.name_langs[lang]
+                .toLowerCase()
+                .includes(searchVal);
+    });
 }
 
 function updateToggles() {
@@ -512,20 +582,32 @@ function updateToggles() {
 
     st101.categoryToggles.entries().forEach(([category, toggle]) => {
         if (!st101.weatherCategories.has(category))
-            st101.categories.get(category).forEach((sprite) => sprite.visible = toggle.checked)
+            st101.categories
+                .get(category)
+                .forEach((sprite) => (sprite.visible = toggle.checked));
     });
 
     st101.gimmicks.forEach((sprite) => {
         const gimmick = gimmicks.get(sprite.gimmickId);
-        if (gimmick.data.weather_environments !== undefined && !gimmick.data.weather_repop) {
+        if (
+            gimmick.data.weather_environments !== undefined &&
+            !gimmick.data.weather_repop
+        ) {
             const envs = gimmick.data.weather_environments;
-            if (!(((envs.includes("FERTILITY") && st101.categoryToggles.get('FERTILITY').checked) ||
-                (envs.includes("RUIN") && st101.categoryToggles.get('RUIN').checked) ||
-                (envs.includes("ABNORMAL") && st101.categoryToggles.get('ABNORMAL').checked))
-                && sprite.visible)) {
+            if (
+                !(
+                    ((envs.includes("FERTILITY") &&
+                        st101.categoryToggles.get("FERTILITY").checked) ||
+                        (envs.includes("RUIN") &&
+                            st101.categoryToggles.get("RUIN").checked) ||
+                        (envs.includes("ABNORMAL") &&
+                            st101.categoryToggles.get("ABNORMAL").checked)) &&
+                    sprite.visible
+                )
+            ) {
                 sprite.visible = false;
             }
-        } 
+        }
     });
 }
 
@@ -533,10 +615,10 @@ updateSearch();
 updateToggles();
 function updateFilters(event) {
     if (event !== undefined) {
-        if (event.target.classList.contains('search')) {
+        if (event.target.classList.contains("search")) {
             updateSearch();
         } else {
-            if (!event.target.classList.contains('selectall')) {
+            if (!event.target.classList.contains("selectall")) {
                 if (selectToggle.checked && !event.target.checked) {
                     selectToggle.checked = false;
                 }
@@ -544,13 +626,13 @@ function updateFilters(event) {
                 if (event.target.checked) {
                     st101.categoryToggles.forEach((toggle) => {
                         toggle.checked = true;
-                    })
+                    });
                     endemicToggle.checked = true;
                     areaNumToggle.checked = true;
                     deselectToggle.checked = false;
                 }
             }
-            if (!event.target.classList.contains('deselectall')) {
+            if (!event.target.classList.contains("deselectall")) {
                 if (deselectToggle.checked && event.target.checked) {
                     deselectToggle.checked = false;
                 }
@@ -558,7 +640,7 @@ function updateFilters(event) {
                 if (event.target.checked) {
                     st101.categoryToggles.forEach((toggle) => {
                         toggle.checked = false;
-                    })
+                    });
                     endemicToggle.checked = false;
                     areaNumToggle.checked = false;
                     selectToggle.checked = false;
@@ -566,13 +648,12 @@ function updateFilters(event) {
             }
             updateToggles();
         }
-
     }
 }
 
-filters.addEventListener('change', updateFilters);
+filters.addEventListener("change", updateFilters);
 
-camera.position.set( -600, 600, 1300 );
+camera.position.set(-600, 600, 1300);
 function initControls(camera) {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enable = true;
@@ -581,22 +662,23 @@ function initControls(camera) {
     controls.staticMoving = true;
     controls.zoomSpeed = 1.5;
     controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
-    controls.target.set( -700, 0, 1400);
+    controls.target.set(-700, 0, 1400);
     camera.lookAt(controls.target);
-    return controls
+    return controls;
 }
 
 const controls = initControls(camera);
 controls.update();
 
-window.addEventListener( 'resize', onWindowResize );
+window.addEventListener("resize", onWindowResize);
 function animate() {
     controls.update();
     renderer.clear();
     updateSprites();
     const pos = camera.position;
-    document.getElementById("camera-position").innerText = `xyz (${pos.x.toFixed(0)}, ${pos.y.toFixed(0)}, ${pos.z.toFixed(0)})`;
-    renderer.render( scene, camera );
+    document.getElementById("camera-position").innerText =
+        `xyz (${pos.x.toFixed(0)}, ${pos.y.toFixed(0)}, ${pos.z.toFixed(0)})`;
+    renderer.render(scene, camera);
 }
 
 function onWindowResize() {
@@ -606,10 +688,10 @@ function onWindowResize() {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-document.querySelectorAll(".toggleButton").forEach(button => {
+document.querySelectorAll(".toggleButton").forEach((button) => {
     button.addEventListener("click", function () {
         let content = this.nextElementSibling;
         let arrow = this.querySelector(".arrow");
