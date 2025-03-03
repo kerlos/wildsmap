@@ -5,6 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gimmick_data from "./data/gimmickdata.json";
 import endemic_data from "./data/endemic.json";
 import map_area_data from "./data/map_area_points.json";
+import map_label_data from "./data/map_label_points.json";
 
 document.getElementById(
   "version"
@@ -84,6 +85,7 @@ class Stage {
     // main
     this.areaNumbers = new THREE.Group();
     this.endemic = new THREE.Group();
+    this.labels = new THREE.Group();
     this.gimmicks = [];
 
     this.categories = new Map();
@@ -291,6 +293,58 @@ function loadAreaNumbers() {
 }
 loadAreaNumbers();
 
+const labelPoints = new Map();
+function loadLabelPoints() {
+  Object.entries(map_label_data).forEach(([label_name, point]) => {
+    const path = "./assets/map_labels/" + label_name + ".png";
+    const texture = textureLoader.load(path);
+
+    // Ensure texture doesn't get resized or cropped
+    texture.matrixAutoUpdate = true;
+    texture.minFilter = THREE.LinearFilter;
+    texture.generateMipmaps = false;
+
+    const name = `${MAP_NAMES.get(label_name)} label`;
+    labelPoints.set(label_name, {
+      data: {
+        point: point,
+        name: name,
+      },
+      texture: texture,
+      aspectRatio: 1, // Default, will be updated when image loads
+      originalWidth: 100, // Default, will be updated when image loads
+      originalHeight: 100, // Default, will be updated when image loads
+    });
+
+    // Create an image to get the original dimensions
+    const img = new Image();
+    img.onload = function () {
+      const aspectRatio = img.width / img.height;
+      // Store the aspect ratio for later use
+      if (labelPoints.has(label_name)) {
+        const labelPoint = labelPoints.get(label_name);
+        labelPoint.aspectRatio = aspectRatio;
+        labelPoint.originalWidth = img.width;
+        labelPoint.originalHeight = img.height;
+
+        // If sprite already exists, update its aspect ratio
+        sprites.forEach((sprite) => {
+          if (sprite.labelId === label_name) {
+            sprite.aspectRatio = aspectRatio;
+            // Update scale immediately
+            const baseSize = 40; // Larger base size
+            const width = baseSize * aspectRatio;
+            const height = baseSize;
+            sprite.scale.set(width, height, 1);
+          }
+        });
+      }
+    };
+    img.src = path;
+  });
+}
+loadLabelPoints();
+
 const st101 = new Stage("st101", "Windward Plains", "./assets/map.glb", scene);
 const sprites = [];
 gimmicks.forEach((value, key) => {
@@ -360,8 +414,35 @@ areaNumbers.forEach((value, key) => {
   st101.areaNumbers.add(sprite);
 });
 
+labelPoints.forEach((value, key) => {
+  const spriteMaterial = new THREE.SpriteMaterial({
+    map: value.texture,
+    sizeAttenuation: true, // Ensure size is affected by distance
+  });
+  const sprite = new THREE.Sprite(spriteMaterial);
+
+  // Set initial scale based on a larger base size while preserving aspect ratio
+  const baseSize = 40; // Increased from 20 to 40
+  const width = baseSize * value.aspectRatio;
+  const height = baseSize;
+
+  sprite.scale.set(width, height, 1);
+  sprite.position.set(
+    value.data.point[0],
+    value.data.point[1] + 20,
+    value.data.point[2]
+  );
+  sprite.labelId = key;
+  sprite.type = "AREA_LABEL";
+  sprite.baseScaling = 1.5; // Increased from 1.0 to 1.5
+  sprite.aspectRatio = value.aspectRatio; // Store aspect ratio on sprite
+  sprites.push(sprite);
+  st101.labels.add(sprite);
+});
+
 scene.add(st101.areaNumbers);
 scene.add(st101.endemic);
+scene.add(st101.labels);
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -518,8 +599,17 @@ function updateSprites() {
   const distance = Math.min(camera.position.distanceTo(controls.target), 800);
   const scale = Math.max((32.0 * distance) / 700, 10.0);
   sprites.forEach((sprite) => {
-    const s = scale * sprite.baseScaling;
-    sprite.scale.set(s, s, s);
+    if (sprite.type === "AREA_LABEL") {
+      // For label points, maintain aspect ratio with larger scaling
+      const s = scale * sprite.baseScaling;
+      const width = s * (sprite.aspectRatio || 1);
+      const height = s;
+      sprite.scale.set(width, height, 1);
+    } else {
+      // For other sprites, use uniform scaling
+      const s = scale * sprite.baseScaling;
+      sprite.scale.set(s, s, s);
+    }
   });
 }
 
@@ -541,6 +631,9 @@ function updateSearch() {
         break;
       case "AREA_NUMBER":
         data = areaNumbers.get(sprite.areaId).data;
+        break;
+      case "AREA_LABEL":
+        data = labelPoints.get(sprite.labelId).data;
         break;
       case "ENDEMIC":
         data = endemics.get(sprite.emId).data;
