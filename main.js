@@ -312,8 +312,8 @@ function loadLabelPoints() {
       },
       texture: texture,
       aspectRatio: 1, // Default, will be updated when image loads
-      originalWidth: 100, // Default, will be updated when image loads
-      originalHeight: 100, // Default, will be updated when image loads
+      originalWidth: 100,
+      originalHeight: 100,
     });
 
     // Create an image to get the original dimensions
@@ -421,8 +421,7 @@ labelPoints.forEach((value, key) => {
   });
   const sprite = new THREE.Sprite(spriteMaterial);
 
-  // Set initial scale based on a larger base size while preserving aspect ratio
-  const baseSize = 40; // Increased from 20 to 40
+  const baseSize = 40;
   const width = baseSize * value.aspectRatio;
   const height = baseSize;
 
@@ -434,8 +433,8 @@ labelPoints.forEach((value, key) => {
   );
   sprite.labelId = key;
   sprite.type = "AREA_LABEL";
-  sprite.baseScaling = 1.5; // Increased from 1.0 to 1.5
-  sprite.aspectRatio = value.aspectRatio; // Store aspect ratio on sprite
+  sprite.baseScaling = 1;
+  sprite.aspectRatio = value.aspectRatio;
   sprites.push(sprite);
   st101.labels.add(sprite);
 });
