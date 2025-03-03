@@ -7,6 +7,12 @@ import endemic_data from "./data/endemic.json";
 import map_area_data from "./data/map_area_points.json";
 import map_label_data from "./data/map_label_points.json";
 
+// Get the language from URL query parameter
+function getQueryParam(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
 document.getElementById(
   "version"
 ).innerHTML = `<strong>Version:</strong> ${__APP_VERSION__}`;
@@ -452,24 +458,6 @@ const tooltip = document.createElement("div");
 tooltip.classList.add("tooltip");
 document.body.appendChild(tooltip);
 
-let languages = [
-  "Thai",
-  "Japanese",
-  "English",
-  "French",
-  "Italian",
-  "German",
-  "Spanish",
-  "Russian",
-  "Polish",
-  "PortugueseBr",
-  "Korean",
-  "TransitionalChinese",
-  "SimplelifiedChinese",
-  "Arabic",
-  "LatinAmericanSpanish",
-];
-
 let area_langs = {
   Japanese: "Area",
   English: "Area",
@@ -486,9 +474,25 @@ let area_langs = {
   Arabic: "Area",
   LatinAmericanSpanish: "Area",
 };
-let lang = document.getElementById("language").value;
+let lang = getQueryParam("lang") || "English";
+const displayVersion = getQueryParam("version");
 
-document.getElementById("language").addEventListener("change", function () {
+if (displayVersion == "false") {
+  document.getElementById("site-info").style.display = "none";
+}
+
+// Create language dropdown options
+const languageDropdown = document.getElementById("language");
+
+// Set the selected language in the dropdown
+const langIndex = Array.from(languageDropdown.options).findIndex(
+  (option) => option.value === lang
+);
+if (langIndex !== -1) {
+  languageDropdown.selectedIndex = langIndex;
+}
+
+languageDropdown.addEventListener("change", function () {
   lang = this.value;
   if (selectedSprite !== null)
     setInfo(selectedItem, selectedSprite, "EXTENDED");
