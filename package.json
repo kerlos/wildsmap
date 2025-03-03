@@ -3,8 +3,10 @@
     "version": "0.0.1",
     "description": "Map of Monster Hunter Wilds",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "deploy": "gh-pages -d dist"
+        "deploy": "gh-pages -d dist",
+        "deploy-script": "node deploy.js"
     },
     "devDependencies": {
         "gh-pages": "^6.3.0",
