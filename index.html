@@ -16,6 +16,61 @@
         />
         <!-- Prevent iOS Safari from interpreting telephone numbers -->
         <meta name="format-detection" content="telephone=no" />
+
+        <!-- iOS Safari WebGL compatibility fix -->
+        <script>
+            // Force WebGL context initialization for iOS Safari
+            window.addEventListener("load", function () {
+                // Check if we're on iOS
+                const isIOS =
+                    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+                    !window.MSStream;
+
+                if (isIOS) {
+                    console.log(
+                        "iOS device detected, applying WebGL compatibility fix"
+                    );
+
+                    // Create a temporary canvas to force WebGL context initialization
+                    const tempCanvas = document.createElement("canvas");
+                    tempCanvas.style.position = "absolute";
+                    tempCanvas.style.width = "1px";
+                    tempCanvas.style.height = "1px";
+                    tempCanvas.style.opacity = "0";
+                    document.body.appendChild(tempCanvas);
+
+                    // Try to get WebGL context with iOS-friendly parameters
+                    const gl = tempCanvas.getContext("webgl", {
+                        alpha: true,
+                        antialias: true,
+                        powerPreference: "default",
+                        failIfMajorPerformanceCaveat: false,
+                        preserveDrawingBuffer: true,
+                        premultipliedAlpha: false,
+                    });
+
+                    if (gl) {
+                        // Force extensions to load
+                        gl.getExtension(
+                            "WEBKIT_EXT_texture_filter_anisotropic"
+                        );
+                        gl.getExtension("OES_texture_float");
+                        gl.getExtension("OES_texture_half_float");
+                        gl.getExtension("OES_standard_derivatives");
+
+                        // Clear and flush to ensure context is properly initialized
+                        gl.clearColor(0, 0, 0, 0);
+                        gl.clear(gl.COLOR_BUFFER_BIT);
+                        gl.flush();
+                    }
+
+                    // Remove the temporary canvas after a short delay
+                    setTimeout(function () {
+                        document.body.removeChild(tempCanvas);
+                    }, 1000);
+                }
+            });
+        </script>
       <script type="module" crossorigin src="/wildsmap/assets/index.js"></script>
       <link rel="stylesheet" crossorigin href="/wildsmap/assets/index.css">
     </head>
