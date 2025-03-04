@@ -499,7 +499,7 @@ let area_langs = {
     Thai: "พื้นที่",
 };
 
-let lang = getQueryParam("lang") || "English";
+let lang = getQueryParam("lang") || "Thai";
 const displayVersion = getQueryParam("version");
 
 if (displayVersion == "false") {

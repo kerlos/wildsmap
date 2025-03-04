@@ -13,7 +13,7 @@
     <body>
         <div id="blurred-backdrop"></div>
         <div class="side-pane">
-            <h1 id="map-title">Windward Plains</h1>
+            <h1 id="map-title" style="display: none">Windward Plains</h1>
             <button class="close-menu-button">Close Menu</button>
 
             <div class="side-pane-item collapsable" id="filters">
@@ -155,10 +155,21 @@
                         <li>• Hover over icons for details</li>
                     </ul>
                 </div>
+                <div style="margin-top: 10px">
+                    <label for="language">Language:</label>
+                    <select
+                        class="language-dropdown"
+                        id="language"
+                        name="language"
+                    >
+                        <option value="Thai">Thai</option>
+                        <option value="English">English</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="side-pane utility-pane">
+        <div class="side-pane utility-pane" style="display: none">
             <div
                 class="side-pane-item"
                 id="camera-position"
@@ -174,19 +185,11 @@
                     <h3 style="margin: 0">Credits</h3>
                     <strong>NSA-Cloud</strong> - help with models<br />
                     <strong>PB472</strong> - help with models<br />
-                    <strong>Me (cola)</strong><br />
+                    <strong>cola</strong> - map creator<br />
+                    <strong>keRLos - update up</strong><br />
                 </span>
                 <span>Note: things will be changing and possibly breaking</span>
             </div>
-        </div>
-
-        <!-- Language switch moved to bottom right -->
-        <div class="side-pane-item language-box" id="language-container">
-            <label for="language">Language:</label>
-            <select class="language-dropdown" id="language" name="language">
-                <option value="Thai">Thai</option>
-                <option value="English">English</option>
-            </select>
         </div>
 
         <canvas id="webgl-canvas"></canvas>
