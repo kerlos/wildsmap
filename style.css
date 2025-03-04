@@ -309,6 +309,7 @@ body {
     color: var(--mh-light);
     border: 1px solid var(--mh-border);
     border-radius: 3px;
+    margin-left: 3px;
     padding: 10px 15px;
     font-size: 1.1rem;
     cursor: pointer;

@@ -827,7 +827,7 @@ if (closeMenuButton) {
             filtersMenu.style.display = isMenuHidden ? "flex" : "none";
 
             // Toggle button text and class
-            this.textContent = isMenuHidden ? "Close Menu" : "Open Menu";
+            this.textContent = isMenuHidden ? "ปิดเมนู" : "เปิดเมนู";
 
             if (isMenuHidden) {
                 this.classList.remove("menu-closed");
@@ -923,10 +923,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (closeMenuButton && filtersMenu) {
         // Check if menu is initially hidden
         if (filtersMenu.style.display === "none") {
-            closeMenuButton.textContent = "Open Menu";
+            closeMenuButton.textContent = "เปิดเมนู";
             closeMenuButton.classList.add("menu-closed");
         } else {
-            closeMenuButton.textContent = "Close Menu";
+            closeMenuButton.textContent = "ปิดเมนู";
             closeMenuButton.classList.remove("menu-closed");
         }
     }
