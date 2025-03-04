@@ -54,12 +54,73 @@ const camera = new THREE.PerspectiveCamera(
     3000
 );
 const canvas = document.getElementById("webgl-canvas");
-const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-renderer.setPixelRatio(window.devicePixelRatio);
+
+// Check for WebGL compatibility, especially for iOS Safari
+function isWebGLAvailable() {
+    try {
+        const canvas = document.createElement("canvas");
+        return !!(
+            window.WebGLRenderingContext &&
+            (canvas.getContext("webgl") ||
+                canvas.getContext("experimental-webgl"))
+        );
+    } catch (e) {
+        return false;
+    }
+}
+
+// Create renderer with proper settings for iOS Safari
+let renderer;
+try {
+    // Try to create renderer with more compatible settings
+    renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: "default",
+        failIfMajorPerformanceCaveat: false,
+    });
+
+    // Set pixel ratio with a maximum to prevent performance issues on high-DPI iOS devices
+    const pixelRatio = Math.min(window.devicePixelRatio, 2);
+    renderer.setPixelRatio(pixelRatio);
+
+    // Check if we're on iOS
+    const isIOS =
+        /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+        console.log("iOS device detected, applying special rendering settings");
+        // iOS-specific optimizations
+        renderer.shadowMap.enabled = false; // Disable shadows for better performance
+        renderer.outputEncoding = THREE.sRGBEncoding; // Better color handling for iOS
+    } else {
+        renderer.shadowMap.enabled = true;
+    }
+} catch (e) {
+    console.error("WebGL renderer creation failed:", e);
+    // Fallback message for users
+    const errorMsg = document.createElement("div");
+    errorMsg.style.position = "absolute";
+    errorMsg.style.top = "50%";
+    errorMsg.style.left = "50%";
+    errorMsg.style.transform = "translate(-50%, -50%)";
+    errorMsg.style.color = "#e8b53a";
+    errorMsg.style.fontFamily = "sans-serif";
+    errorMsg.style.textAlign = "center";
+    errorMsg.style.padding = "20px";
+    errorMsg.style.backgroundColor = "rgba(0,0,0,0.7)";
+    errorMsg.style.borderRadius = "10px";
+    errorMsg.innerHTML =
+        "<h2>WebGL Not Available</h2><p>Your browser does not support WebGL or it is disabled. Please try a different browser or enable WebGL in your settings.</p>";
+    document.body.appendChild(errorMsg);
+
+    // Create a minimal renderer to prevent further errors
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false });
+}
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(animate);
 renderer.setClearColor(0xffffff, 0);
-renderer.shadowMap.enabled = true;
 
 const lightA = new THREE.DirectionalLight(0xffffff, 1.2);
 lightA.position.set(-449, 160, 1500);
@@ -80,7 +141,39 @@ scene.add(lightC);
 
 const GROUP_NAMES = ["COLLECT", "INVISIBLE"];
 
-const textureLoader = new THREE.TextureLoader();
+// Add a loading manager to handle loading progress and errors
+const loadingManager = new THREE.LoadingManager();
+loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+    console.log(`Loading file: ${url} (${itemsLoaded}/${itemsTotal})`);
+};
+loadingManager.onError = function (url) {
+    console.error(`Error loading: ${url}`);
+};
+
+// Create a loading indicator
+const loadingIndicator = document.createElement("div");
+loadingIndicator.style.position = "absolute";
+loadingIndicator.style.top = "50%";
+loadingIndicator.style.left = "50%";
+loadingIndicator.style.transform = "translate(-50%, -50%)";
+loadingIndicator.style.color = "#e8b53a";
+loadingIndicator.style.fontFamily = "sans-serif";
+loadingIndicator.style.textAlign = "center";
+loadingIndicator.style.padding = "20px";
+loadingIndicator.style.backgroundColor = "rgba(0,0,0,0.7)";
+loadingIndicator.style.borderRadius = "10px";
+loadingIndicator.style.zIndex = "1000";
+loadingIndicator.innerHTML =
+    "<h2>Loading Map...</h2><p>Please wait while the map loads.</p>";
+document.body.appendChild(loadingIndicator);
+
+loadingManager.onLoad = function () {
+    // Hide loading indicator when all resources are loaded
+    loadingIndicator.style.display = "none";
+};
+
+// Use the loading manager for all texture loaders
+const textureLoader = new THREE.TextureLoader(loadingManager);
 
 class Stage {
     constructor(id, name, modelPath, scene) {
@@ -198,13 +291,39 @@ class Stage {
         const mapMaterialOutline = new THREE.MeshBasicMaterial({
             map: mapDiffuseOutline,
         });
-        const loader = new GLTFLoader();
+
+        // Use the loading manager for GLTF loader
+        const loader = new GLTFLoader(loadingManager);
+
+        // Add a timeout to detect stalled loads (common issue on iOS Safari)
+        const loadTimeout = setTimeout(() => {
+            console.warn("Model loading timeout - attempting to recover");
+            // Try to force a renderer update
+            renderer.render(scene, camera);
+        }, 10000); // 10 second timeout
+
         loader.load(
             modelPath,
             function (model) {
+                clearTimeout(loadTimeout); // Clear the timeout on successful load
+
+                // iOS Safari specific optimizations
+                const isIOS =
+                    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+                    !window.MSStream;
+
                 model.scene.traverse((child) => {
-                    child.castShadow = true;
+                    child.castShadow = isIOS ? false : true; // Disable shadows on iOS
+
                     if (child.isMesh) {
+                        // Optimize materials for iOS
+                        if (isIOS) {
+                            // Use simpler materials on iOS
+                            child.material.flatShading = true;
+                            child.material.needsUpdate = true;
+                        }
+
+                        // Apply materials as before
                         if (child.name.includes("mainOther00")) {
                             child.material = mapMaterialWater;
                         } else if (child.name.includes("mainOther01")) {
@@ -226,12 +345,28 @@ class Stage {
                         child = null;
                     }
                 });
+
                 scene.add(model.scene);
                 this.model = model.scene;
+
+                // Force a render update after adding the model
+                renderer.render(scene, camera);
             }.bind(this),
-            undefined,
+            // Progress callback
+            function (xhr) {
+                if (xhr.lengthComputable) {
+                    const percentComplete = (xhr.loaded / xhr.total) * 100;
+                    loadingIndicator.innerHTML = `<h2>Loading Map...</h2><p>${Math.round(
+                        percentComplete
+                    )}% loaded</p>`;
+                }
+            },
             function (error) {
-                console.error(error);
+                clearTimeout(loadTimeout); // Clear the timeout on error
+                console.error("Error loading model:", error);
+                loadingIndicator.innerHTML =
+                    "<h2>Error Loading Map</h2><p>There was a problem loading the map. Please try refreshing the page.</p>";
+                loadingIndicator.style.display = "block";
             }
         );
     }
@@ -864,6 +999,10 @@ function initControls(camera) {
 
     // Implement Google Maps-like touch controls for mobile
     if (window.innerWidth <= 768) {
+        // Check if we're on iOS
+        const isIOS =
+            /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
         // Configure touch controls like Google Maps
         controls.touches = {
             ONE: THREE.TOUCH.PAN, // One finger drag to move camera (pan)
@@ -873,11 +1012,11 @@ function initControls(camera) {
         // Adjust sensitivity
         controls.rotateSpeed = 0.5; // Slower rotation for more precise control
         controls.panSpeed = 0.7; // Adjust pan speed
-        controls.zoomSpeed = 1.2; // Adjust zoom speed
+        controls.zoomSpeed = isIOS ? 0.8 : 1.2; // Lower zoom speed on iOS for better control
 
         // Add inertia for smoother movement
         controls.enableDamping = true;
-        controls.dampingFactor = 0.1;
+        controls.dampingFactor = isIOS ? 0.05 : 0.1; // Less damping on iOS for more responsive feel
 
         // Prevent auto-rotation
         controls.autoRotate = false;
@@ -890,6 +1029,33 @@ function initControls(camera) {
         renderer.domElement.addEventListener("contextmenu", function (event) {
             event.preventDefault();
         });
+
+        // iOS Safari specific touch event handling
+        if (isIOS) {
+            console.log("Applying iOS-specific touch controls");
+
+            // Prevent default touch actions to avoid iOS Safari gestures interfering
+            document.addEventListener(
+                "touchmove",
+                function (e) {
+                    if (e.touches.length > 1) {
+                        e.preventDefault();
+                    }
+                },
+                { passive: false }
+            );
+
+            // Ensure controls update even during touch events
+            renderer.domElement.addEventListener("touchmove", function () {
+                controls.update();
+            });
+
+            // Force update after touch end
+            renderer.domElement.addEventListener("touchend", function () {
+                controls.update();
+                renderer.render(scene, camera);
+            });
+        }
     }
 
     return controls;
