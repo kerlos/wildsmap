@@ -443,6 +443,31 @@ areaNumbers.forEach((value, key) => {
     st101.areaNumbers.add(sprite);
 });
 
+labelPoints.forEach((value, key) => {
+    const spriteMaterial = new THREE.SpriteMaterial({
+        map: value.texture,
+        sizeAttenuation: true, // Ensure size is affected by distance
+    });
+    const sprite = new THREE.Sprite(spriteMaterial);
+
+    const baseSize = 40;
+    const width = baseSize * value.aspectRatio;
+    const height = baseSize;
+
+    sprite.scale.set(width, height, 1);
+    sprite.position.set(
+        value.data.point[0],
+        value.data.point[1] + 20,
+        value.data.point[2]
+    );
+    sprite.labelId = key;
+    sprite.type = "AREA_LABEL";
+    sprite.baseScaling = 1;
+    sprite.aspectRatio = value.aspectRatio;
+    sprites.push(sprite);
+    st101.labels.add(sprite);
+});
+
 scene.add(st101.areaNumbers);
 scene.add(st101.endemic);
 scene.add(st101.labels);
@@ -473,7 +498,24 @@ let area_langs = {
     LatinAmericanSpanish: "Area",
     Thai: "พื้นที่",
 };
-let lang = document.getElementById("language").value;
+
+let lang = getQueryParam("lang") || "English";
+const displayVersion = getQueryParam("version");
+
+if (displayVersion == "false") {
+    document.getElementById("site-info").style.display = "none";
+}
+
+// Create language dropdown options
+const languageDropdown = document.getElementById("language");
+
+// Set the selected language in the dropdown
+const langIndex = Array.from(languageDropdown.options).findIndex(
+    (option) => option.value === lang
+);
+if (langIndex !== -1) {
+    languageDropdown.selectedIndex = langIndex;
+}
 
 document.getElementById("language").addEventListener("change", function () {
     lang = this.value;
@@ -587,8 +629,17 @@ function updateSprites() {
     const distance = Math.min(camera.position.distanceTo(controls.target), 800);
     const scale = Math.max((32.0 * distance) / 700, 10.0);
     sprites.forEach((sprite) => {
-        const s = scale * sprite.baseScaling;
-        sprite.scale.set(s, s, s);
+        if (sprite.type === "AREA_LABEL") {
+            // For label points, maintain aspect ratio with larger scaling
+            const s = scale * sprite.baseScaling;
+            const width = s * (sprite.aspectRatio || 1);
+            const height = s;
+            sprite.scale.set(width, height, 1);
+        } else {
+            // For other sprites, use uniform scaling
+            const s = scale * sprite.baseScaling;
+            sprite.scale.set(s, s, s);
+        }
     });
 }
 
@@ -610,6 +661,9 @@ function updateSearch() {
                 break;
             case "AREA_NUMBER":
                 data = areaNumbers.get(sprite.areaId).data;
+                break;
+            case "AREA_LABEL":
+                data = labelPoints.get(sprite.labelId).data;
                 break;
             case "ENDEMIC":
                 data = endemics.get(sprite.emId).data;
