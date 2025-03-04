@@ -936,6 +936,53 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+// Function to move camera to a specific map label point
+function moveCameraToMapPoint(mapId) {
+    if (map_label_data[mapId]) {
+        const [x, y, z] = map_label_data[mapId];
+
+        // Animate the camera movement
+        const startPosition = camera.position.clone();
+        const startTarget = controls.target.clone();
+
+        // Calculate the new target position
+        const newTarget = new THREE.Vector3(x, y, z);
+
+        // Calculate a position for the camera that's offset from the target
+        // This positions the camera at a good viewing angle
+        const cameraOffset = new THREE.Vector3(200, 150, 200);
+        const newPosition = newTarget.clone().add(cameraOffset);
+
+        // Animation duration in milliseconds
+        const duration = 1000;
+        const startTime = performance.now();
+
+        function animateCamera(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Use an easing function for smoother animation
+            const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
+
+            // Interpolate position and target
+            camera.position.lerpVectors(
+                startPosition,
+                newPosition,
+                easeProgress
+            );
+            controls.target.lerpVectors(startTarget, newTarget, easeProgress);
+
+            controls.update();
+
+            if (progress < 1) {
+                requestAnimationFrame(animateCamera);
+            }
+        }
+
+        requestAnimationFrame(animateCamera);
+    }
+}
+
 document.querySelectorAll(".toggleButton").forEach((button) => {
     button.addEventListener("click", function () {
         let content = this.nextElementSibling;
@@ -988,9 +1035,14 @@ if (mapDropdown && mapTitle) {
         const selectedOption = this.options[this.selectedIndex];
         mapTitle.textContent = selectedOption.textContent;
 
-        // You may want to add code here to load the selected map
-        // For example: loadMap(this.value);
+        // Move camera to the selected map's label point
+        moveCameraToMapPoint(this.value);
     });
+
+    // Set initial camera position based on the default selected map
+    if (mapDropdown.value) {
+        moveCameraToMapPoint(mapDropdown.value);
+    }
 }
 
 // Handle the toggle all button
