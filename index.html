@@ -17,64 +17,86 @@
         <!-- Prevent iOS Safari from interpreting telephone numbers -->
         <meta name="format-detection" content="telephone=no" />
 
-        <!-- iOS Safari WebGL compatibility fix -->
+        <!-- iOS Detection Script -->
         <script>
-            // Force WebGL context initialization for iOS Safari
-            window.addEventListener("load", function () {
-                // Check if we're on iOS
-                const isIOS =
-                    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-                    !window.MSStream;
+            function isIOS() {
+                // Check for iOS devices using multiple methods
+                const userAgent = navigator.userAgent;
 
-                if (isIOS) {
-                    console.log(
-                        "iOS device detected, applying WebGL compatibility fix"
-                    );
+                // Method 1: Check user agent for iOS devices
+                const isIOSByUA =
+                    /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
-                    // Create a temporary canvas to force WebGL context initialization
-                    const tempCanvas = document.createElement("canvas");
-                    tempCanvas.style.position = "absolute";
-                    tempCanvas.style.width = "1px";
-                    tempCanvas.style.height = "1px";
-                    tempCanvas.style.opacity = "0";
-                    document.body.appendChild(tempCanvas);
+                // Method 2: Check for iOS-specific features
+                const isIOSByPlatform = /(Mac|iPhone|iPod|iPad)/i.test(
+                    navigator.platform
+                );
 
-                    // Try to get WebGL context with iOS-friendly parameters
-                    const gl = tempCanvas.getContext("webgl", {
-                        alpha: true,
-                        antialias: true,
-                        powerPreference: "default",
-                        failIfMajorPerformanceCaveat: false,
-                        preserveDrawingBuffer: true,
-                        premultipliedAlpha: false,
-                    });
+                // Method 3: Check for iOS-specific APIs
+                const hasIOSTouch =
+                    "ontouchend" in document &&
+                    /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-                    if (gl) {
-                        // Force extensions to load
-                        gl.getExtension(
-                            "WEBKIT_EXT_texture_filter_anisotropic"
-                        );
-                        gl.getExtension("OES_texture_float");
-                        gl.getExtension("OES_texture_half_float");
-                        gl.getExtension("OES_standard_derivatives");
+                // Method 4: Check for standalone mode (iOS home screen app)
+                const isStandalone = window.navigator.standalone === true;
 
-                        // Clear and flush to ensure context is properly initialized
-                        gl.clearColor(0, 0, 0, 0);
-                        gl.clear(gl.COLOR_BUFFER_BIT);
-                        gl.flush();
-                    }
+                // Return true if any of the methods detect iOS
+                return (
+                    isIOSByUA || isIOSByPlatform || hasIOSTouch || isStandalone
+                );
+            }
 
-                    // Remove the temporary canvas after a short delay
-                    setTimeout(function () {
-                        document.body.removeChild(tempCanvas);
-                    }, 1000);
+            document.addEventListener("DOMContentLoaded", function () {
+                // Check if the user is on iOS and hasn't dismissed the warning yet
+                if (
+                    isIOS() &&
+                    !sessionStorage.getItem("ios_warning_dismissed")
+                ) {
+                    document.getElementById(
+                        "ios-warning-dialog"
+                    ).style.display = "flex";
+
+                    // Log detection for debugging
+                    console.log("iOS device detected, showing warning dialog");
                 }
             });
+
+            function closeIOSWarning() {
+                document.getElementById("ios-warning-dialog").style.display =
+                    "none";
+
+                // Store in session storage that user has dismissed the warning
+                sessionStorage.setItem("ios_warning_dismissed", "true");
+            }
         </script>
       <script type="module" crossorigin src="/wildsmap/assets/index.js"></script>
       <link rel="stylesheet" crossorigin href="/wildsmap/assets/index.css">
     </head>
     <body>
+        <!-- iOS Warning Dialog -->
+        <div id="ios-warning-dialog" style="display: none">
+            <div class="dialog-content">
+                <h2>ตรวจพบอุปกรณ์ iOS</h2>
+                <p>
+                    ขออภัย แผนที่ Monster Hunter Wilds นี้ยังไม่รองรับอุปกรณ์
+                    iOS ในขณะนี้เนื่องจากปัญหาความเข้ากันได้ของ WebGL
+                </p>
+                <p>เพื่อประสบการณ์ที่ดีที่สุด โปรดใช้:</p>
+                <ul class="dialog-list">
+                    <li>Desktop browser (Chrome, Firefox, Edge)</li>
+                    <li>Android mobile device</li>
+                </ul>
+                <p class="dialog-note">
+                    คุณสามารถดำเนินการต่อได้ แต่แผนที่อาจทำงานไม่ถูกต้อง
+                </p>
+                <div class="dialog-buttons">
+                    <button onclick="closeIOSWarning()" class="dialog-button">
+                        ดำเนินการต่อไป
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div id="blurred-backdrop"></div>
 
         <div class="side-pane">
