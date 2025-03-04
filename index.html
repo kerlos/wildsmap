@@ -20,175 +20,132 @@
 
             <div class="side-pane-item collapsable" id="filters">
                 <div class="map-controls-header">Map Controls</div>
+                <button
+                    class="filter-close-button"
+                    id="filter-close-button"
+                    style="display: none"
+                >
+                    ×
+                </button>
 
-                <div class="map-section">
-                    <h2>เลือกแผนที่</h2>
-                    <select class="map-dropdown">
-                        <option value="st101">Windward Plains</option>
-                        <option value="st102">Scarlet Forest</option>
-                        <option value="st103">Oilwell Basin</option>
-                        <option value="st104">Iceshard Cliffs</option>
-                        <option value="st105">Ruins of Wyveria</option>
-                    </select>
-                </div>
-                <div class="foldable">
-                    <div class="search-container">
-                        <input
-                            type="text"
-                            class="search"
-                            id="search-filter"
-                            name="search-filter"
-                            placeholder="ค้นหาไอเท็ม..."
-                        />
-                        <div
-                            id="search-suggestions"
-                            class="search-suggestions"
-                        ></div>
+                <div class="filter-content">
+                    <div class="map-section">
+                        <h2>เลือกแผนที่</h2>
+                        <select class="map-dropdown">
+                            <option value="st101">Windward Plains</option>
+                            <option value="st102">Scarlet Forest</option>
+                            <option value="st103">Oilwell Basin</option>
+                            <option value="st104">Iceshard Cliffs</option>
+                            <option value="st105">Ruins of Wyveria</option>
+                        </select>
                     </div>
-
-                    <div
-                        class="filter-group toggle-all-group"
-                        style="display: none"
-                    >
-                        <button
-                            id="toggle-all-button"
-                            class="toggle-all-button"
-                        >
-                            Deselect All
-                        </button>
-                    </div>
-
-                    <div class="filter-section">
-                        <h3 class="filter-section-title">Map Elements</h3>
-                        <div class="filter-group">
+                    <div class="foldable">
+                        <div class="search-container">
                             <input
-                                type="checkbox"
-                                id="collectable"
-                                name="collectable"
-                                checked
+                                type="text"
+                                class="search"
+                                id="search-filter"
+                                name="search-filter"
+                                placeholder="ค้นหาไอเท็ม..."
                             />
-                            <label for="collectable">Gathering Points</label>
-                        </div>
-                        <div class="filter-group">
-                            <input
-                                type="checkbox"
-                                id="endemic"
-                                name="endemic"
-                                checked
-                            />
-                            <label for="endemic">Endemic Life</label>
-                        </div>
-                        <div class="filter-group" style="display: none">
-                            <input type="checkbox" id="hidden" name="hidden" />
-                            <label for="hidden">Hidden</label>
-                        </div>
-                        <div class="filter-group">
-                            <input
-                                type="checkbox"
-                                id="non-filtering"
-                                name="non-filtering"
-                                checked
-                            />
-                            <label for="non-filtering">Camps & Villages</label>
-                        </div>
-                        <div class="filter-group" style="display: none">
-                            <input
-                                type="checkbox"
-                                id="areanumbers"
-                                name="areanumbers"
-                                checked
-                            />
-                            <label for="areanumbers">Area Numbers</label>
-                        </div>
-                        <div class="filter-group">
-                            <input
-                                type="checkbox"
-                                id="trap"
-                                name="trap"
-                                checked
-                            />
-                            <label for="trap">Environment</label>
-                        </div>
-                        <div class="filter-group">
-                            <input
-                                type="checkbox"
-                                id="slinger"
-                                name="slinger"
-                                checked
-                            />
-                            <label for="slinger">Slinger Ammo</label>
+                            <div
+                                id="search-suggestions"
+                                class="search-suggestions"
+                            ></div>
                         </div>
 
-                        <!-- Hidden checkboxes for backward compatibility -->
-                        <div class="filter-group" style="display: none">
-                            <input
-                                type="checkbox"
-                                id="fertility"
-                                name="fertility"
-                                checked
-                            />
-                            <label for="fertility">Fertility</label>
-                        </div>
-                        <div class="filter-group" style="display: none">
-                            <input
-                                type="checkbox"
-                                id="ruin"
-                                name="ruin"
-                                checked
-                            />
-                            <label for="ruin">Ruin</label>
-                        </div>
-                        <div style="display: none">
-                            <input
-                                type="checkbox"
-                                class="selectall"
-                                id="selectall"
-                                name="selectall"
-                                checked
-                            />
-                            <input
-                                type="checkbox"
-                                class="deselectall"
-                                id="deselect"
-                                name="deselect"
-                            />
+                        <div class="filter-group toggle-all-group hidden">
+                            <button
+                                id="toggle-all-button"
+                                class="toggle-all-button"
+                            >
+                                Deselect All
+                            </button>
                         </div>
 
-                        <div class="filter-group hidden">
-                            <input type="checkbox" id="hidden" name="hidden" />
-                            <label for="hidden">Hidden</label>
+                        <div class="filter-section">
+                            <h3 class="filter-section-title">Map Elements</h3>
+                            <div class="filter-group">
+                                <input
+                                    type="checkbox"
+                                    id="collectable"
+                                    name="collectable"
+                                    checked
+                                />
+                                <label for="collectable"
+                                    >Gathering Points</label
+                                >
+                            </div>
+                            <div class="filter-group">
+                                <input
+                                    type="checkbox"
+                                    id="endemic"
+                                    name="endemic"
+                                    checked
+                                />
+                                <label for="endemic">Endemic Life</label>
+                            </div>
+                            <div class="filter-group">
+                                <input
+                                    type="checkbox"
+                                    id="non-filtering"
+                                    name="non-filtering"
+                                    checked
+                                />
+                                <label for="non-filtering"
+                                    >Camps & Villages</label
+                                >
+                            </div>
+                            <div class="filter-group" style="display: none">
+                                <input
+                                    type="checkbox"
+                                    id="areanumbers"
+                                    name="areanumbers"
+                                    checked
+                                />
+                                <label for="areanumbers">Area Numbers</label>
+                            </div>
+                            <div class="filter-group">
+                                <input
+                                    type="checkbox"
+                                    id="trap"
+                                    name="trap"
+                                    checked
+                                />
+                                <label for="trap">Environment</label>
+                            </div>
+                            <div class="filter-group">
+                                <input
+                                    type="checkbox"
+                                    id="slinger"
+                                    name="slinger"
+                                    checked
+                                />
+                                <label for="slinger">Slinger Ammo</label>
+                            </div>
                         </div>
-                        <div class="filter-group hidden">
-                            <input
-                                type="checkbox"
-                                id="abnormal"
-                                name="abnormal"
-                                checked
-                            />
-                            <label for="abnormal">Abnormal</label>
+                        <div class="controls-section">
+                            <h2>วิธีควบคุม</h2>
+                            <ul class="controls-list">
+                                <li>• คลิกซ้าย + ลาก เพื่อหมุน</li>
+                                <li>• คลิกขวา + ลาก เพื่อขึ้นลง</li>
+                                <li>• กลิ้งเมาส์กลาง เพื่อขยาย</li>
+                                <li>• ชี้ที่ไอเท็มเพื่อดูข้อมูล</li>
+                            </ul>
+                        </div>
+
+                        <div class="language-section">
+                            <label for="language">Language:</label>
+                            <select
+                                class="language-dropdown"
+                                id="language"
+                                name="language"
+                            >
+                                <option value="Thai">Thai</option>
+                                <option value="English">English</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-
-                <div class="controls-section">
-                    <h2>วิธีควบคุม</h2>
-                    <ul class="controls-list">
-                        <li>• คลิกซ้าย + ลาก เพื่อหมุน</li>
-                        <li>• คลิกขวา + ลาก เพื่อขึ้นลง</li>
-                        <li>• กลิ้งเมาส์กลาง เพื่อขยาย</li>
-                        <li>• ชี้ที่ไอเท็มเพื่อดูข้อมูล</li>
-                    </ul>
-                </div>
-                <div class="language-section">
-                    <label for="language">Language:</label>
-                    <select
-                        class="language-dropdown"
-                        id="language"
-                        name="language"
-                    >
-                        <option value="Thai">Thai</option>
-                        <option value="English">English</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -218,6 +175,102 @@
             </div>
         </div>
 
-        <canvas id="webgl-canvas"></canvas>
+        <canvas id="webgl-canvas"></canvas>
+
+        <!-- Mobile backdrop for filter menu -->
+        <div class="mobile-backdrop" id="mobile-backdrop"></div>
+
+
+        <!-- Mobile Touch Controls Script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Only initialize mobile controls on small screens
+                if (window.innerWidth <= 768) {
+                    initMobileControls();
+                }
+
+                function initMobileControls() {
+                    // Setup filter menu for mobile
+                    const filtersElement = document.getElementById("filters");
+                    const backdropElement =
+                        document.getElementById("mobile-backdrop");
+                    const closeButton = document.getElementById(
+                        "filter-close-button"
+                    );
+
+                    if (filtersElement && backdropElement) {
+                        // Show filter menu by default on mobile
+                        filtersElement.classList.add("mobile-visible");
+                        backdropElement.classList.add("visible");
+
+                        // Show all filter groups and sections
+                        const filterGroups =
+                            filtersElement.querySelectorAll(".filter-group");
+                        filterGroups.forEach((group) => {
+                            group.style.display = "block";
+                        });
+
+                        // Show all filter sections
+                        const filterSections =
+                            filtersElement.querySelectorAll(".filter-section");
+                        filterSections.forEach((section) => {
+                            section.style.display = "block";
+                        });
+
+                        // Show the search container
+                        const searchContainer =
+                            filtersElement.querySelector(".search-container");
+                        if (searchContainer) {
+                            searchContainer.style.display = "block";
+                        }
+
+                        // Show close button
+                        if (closeButton) {
+                            closeButton.style.display = "block";
+                        }
+
+                        // Close filters when backdrop is clicked
+                        backdropElement.addEventListener("click", function () {
+                            filtersElement.classList.remove("mobile-visible");
+                            backdropElement.classList.remove("visible");
+                        });
+
+                        // Close filters when close button is clicked
+                        if (closeButton) {
+                            closeButton.addEventListener("click", function () {
+                                filtersElement.classList.remove(
+                                    "mobile-visible"
+                                );
+                                backdropElement.classList.remove("visible");
+                            });
+                        }
+
+                        // Setup toggle buttons for controls and language sections
+                        const controlsToggle =
+                            document.getElementById("controls-toggle");
+                        const languageToggle =
+                            document.getElementById("language-toggle");
+
+                        if (controlsToggle) {
+                            controlsToggle.addEventListener(
+                                "click",
+                                function () {
+                                    this.classList.toggle("active");
+                                }
+                            );
+                        }
+
+                        if (languageToggle) {
+                            languageToggle.addEventListener(
+                                "click",
+                                function () {
+                                    this.classList.toggle("active");
+                                }
+                            );
+                        }
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
