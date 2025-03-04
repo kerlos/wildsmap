@@ -121,7 +121,7 @@ body {
     width: 300px;
     color: white;
     font-family: Arial, sans-serif;
-    top: 10px;
+    top: 120px;
     max-height: 95vh;
     overflow-y: auto;
 }
@@ -207,6 +207,16 @@ body {
     cursor: pointer;
     margin-bottom: 15px;
     display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.close-menu-button:hover {
+    background-color: rgba(52, 152, 219, 0.9);
+}
+
+/* Style for when menu is closed and button shows "Open Menu" */
+.close-menu-button.menu-closed {
+    background-color: rgba(52, 152, 219, 0.7);
 }
 
 #site-info {

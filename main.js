@@ -823,8 +823,17 @@ if (closeMenuButton) {
     closeMenuButton.addEventListener("click", function () {
         const filtersMenu = document.getElementById("filters");
         if (filtersMenu) {
-            filtersMenu.style.display =
-                filtersMenu.style.display === "none" ? "flex" : "none";
+            const isMenuHidden = filtersMenu.style.display === "none";
+            filtersMenu.style.display = isMenuHidden ? "flex" : "none";
+
+            // Toggle button text and class
+            this.textContent = isMenuHidden ? "Close Menu" : "Open Menu";
+
+            if (isMenuHidden) {
+                this.classList.remove("menu-closed");
+            } else {
+                this.classList.add("menu-closed");
+            }
         }
     });
 }
@@ -889,14 +898,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize toggle button state based on checkboxes
     const toggleAllButton = document.getElementById("toggle-all-button");
     const selectAllCheckbox = document.getElementById("selectall");
+    const deselectAllCheckbox = document.getElementById("deselect");
 
-    if (toggleAllButton && selectAllCheckbox) {
-        if (selectAllCheckbox.checked) {
+    if (toggleAllButton && selectAllCheckbox && deselectAllCheckbox) {
+        if (!deselectAllCheckbox.checked) {
             toggleAllButton.textContent = "Deselect All";
             toggleAllButton.classList.add("deselect-mode");
         } else {
             toggleAllButton.textContent = "Select All";
             toggleAllButton.classList.remove("deselect-mode");
+        }
+
+        // Trigger the appropriate event to ensure filters are updated
+        if (deselectAllCheckbox.checked) {
+            const event = new Event("change", { bubbles: true });
+            deselectAllCheckbox.dispatchEvent(event);
+        }
+    }
+
+    // Initialize Close Menu button state
+    const closeMenuButton = document.querySelector(".close-menu-button");
+    const filtersMenu = document.getElementById("filters");
+
+    if (closeMenuButton && filtersMenu) {
+        // Check if menu is initially hidden
+        if (filtersMenu.style.display === "none") {
+            closeMenuButton.textContent = "Open Menu";
+            closeMenuButton.classList.add("menu-closed");
+        } else {
+            closeMenuButton.textContent = "Close Menu";
+            closeMenuButton.classList.remove("menu-closed");
         }
     }
 });
