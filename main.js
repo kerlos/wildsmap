@@ -650,6 +650,148 @@ const endemicToggle = document.getElementById("endemic");
 const areaNumToggle = document.getElementById("areanumbers");
 
 const searchBar = document.getElementById("search-filter");
+const suggestionsContainer = document.getElementById("search-suggestions");
+
+// Function to get all searchable items
+function getAllSearchableItems() {
+    const items = [];
+
+    // Add gimmicks
+    gimmicks.forEach((gimmick) => {
+        if (gimmick.data.name_langs && gimmick.data.name_langs[lang]) {
+            items.push({
+                name: gimmick.data.name_langs[lang],
+                type: "GIMMICK",
+            });
+        }
+    });
+
+    // Add endemics
+    endemics.forEach((endemic) => {
+        if (endemic.data.name_langs && endemic.data.name_langs[lang]) {
+            items.push({
+                name: endemic.data.name_langs[lang],
+                type: "ENDEMIC",
+            });
+        }
+    });
+
+    // Add area numbers
+    areaNumbers.forEach((area) => {
+        if (area.data.name_langs && area.data.name_langs[lang]) {
+            items.push({
+                name: area.data.name_langs[lang],
+                type: "AREA_NUMBER",
+            });
+        }
+    });
+
+    // Add label points
+    labelPoints.forEach((label) => {
+        if (label.data.name_langs && label.data.name_langs[lang]) {
+            items.push({
+                name: label.data.name_langs[lang],
+                type: "AREA_LABEL",
+            });
+        }
+    });
+
+    return items;
+}
+
+// Function to update search suggestions
+function updateSearchSuggestions() {
+    const searchVal = searchBar.value.toLowerCase().trim();
+    suggestionsContainer.innerHTML = "";
+
+    if (searchVal.length < 1) {
+        suggestionsContainer.style.display = "none";
+        return;
+    }
+
+    const items = getAllSearchableItems();
+    const matchingItems = items
+        .filter((item) => item.name.toLowerCase().includes(searchVal))
+        .slice(0, 10); // Limit to 10 suggestions
+
+    if (matchingItems.length === 0) {
+        suggestionsContainer.style.display = "none";
+        return;
+    }
+
+    matchingItems.forEach((item) => {
+        const suggestionItem = document.createElement("div");
+        suggestionItem.className = "search-suggestion-item";
+        suggestionItem.textContent = item.name;
+
+        suggestionItem.addEventListener("click", () => {
+            searchBar.value = item.name;
+            suggestionsContainer.style.display = "none";
+            updateSearch(); // Update the search with the selected suggestion
+        });
+
+        suggestionsContainer.appendChild(suggestionItem);
+    });
+
+    suggestionsContainer.style.display = "block";
+}
+
+// Add event listeners for search suggestions
+searchBar.addEventListener("input", updateSearchSuggestions);
+searchBar.addEventListener("focus", updateSearchSuggestions);
+
+// Close suggestions when clicking outside
+document.addEventListener("click", (event) => {
+    if (
+        !searchBar.contains(event.target) &&
+        !suggestionsContainer.contains(event.target)
+    ) {
+        suggestionsContainer.style.display = "none";
+    }
+});
+
+// Handle keyboard navigation in suggestions
+searchBar.addEventListener("keydown", (event) => {
+    const items = suggestionsContainer.querySelectorAll(
+        ".search-suggestion-item"
+    );
+    const activeItem = suggestionsContainer.querySelector(
+        ".search-suggestion-item.active"
+    );
+
+    if (items.length === 0) return;
+
+    if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (!activeItem) {
+            items[0].classList.add("active");
+        } else {
+            const nextIndex = Array.from(items).indexOf(activeItem) + 1;
+            if (nextIndex < items.length) {
+                activeItem.classList.remove("active");
+                items[nextIndex].classList.add("active");
+            }
+        }
+    } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (!activeItem) {
+            items[items.length - 1].classList.add("active");
+        } else {
+            const prevIndex = Array.from(items).indexOf(activeItem) - 1;
+            if (prevIndex >= 0) {
+                activeItem.classList.remove("active");
+                items[prevIndex].classList.add("active");
+            }
+        }
+    } else if (event.key === "Enter" && activeItem) {
+        event.preventDefault();
+        searchBar.value = activeItem.textContent;
+        suggestionsContainer.style.display = "none";
+        updateSearch();
+    } else if (event.key === "Escape") {
+        suggestionsContainer.style.display = "none";
+    }
+});
 
 function updateSearch() {
     const searchVal = searchBar.value.toLowerCase();

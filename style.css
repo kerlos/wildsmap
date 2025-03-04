@@ -264,6 +264,7 @@ body {
 .search-container {
     width: 100%;
     margin-bottom: 15px;
+    position: relative;
 }
 
 #filters input[type="checkbox"] {
@@ -589,4 +590,50 @@ select {
 /* Style for when hovering over checkboxes and their labels */
 .filter-group:hover label {
     color: var(--mh-primary);
+}
+
+/* Search suggestions dropdown */
+.search-suggestions {
+    position: absolute;
+    width: calc(100% - 40px);
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--mh-panel-bg);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
+    z-index: 100;
+    display: none;
+}
+
+.search-suggestion-item {
+    padding: 8px 12px;
+    color: var(--mh-light);
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.search-suggestion-item:hover {
+    background-color: rgba(232, 181, 58, 0.2);
+}
+
+.search-suggestion-item.active {
+    background-color: rgba(232, 181, 58, 0.3);
+}
+
+.search-suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+    background: rgba(15, 15, 15, 0.5);
+    border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+    background: var(--mh-secondary);
+    border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: var(--mh-primary);
 }
