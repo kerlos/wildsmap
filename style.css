@@ -1,6 +1,38 @@
+/* Monster Hunter Wilds Map - Styled by Claude */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+:root {
+    --mh-primary: #e8b53a;
+    --mh-secondary: #a67c00;
+    --mh-dark: #1a1a1a;
+    --mh-darker: #0f0f0f;
+    --mh-light: #f0f0f0;
+    --mh-accent: #c45826;
+    --mh-border: rgba(232, 181, 58, 0.5);
+    --mh-panel-bg: rgba(15, 15, 15, 0.9);
+    --mh-panel-border: rgba(232, 181, 58, 0.3);
+    --mh-font-heading: "Cinzel", serif;
+    --mh-font-body: sans-serif;
+}
+
 body {
     margin: 0;
     overflow: hidden;
+    font-family: var(--mh-font-body);
+    background-color: var(--mh-darker);
 }
 
 #blurred-backdrop {
@@ -12,6 +44,43 @@ body {
     background-position: center;
     z-index: -1;
     overflow: hidden;
+    filter: brightness(0.7) contrast(1.1);
+}
+
+/* Site Header */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 0;
+    text-align: center;
+    z-index: 10;
+    border-bottom: 1px solid var(--mh-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.site-title {
+    font-family: var(--mh-font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--mh-primary);
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.header-subtitle {
+    font-family: var(--mh-font-body);
+    font-size: 1rem;
+    color: var(--mh-light);
+    margin-top: 5px;
 }
 
 #webgl-canvas {
@@ -25,26 +94,34 @@ body {
 
 .tooltip {
     position: absolute;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    font-family: Arial, sans-serif;
-    font-size: 1.3rem;
+    background: var(--mh-panel-bg);
+    color: var(--mh-light);
+    padding: 0.8rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--mh-border);
+    font-family: var(--mh-font-body);
+    font-size: 1.1rem;
     pointer-events: none;
     display: none;
     max-width: 15rem;
     word-wrap: break-word;
     z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .tooltip-title {
+    font-family: var(--mh-font-heading);
     font-weight: bold;
-    color: cyan;
+    color: var(--mh-primary);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--mh-border);
+    padding-bottom: 5px;
 }
 
 .tooltip-sub {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    color: #ccc;
 }
 
 .tooltip-list {
@@ -55,6 +132,7 @@ body {
 .tooltip-list li {
     list-style-type: disc;
     margin-bottom: 5px;
+    color: #ddd;
 }
 
 .side-pane {
@@ -64,7 +142,7 @@ body {
     min-width: 15rem;
     padding: 0.5rem;
     font-size: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     flex-direction: column;
     word-wrap: break-word;
     z-index: 1;
@@ -72,16 +150,18 @@ body {
 }
 
 .side-pane-item {
-    color: white;
-    font-family: Arial, sans-serif;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 0.6rem;
-    margin: 0.1rem;
-    border-radius: 0.5rem;
+    color: var(--mh-light);
+    font-family: var(--mh-font-body);
+    background: var(--mh-panel-bg);
+    padding: 1rem;
+    margin: 0.2rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--mh-panel-border);
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .language-box {
@@ -94,8 +174,23 @@ body {
 
 .language-dropdown {
     max-width: 8rem;
-    text-align: center;
+    text-align: left;
     align-items: center;
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-family: var(--mh-font-body);
+}
+
+.language-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--mh-panel-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 #selected-item {
@@ -112,30 +207,173 @@ body {
 #filters {
     position: fixed;
     display: flex;
-    right: 0.5rem;
+    left: 0.5rem;
     flex-direction: column;
     align-items: flex-start;
+    background-color: var(--mh-panel-bg);
+    border: 1px solid var(--mh-panel-border);
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    color: var(--mh-light);
+    font-family: var(--mh-font-body);
+    top: 60px; /* Adjusted to account for header */
+    max-height: calc(95vh - 80px); /* Adjusted to account for header */
+    overflow-y: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+#filters .toggleButton {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    width: 100%;
+    justify-content: flex-start;
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+}
+
+#filters .foldable {
+    width: 100%;
+    overflow: hidden;
+}
+
+.filter-section {
+    margin: 15px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--mh-panel-border);
+}
+
+.filter-section-title {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+.filter-group {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+}
+
+.filter-controls {
+    margin: 15px 0;
+    padding: 10px 0;
+    border-top: 1px solid var(--mh-panel-border);
+    border-bottom: 1px solid var(--mh-panel-border);
+}
+
+.search-container {
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+#filters input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--mh-primary);
+}
+
+#filters label {
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
 }
 
 #search-filter {
-    padding: 0.2rem;
-    color: white;
-    background: rgba(52, 152, 219, 0.1);
-    padding: 2px;
-    border-radius: 5px;
+    padding: 10px;
+    color: var(--mh-light);
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 3px;
+    border: 1px solid var(--mh-border);
     outline: none;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-family: var(--mh-font-body);
 }
+
 .search::placeholder {
-    color: rgba(52, 152, 219, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Map Controls Header */
+.map-controls-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--mh-primary);
+    font-family: var(--mh-font-heading);
+    text-align: center;
+    border-bottom: 1px solid var(--mh-border);
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+/* Close Menu Button */
+.close-menu-button {
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
+    margin-left: 3px;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: inline-block;
+    transition: all 0.2s ease;
+    font-family: var(--mh-font-body);
+    font-weight: 500;
+}
+
+.close-menu-button:hover {
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
+}
+
+/* Style for when menu is closed and button shows "Open Menu" */
+.close-menu-button.menu-closed {
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
+}
+
+/* Footer pane */
+.footer-pane {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0.5rem;
 }
 
 #site-info {
-    position: fixed;
     font-size: 0.8rem;
     display: flex;
-    bottom: 0.5rem;
     flex-direction: column;
     align-items: flex-start;
+    color: var(--mh-light);
+}
+
+.credits-title {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+}
+
+#site-info strong {
+    color: var(--mh-primary);
+}
+
+.note {
+    margin-top: 10px;
+    font-style: italic;
+    color: #aaa;
 }
 
 @media (min-resolution: 2dppx) {
@@ -157,45 +395,658 @@ body {
     .language-box {
         flex-direction: row;
         gap: 0.1rem;
-        max-width: 40%rem;
-        justify-content: center;
-        width: 40%rem;
+        max-width: 40%;
     }
-
+    #language-container {
+        flex-direction: row;
+        gap: 0.1rem;
+        max-width: 40%;
+    }
     #selected-item {
-        max-width: 40%rem;
-        display: none;
+        max-width: 40%;
     }
-
     #camera-position {
-        text-align: center;
-        align-items: center;
-        max-width: 40%rem;
+        max-width: 40%;
+    }
+    .site-title {
+        font-size: 1.5rem;
+    }
+    .header-subtitle {
+        font-size: 0.8rem;
     }
 }
 
 .toggleButton {
+    background: none;
+    border: none;
+    color: var(--mh-primary);
+    cursor: pointer;
     display: flex;
     align-items: center;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-    color: white;
-    border-radius: 5px;
-    width: 100%;
-    text-align: left;
+    font-family: var(--mh-font-heading);
+    font-weight: bold;
+    padding: 5px 0;
 }
+
 .toggleButton:hover {
-    background: rgba(52, 152, 219, 0.1); /* Slight hover effect */
+    color: var(--mh-accent);
 }
 
 .arrow {
-    margin-right: 8px;
-    transition: transform 0.2s ease;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
 }
 
 .foldable {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    overflow: scroll;
+    transition: max-height 0.3s ease;
+    max-height: 1000px;
+    box-sizing: border-box;
+}
+
+#language-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#map-title {
+    font-family: var(--mh-font-heading);
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--mh-primary);
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.map-section {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.map-section h2 {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.map-dropdown {
+    width: 100%;
+    padding: 8px 10px;
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
+    font-family: var(--mh-font-body);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.controls-section {
+    width: 100%;
+}
+
+/* Controls for small screens */
+@media screen and (max-width: 768px) {
+    #filters {
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+        padding: 15px;
+    }
+
+    #filters.mobile-visible {
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .filter-content {
+        width: 100%;
+    }
+}
+
+.controls-section h2 {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.controls-list {
+    list-style-type: none;
+    padding-left: 5px;
+    margin-top: 10px;
+}
+
+.controls-list li {
+    margin-bottom: 8px;
+    color: #ddd;
+}
+
+.utility-pane {
+    right: 0.5rem;
+    top: 80px; /* Adjusted to account for header */
+    max-width: 20rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.toggle-all-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.toggle-all-button {
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--mh-font-body);
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+}
+
+.toggle-all-button:hover {
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
+}
+
+.toggle-all-button.deselect-mode {
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
+}
+
+.toggle-all-button.deselect-mode:hover {
+    background-color: var(--mh-dark);
+}
+
+/* Custom scrollbar for the filters panel */
+#filters::-webkit-scrollbar {
+    width: 8px;
+}
+
+#filters::-webkit-scrollbar-track {
+    background: var(--mh-dark);
+    border-radius: 4px;
+}
+
+#filters::-webkit-scrollbar-thumb {
+    background: var(--mh-secondary);
+    border-radius: 4px;
+}
+
+#filters::-webkit-scrollbar-thumb:hover {
+    background: var(--mh-primary);
+}
+
+/* Styling for select dropdowns */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e8b53a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 30px;
+}
+
+/* Add a subtle border glow effect to panels */
+.side-pane-item {
+    box-shadow: 0 0 15px rgba(232, 181, 58, 0.1);
+}
+
+/* Style for when hovering over checkboxes and their labels */
+.filter-group:hover label {
+    color: var(--mh-primary);
+}
+
+/* Search suggestions dropdown */
+.search-suggestions {
+    position: absolute;
+    width: calc(100% - 40px);
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--mh-panel-bg);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
+    z-index: 100;
+    display: none;
+}
+
+.search-suggestion-item {
+    padding: 8px 12px;
+    color: var(--mh-light);
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.search-suggestion-item:hover {
+    background-color: rgba(232, 181, 58, 0.2);
+}
+
+.search-suggestion-item.active {
+    background-color: rgba(232, 181, 58, 0.3);
+}
+
+.search-suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+    background: rgba(15, 15, 15, 0.5);
+    border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+    background: var(--mh-secondary);
+    border-radius: 4px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: var(--mh-primary);
+}
+
+/* Add responsive design for small screens */
+@media screen and (max-width: 768px) {
+    .side-pane {
+        max-width: 100%;
+        width: 100%;
+        min-width: 100%;
+        padding: 0.25rem;
+    }
+
+    #filters {
+        display: none; /* Initially hidden, will be shown via JS */
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    #filters.mobile-visible {
+        display: flex;
+        flex-direction: column;
+        height: 85vh;
+        top: 7.5vh;
+        bottom: 7.5vh;
+        left: 5vw;
+        right: 5vw;
+        width: 90vw;
+        max-width: 90vw;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    /* Create a container for the scrollable content */
+    #filters .filter-content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ensure all filter elements are visible */
+    #filters.mobile-visible .filter-section,
+    #filters.mobile-visible .filter-group,
+    #filters.mobile-visible .search-container,
+    #filters.mobile-visible .foldable {
+        display: block !important;
+        width: 100%;
+    }
+
+    /* Fix control-section and language-section to not affect siblings */
+    .controls-section,
+    .language-section {
+        position: relative;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-top: 1px solid var(--mh-panel-border);
+        margin-top: 10px;
+        padding-top: 0;
+    }
+
+    /* Add toggle buttons for controls and language sections */
+    .section-toggle {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        color: var(--mh-primary);
+        font-family: var(--mh-font-heading);
+        font-size: 1.1rem;
+        padding: 10px 0;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .section-toggle::after {
+        content: "+";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+    }
+
+    .section-toggle.active::after {
+        content: "-";
+    }
+
+    .section-toggle.active + .controls-section,
+    .section-toggle.active + .language-section {
+        max-height: 300px;
+        padding-top: 10px;
+    }
+
+    /* Make the map controls header more prominent */
+    #filters .map-controls-header {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 15px;
+        padding-right: 30px; /* Make room for close button */
+    }
+
+    .map-section,
+    .filter-section,
+    .controls-section,
+    .language-section {
+        width: 100%;
+    }
+
+    .map-dropdown,
+    .language-dropdown {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    #search-filter {
+        width: 100%;
+    }
+
+    .close-menu-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Custom scrollbar styling for mobile */
+    #filters::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #filters::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+
+    #filters::-webkit-scrollbar-thumb {
+        background: var(--mh-secondary);
+        border-radius: 3px;
+    }
+
+    /* Improve touch targets for mobile */
+    .filter-group {
+        padding: 6px 0;
+        margin: 2px 0;
+    }
+
+    /* Make checkboxes larger and easier to tap */
+    #filters input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    /* Increase label size for better touch targets */
+    #filters label {
+        font-size: 1rem;
+        padding: 3px 0;
+        vertical-align: middle;
+    }
+
+    /* Adjust spacing for better mobile experience */
+    .filter-section {
+        margin: 8px 0;
+        padding-bottom: 8px;
+    }
+
+    /* Make dropdown menus easier to tap */
+    select {
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    /* Hide controls and language sections on small screens */
+    .controls-section,
+    .language-section {
+        display: none;
+    }
+
+    /* Adjust spacing since some sections are now hidden */
+    .filter-section:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    /* Make filter section title more compact */
+    .filter-section-title {
+        margin: 6px 0;
+    }
+
+    /* Add Google Maps-like touch controls */
+    #webgl-canvas {
+        touch-action: none; /* Disable browser's default touch actions */
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Show close button on mobile */
+    #filters.mobile-visible .filter-close-button {
+        display: block;
+    }
+
+    /* Remove the pseudo-element close button since we have a real one */
+    #filters.mobile-visible::before {
+        content: none;
+    }
+
+    /* Add a semi-transparent backdrop when filters are visible */
+    .mobile-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        display: none;
+    }
+
+    .mobile-backdrop.visible {
+        display: block;
+    }
+
+    /* Add basic styling for the filter menu */
+    #filters {
+        position: fixed;
+        z-index: 100;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scrollbar-width: thin; /* For Firefox */
+    }
+}
+
+/* Add styles for very small screens (mobile) */
+@media screen and (max-width: 480px) {
+    #filters {
+        padding: 10px;
+    }
+
+    .filter-group {
+        padding: 4px 0;
+        margin: 1px 0;
+    }
+
+    .filter-section-title {
+        font-size: 1rem;
+    }
+
+    .controls-list li {
+        font-size: 0.9rem;
+    }
+
+    /* Even more compact on very small screens */
+    #filters input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+    }
+}
+
+/* Filter close button */
+.filter-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    color: var(--mh-primary);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    display: none;
+}
+
+/* iOS Warning Dialog */
+#ios-warning-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-content {
+    background-color: var(--mh-panel-bg);
+    border: 2px solid var(--mh-primary);
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(232, 181, 58, 0.3);
+}
+
+.dialog-content h2 {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.dialog-content p {
+    color: var(--mh-light);
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.dialog-button {
+    background-color: var(--mh-primary);
+    color: var(--mh-darker);
+    border: none;
+    padding: 10px 20px;
+    font-family: var(--mh-font-heading);
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.dialog-button:hover {
+    background-color: var(--mh-secondary);
+    transform: scale(1.05);
+}
+
+.dialog-button:active {
+    transform: scale(0.98);
+}
+
+.dialog-list {
+    color: var(--mh-light);
+    text-align: left;
+    margin: 10px 0;
+    padding-left: 30px;
+}
+
+.dialog-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.dialog-note {
+    color: var(--mh-accent);
+    font-style: italic;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments for the dialog */
+@media screen and (max-width: 480px) {
+    .dialog-content {
+        padding: 20px;
+        max-width: 95%;
+    }
+
+    .dialog-content h2 {
+        font-size: 20px;
+    }
+
+    .dialog-content p,
+    .dialog-list li {
+        font-size: 14px;
+    }
+
+    .dialog-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 }
