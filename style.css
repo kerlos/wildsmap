@@ -1,4 +1,12 @@
 /* Monster Hunter Wilds Map - Styled by Claude */
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
 
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap");
 
