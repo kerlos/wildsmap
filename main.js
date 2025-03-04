@@ -906,6 +906,37 @@ function initControls(camera) {
     controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
     controls.target.set(-700, 0, 1400);
     camera.lookAt(controls.target);
+
+    // Implement Google Maps-like touch controls for mobile
+    if (window.innerWidth <= 768) {
+        // Configure touch controls like Google Maps
+        controls.touches = {
+            ONE: THREE.TOUCH.PAN, // One finger drag to move camera (pan)
+            TWO: THREE.TOUCH.DOLLY_ROTATE, // Two finger for zoom and rotate
+        };
+
+        // Adjust sensitivity
+        controls.rotateSpeed = 0.5; // Slower rotation for more precise control
+        controls.panSpeed = 0.7; // Adjust pan speed
+        controls.zoomSpeed = 1.2; // Adjust zoom speed
+
+        // Add inertia for smoother movement
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+
+        // Prevent auto-rotation
+        controls.autoRotate = false;
+
+        // Limit vertical rotation to prevent disorientation
+        controls.minPolarAngle = Math.PI * 0.1; // Limit how high user can orbit
+        controls.maxPolarAngle = Math.PI * 0.9; // Limit how low user can orbit
+
+        // Disable right-click context menu on mobile
+        renderer.domElement.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+        });
+    }
+
     return controls;
 }
 
@@ -1125,3 +1156,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
+// Expose camera control functions for mobile touch controls
+window.resetCamera = function () {
+    // Reset camera to initial position with animation
+    const startPosition = camera.position.clone();
+    const startTarget = controls.target.clone();
+    const endPosition = new THREE.Vector3(-600, 600, 1300);
+    const endTarget = new THREE.Vector3(-700, 0, 1400);
+
+    const duration = 1000; // ms
+    const startTime = Date.now();
+
+    function animateReset() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
+
+        camera.position.lerpVectors(startPosition, endPosition, easeProgress);
+        controls.target.lerpVectors(startTarget, endTarget, easeProgress);
+
+        if (progress < 1) {
+            requestAnimationFrame(animateReset);
+        }
+    }
+
+    animateReset();
+};

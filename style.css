@@ -10,6 +10,10 @@ html {
     box-sizing: inherit;
 }
 
+.hidden {
+    display: none !important;
+}
+
 :root {
     --mh-primary: #e8b53a;
     --mh-secondary: #a67c00;
@@ -484,9 +488,6 @@ body {
 }
 
 .controls-section {
-    margin-top: 20px;
-    border-top: 1px solid var(--mh-panel-border);
-    padding-top: 15px;
     width: 100%;
 }
 
@@ -636,4 +637,282 @@ select {
 
 .search-suggestions::-webkit-scrollbar-thumb:hover {
     background: var(--mh-primary);
+}
+
+/* Add responsive design for small screens */
+@media screen and (max-width: 768px) {
+    .side-pane {
+        max-width: 100%;
+        width: 100%;
+        min-width: 100%;
+        padding: 0.25rem;
+    }
+
+    #filters {
+        display: none; /* Initially hidden, will be shown via JS */
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    #filters.mobile-visible {
+        display: flex;
+        flex-direction: column;
+        height: 85vh;
+        top: 7.5vh;
+        bottom: 7.5vh;
+        left: 5vw;
+        right: 5vw;
+        width: 90vw;
+        max-width: 90vw;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        padding-bottom: 20px;
+    }
+
+    /* Create a container for the scrollable content */
+    #filters .filter-content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ensure all filter elements are visible */
+    #filters.mobile-visible .filter-section,
+    #filters.mobile-visible .filter-group,
+    #filters.mobile-visible .search-container,
+    #filters.mobile-visible .foldable {
+        display: block !important;
+        width: 100%;
+    }
+
+    /* Fix control-section and language-section to not affect siblings */
+    .controls-section,
+    .language-section {
+        position: relative;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-top: 1px solid var(--mh-panel-border);
+        margin-top: 10px;
+        padding-top: 0;
+    }
+
+    /* Add toggle buttons for controls and language sections */
+    .section-toggle {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        border: none;
+        color: var(--mh-primary);
+        font-family: var(--mh-font-heading);
+        font-size: 1.1rem;
+        padding: 10px 0;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .section-toggle::after {
+        content: "+";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+    }
+
+    .section-toggle.active::after {
+        content: "-";
+    }
+
+    .section-toggle.active + .controls-section,
+    .section-toggle.active + .language-section {
+        max-height: 300px;
+        padding-top: 10px;
+    }
+
+    /* Make the map controls header more prominent */
+    #filters .map-controls-header {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 15px;
+        padding-right: 30px; /* Make room for close button */
+    }
+
+    .map-section,
+    .filter-section,
+    .controls-section,
+    .language-section {
+        width: 100%;
+    }
+
+    .map-dropdown,
+    .language-dropdown {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    #search-filter {
+        width: 100%;
+    }
+
+    .close-menu-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Custom scrollbar styling for mobile */
+    #filters::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #filters::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+
+    #filters::-webkit-scrollbar-thumb {
+        background: var(--mh-secondary);
+        border-radius: 3px;
+    }
+
+    /* Improve touch targets for mobile */
+    .filter-group {
+        padding: 6px 0;
+        margin: 2px 0;
+    }
+
+    /* Make checkboxes larger and easier to tap */
+    #filters input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    /* Increase label size for better touch targets */
+    #filters label {
+        font-size: 1rem;
+        padding: 3px 0;
+        vertical-align: middle;
+    }
+
+    /* Adjust spacing for better mobile experience */
+    .filter-section {
+        margin: 8px 0;
+        padding-bottom: 8px;
+    }
+
+    /* Make dropdown menus easier to tap */
+    select {
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    /* Hide controls and language sections on small screens */
+    .controls-section,
+    .language-section {
+        display: none;
+    }
+
+    /* Adjust spacing since some sections are now hidden */
+    .filter-section:last-of-type {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    /* Make filter section title more compact */
+    .filter-section-title {
+        margin: 6px 0;
+    }
+
+    /* Add Google Maps-like touch controls */
+    #webgl-canvas {
+        touch-action: none; /* Disable browser's default touch actions */
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Show close button on mobile */
+    #filters.mobile-visible .filter-close-button {
+        display: block;
+    }
+
+    /* Remove the pseudo-element close button since we have a real one */
+    #filters.mobile-visible::before {
+        content: none;
+    }
+
+    /* Add a semi-transparent backdrop when filters are visible */
+    .mobile-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        display: none;
+    }
+
+    .mobile-backdrop.visible {
+        display: block;
+    }
+
+    /* Add basic styling for the filter menu */
+    #filters {
+        position: fixed;
+        z-index: 100;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scrollbar-width: thin; /* For Firefox */
+    }
+}
+
+/* Add styles for very small screens (mobile) */
+@media screen and (max-width: 480px) {
+    #filters {
+        padding: 10px;
+    }
+
+    .filter-group {
+        padding: 4px 0;
+        margin: 1px 0;
+    }
+
+    .filter-section-title {
+        font-size: 1rem;
+    }
+
+    .controls-list li {
+        font-size: 0.9rem;
+    }
+
+    /* Even more compact on very small screens */
+    #filters input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+    }
+}
+
+/* Filter close button */
+.filter-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    color: var(--mh-primary);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    display: none;
 }
