@@ -491,6 +491,30 @@ body {
     width: 100%;
 }
 
+/* Controls for small screens */
+@media screen and (max-width: 768px) {
+    #filters {
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+        padding: 15px;
+    }
+
+    #filters.mobile-visible {
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .filter-content {
+        width: 100%;
+    }
+}
+
 .controls-section h2 {
     font-family: var(--mh-font-heading);
     color: var(--mh-primary);

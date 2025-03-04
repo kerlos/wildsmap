@@ -140,28 +140,11 @@ class Stage {
             document.getElementById("trap")
         );
         this.categoryToggles.set(
-            "INVISIBLE",
-            document.getElementById("hidden")
-        );
-        this.categoryToggles.set(
-            "INVISIBLE_BEACON",
-            document.getElementById("hidden")
-        );
-        this.categoryToggles.set(
             "NON_FILTERING_TARGET",
             document.getElementById("non-filtering")
         );
         //this.categoryToggles.set('ALL', document.getElementById('all-category'));
         this.categoryToggles.set("SLINGER", document.getElementById("slinger"));
-        this.categoryToggles.set(
-            "FERTILITY",
-            document.getElementById("fertility")
-        );
-        this.categoryToggles.set("RUIN", document.getElementById("ruin"));
-        this.categoryToggles.set(
-            "ABNORMAL",
-            document.getElementById("abnormal")
-        );
 
         // stages
 
@@ -829,28 +812,28 @@ function updateToggles() {
                 .forEach((sprite) => (sprite.visible = toggle.checked));
     });
 
-    st101.gimmicks.forEach((sprite) => {
-        const gimmick = gimmicks.get(sprite.gimmickId);
-        if (
-            gimmick.data.weather_environments !== undefined &&
-            !gimmick.data.weather_repop
-        ) {
-            const envs = gimmick.data.weather_environments;
-            if (
-                !(
-                    ((envs.includes("FERTILITY") &&
-                        st101.categoryToggles.get("FERTILITY").checked) ||
-                        (envs.includes("RUIN") &&
-                            st101.categoryToggles.get("RUIN").checked) ||
-                        (envs.includes("ABNORMAL") &&
-                            st101.categoryToggles.get("ABNORMAL").checked)) &&
-                    sprite.visible
-                )
-            ) {
-                sprite.visible = false;
-            }
-        }
-    });
+    // st101.gimmicks.forEach((sprite) => {
+    //     const gimmick = gimmicks.get(sprite.gimmickId);
+    //     if (
+    //         gimmick.data.weather_environments !== undefined &&
+    //         !gimmick.data.weather_repop
+    //     ) {
+    //         const envs = gimmick.data.weather_environments;
+    //         if (
+    //             !(
+    //                 ((envs.includes("FERTILITY") &&
+    //                     st101.categoryToggles.get("FERTILITY").checked) ||
+    //                     (envs.includes("RUIN") &&
+    //                         st101.categoryToggles.get("RUIN").checked) ||
+    //                     (envs.includes("ABNORMAL") &&
+    //                         st101.categoryToggles.get("ABNORMAL").checked)) &&
+    //                 sprite.visible
+    //             )
+    //         ) {
+    //             sprite.visible = false;
+    //         }
+    //     }
+    // });
 }
 
 updateSearch();
@@ -860,34 +843,6 @@ function updateFilters(event) {
         if (event.target.classList.contains("search")) {
             updateSearch();
         } else {
-            if (!event.target.classList.contains("selectall")) {
-                if (selectToggle.checked && !event.target.checked) {
-                    selectToggle.checked = false;
-                }
-            } else {
-                if (event.target.checked) {
-                    st101.categoryToggles.forEach((toggle) => {
-                        toggle.checked = true;
-                    });
-                    endemicToggle.checked = true;
-                    areaNumToggle.checked = true;
-                    deselectToggle.checked = false;
-                }
-            }
-            if (!event.target.classList.contains("deselectall")) {
-                if (deselectToggle.checked && event.target.checked) {
-                    deselectToggle.checked = false;
-                }
-            } else {
-                if (event.target.checked) {
-                    st101.categoryToggles.forEach((toggle) => {
-                        toggle.checked = false;
-                    });
-                    endemicToggle.checked = false;
-                    areaNumToggle.checked = false;
-                    selectToggle.checked = false;
-                }
-            }
             updateToggles();
         }
     }
