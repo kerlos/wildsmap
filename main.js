@@ -259,10 +259,10 @@ function loadGimmicks() {
     Object.entries(gimmick_data).forEach(([key, value]) => {
         var path = "";
         if (value.map_icon != "INVALID") {
-            path = "./assets/gimmick_icons/MHWilds-" + key + " Map Icon.png";
+            path = "./assets/item_icons/MHWilds-" + key + " Map Icon.png";
         } else {
             path =
-                "./assets/gimmick_icons/MHWilds-" +
+                "./assets/item_icons/MHWilds-" +
                 value.icon +
                 " Icon " +
                 value.color +
@@ -807,4 +807,96 @@ document.querySelectorAll(".toggleButton").forEach((button) => {
             arrow.textContent = "▼"; // Arrow points down when expanded
         }
     });
+
+    // Auto-open the Filters menu by default
+    if (button.parentElement.id === "filters") {
+        let content = button.nextElementSibling;
+        let arrow = button.querySelector(".arrow");
+        content.style.maxHeight = content.scrollHeight + "px";
+        arrow.textContent = "▼"; // Arrow points down when expanded
+    }
+});
+
+// Handle Close Menu button
+const closeMenuButton = document.querySelector(".close-menu-button");
+if (closeMenuButton) {
+    closeMenuButton.addEventListener("click", function () {
+        const filtersMenu = document.getElementById("filters");
+        if (filtersMenu) {
+            filtersMenu.style.display =
+                filtersMenu.style.display === "none" ? "flex" : "none";
+        }
+    });
+}
+
+// Update map title based on selected map
+const mapDropdown = document.querySelector(".map-dropdown");
+const mapTitle = document.getElementById("map-title");
+if (mapDropdown && mapTitle) {
+    mapDropdown.addEventListener("change", function () {
+        const selectedOption = this.options[this.selectedIndex];
+        mapTitle.textContent = selectedOption.textContent;
+
+        // You may want to add code here to load the selected map
+        // For example: loadMap(this.value);
+    });
+}
+
+// Handle the toggle all button
+const toggleAllButton = document.getElementById("toggle-all-button");
+const selectAllCheckbox = document.getElementById("selectall");
+const deselectAllCheckbox = document.getElementById("deselect");
+
+if (toggleAllButton) {
+    let selectMode = true; // Start in select mode
+
+    toggleAllButton.addEventListener("click", function () {
+        selectMode = !selectMode;
+
+        if (selectMode) {
+            // Select All mode
+            toggleAllButton.textContent = "Deselect All";
+            toggleAllButton.classList.add("deselect-mode");
+            selectAllCheckbox.checked = true;
+            deselectAllCheckbox.checked = false;
+
+            // Trigger the change event on selectAllCheckbox
+            const event = new Event("change", { bubbles: true });
+            selectAllCheckbox.dispatchEvent(event);
+        } else {
+            // Deselect All mode
+            toggleAllButton.textContent = "Select All";
+            toggleAllButton.classList.remove("deselect-mode");
+            selectAllCheckbox.checked = false;
+            deselectAllCheckbox.checked = true;
+
+            // Trigger the change event on deselectAllCheckbox
+            const event = new Event("change", { bubbles: true });
+            deselectAllCheckbox.dispatchEvent(event);
+        }
+    });
+}
+
+// Ensure the foldable content has the right height
+document.addEventListener("DOMContentLoaded", function () {
+    const foldableElements = document.querySelectorAll(".foldable");
+    foldableElements.forEach(function (element) {
+        if (element.parentElement.id === "filters") {
+            element.style.maxHeight = element.scrollHeight + "px";
+        }
+    });
+
+    // Initialize toggle button state based on checkboxes
+    const toggleAllButton = document.getElementById("toggle-all-button");
+    const selectAllCheckbox = document.getElementById("selectall");
+
+    if (toggleAllButton && selectAllCheckbox) {
+        if (selectAllCheckbox.checked) {
+            toggleAllButton.textContent = "Deselect All";
+            toggleAllButton.classList.add("deselect-mode");
+        } else {
+            toggleAllButton.textContent = "Select All";
+            toggleAllButton.classList.remove("deselect-mode");
+        }
+    }
 });

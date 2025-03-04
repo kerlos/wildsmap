@@ -1,116 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" />
         <title>Wilds Map</title>
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
-        <link rel="stylesheet" href="style.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="stylesheet" href="style.css" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
     </head>
     <body>
         <div id="blurred-backdrop"></div>
         <div class="side-pane">
-            <div class="side-pane-item" id="camera-position"></div>
-            <div class="side-pane-item language-box">
-                <label for="language">Language:</label>
-                <select class="language-dropdown" id="language" name="language">
-                    <option value="English">English</option>
-                    <option value="Thai">Thai</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="French">Français</option>
-                    <option value="Italian">Italian</option>
-                    <option value="German">Deutsch</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="Russian">Russian</option>
-                    <option value="Polish">Polish</option>
-                    <option value="PortugueseBr">Portuguese</option>
-                    <option value="Korean">Korean</option>
-                    <option value="TransitionalChinese">Trad. Chinese</option>
-                    <option value="SimplelifiedChinese">Simpl. Chinese</option>
-                    <option value="Arabic">Arabic</option>
-                    <option value="LatinAmericanSpanish">Lat. Amer. Spanish<option>
-                </select>
-            </div>
-            <div class="side-pane-item" id="selected-item"> </div>
-        </div>
-
-        <div class="side-pane">
+            <h1 id="map-title">Windward Plains</h1>
+            <button class="close-menu-button">Close Menu</button>
 
             <div class="side-pane-item collapsable" id="filters">
+                <div class="map-controls-header">Map Controls</div>
 
-                <button class="toggleButton">
-                    <span class="arrow">▶</span> Filters
-                </button>
+                <div class="map-section">
+                    <h2>Select Map</h2>
+                    <select class="map-dropdown">
+                        <option value="st101">Windward Plains</option>
+                        <option value="st102">Scarlet Forest</option>
+                        <option value="st103">Oilwell Basin</option>
+                        <option value="st104">Iceshard Cliffs</option>
+                        <option value="st105">Ruins of Wyveria</option>
+                    </select>
+                </div>
                 <div class="foldable">
-                    <div>
-                        <input type="text" class="search" id="search-filter" name="search-filter" checked>
+                    <input
+                        type="text"
+                        class="search"
+                        id="search-filter"
+                        name="search-filter"
+                        placeholder="Search for items..."
+                    />
+
+                    <div class="filter-group toggle-all-group">
+                        <button
+                            id="toggle-all-button"
+                            class="toggle-all-button"
+                        >
+                            Deselect All
+                        </button>
                     </div>
-                    <div>
-                        <input type="checkbox" class="selectall" id="selectall" name="selectall" checked>
-                        <label for="selectall">Select All</label>
+
+                    <div class="filter-group">
+                        <input
+                            type="checkbox"
+                            id="collectable"
+                            name="collectable"
+                            checked
+                        />
+                        <label for="collectable">Gathering Points</label>
                     </div>
-                    <div>
-                        <input type="checkbox" class="deselectall" id="deselect" name="deselect">
-                        <label for="deselect">Deselect All</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="collectable" name="collectable" checked>
-                        <label for="collectable">Collectables</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="trap" name="trap" checked>
-                        <label for="trap">Environment</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="hidden" name="hidden">
-                        <label for="hidden">Hidden</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="non-filtering" name="non-filtering" checked>
-                        <label for="non-filtering">Camps & Villages</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="slinger" name="slinger" checked>
-                        <label for="slinger">Slinger Ammo</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="endemic" name="endemic" checked>
+                    <div class="filter-group">
+                        <input
+                            type="checkbox"
+                            id="endemic"
+                            name="endemic"
+                            checked
+                        />
                         <label for="endemic">Endemic Life</label>
                     </div>
-                    <div>
-                        <input type="checkbox" id="areanumbers" name="areanumbers" checked>
+                    <div class="filter-group">
+                        <input
+                            type="checkbox"
+                            id="non-filtering"
+                            name="non-filtering"
+                            checked
+                        />
+                        <label for="non-filtering">Camps & Villages</label>
+                    </div>
+                    <div class="filter-group">
+                        <input
+                            type="checkbox"
+                            id="areanumbers"
+                            name="areanumbers"
+                            checked
+                        />
                         <label for="areanumbers">Area Numbers</label>
                     </div>
-                    <div>
-                        <input type="checkbox" id="fertility" name="fertility" checked>
+                    <div class="filter-group">
+                        <input type="checkbox" id="trap" name="trap" checked />
+                        <label for="trap">Environment</label>
+                    </div>
+                    <div class="filter-group">
+                        <input
+                            type="checkbox"
+                            id="slinger"
+                            name="slinger"
+                            checked
+                        />
+                        <label for="slinger">Slinger Ammo</label>
+                    </div>
+                    <div class="filter-group" style="display: none">
+                        <input
+                            type="checkbox"
+                            id="fertility"
+                            name="fertility"
+                            checked
+                        />
                         <label for="fertility">Fertility</label>
                     </div>
-                    <div>
-                        <input type="checkbox" id="ruin" name="ruin" checked>
+                    <div class="filter-group" style="display: none">
+                        <input type="checkbox" id="ruin" name="ruin" checked />
                         <label for="ruin">Ruin</label>
                     </div>
-                    <div>
-                        <input type="checkbox" id="abnormal" name="abnormal" checked>
+
+                    <!-- Hidden checkboxes for backward compatibility -->
+                    <div style="display: none">
+                        <input
+                            type="checkbox"
+                            class="selectall"
+                            id="selectall"
+                            name="selectall"
+                            checked
+                        />
+                        <input
+                            type="checkbox"
+                            class="deselectall"
+                            id="deselect"
+                            name="deselect"
+                        />
+                    </div>
+
+                    <div class="filter-group hidden">
+                        <input type="checkbox" id="hidden" name="hidden" />
+                        <label for="hidden">Hidden</label>
+                    </div>
+                    <div class="filter-group hidden">
+                        <input
+                            type="checkbox"
+                            id="abnormal"
+                            name="abnormal"
+                            checked
+                        />
                         <label for="abnormal">Abnormal</label>
                     </div>
+                </div>
+
+                <div class="controls-section">
+                    <h2>Controls</h2>
+                    <ul class="controls-list">
+                        <li>• Left-click + drag to rotate</li>
+                        <li>• Right-click + drag to pan</li>
+                        <li>• Scroll to zoom</li>
+                        <li>• Hover over icons for details</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
+        <div class="side-pane utility-pane">
+            <div
+                class="side-pane-item"
+                id="camera-position"
+                style="display: none"
+            ></div>
+            <div class="side-pane-item" id="selected-item"></div>
+        </div>
+
         <div class="side-pane">
-            <div class="side-pane-item" id="site-info">
+            <div class="side-pane-item" id="site-info" style="display: none">
                 <span id="version"></span>
                 <span id="credits">
                     <h3 style="margin: 0">Credits</h3>
-                    <strong>NSA-Cloud</strong> - help with models<br>
-                    <strong>PB472</strong> - help with models<br>
-                    <strong>Me (cola)</strong><br> </span>
+                    <strong>NSA-Cloud</strong> - help with models<br />
+                    <strong>PB472</strong> - help with models<br />
+                    <strong>Me (cola)</strong><br />
+                </span>
                 <span>Note: things will be changing and possibly breaking</span>
             </div>
         </div>
+
+        <!-- Language switch moved to bottom right -->
+        <div class="side-pane-item language-box" id="language-container">
+            <label for="language">Language:</label>
+            <select class="language-dropdown" id="language" name="language">
+                <option value="Thai">Thai</option>
+                <option value="English">English</option>
+            </select>
+        </div>
+
         <canvas id="webgl-canvas"></canvas>
         <script type="module" src="/main.js"></script>
-
     </body>
 </html>
