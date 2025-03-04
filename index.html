@@ -113,9 +113,8 @@
                             />
                             <label for="slinger">Slinger Ammo</label>
                         </div>
-                    </div>
 
-                    <div class="filter-section">
+                        <!-- Hidden checkboxes for backward compatibility -->
                         <div class="filter-group" style="display: none">
                             <input
                                 type="checkbox"
@@ -134,37 +133,35 @@
                             />
                             <label for="ruin">Ruin</label>
                         </div>
-                    </div>
+                        <div style="display: none">
+                            <input
+                                type="checkbox"
+                                class="selectall"
+                                id="selectall"
+                                name="selectall"
+                                checked
+                            />
+                            <input
+                                type="checkbox"
+                                class="deselectall"
+                                id="deselect"
+                                name="deselect"
+                            />
+                        </div>
 
-                    <!-- Hidden checkboxes for backward compatibility -->
-                    <div style="display: none">
-                        <input
-                            type="checkbox"
-                            class="selectall"
-                            id="selectall"
-                            name="selectall"
-                            checked
-                        />
-                        <input
-                            type="checkbox"
-                            class="deselectall"
-                            id="deselect"
-                            name="deselect"
-                        />
-                    </div>
-
-                    <div class="filter-group hidden">
-                        <input type="checkbox" id="hidden" name="hidden" />
-                        <label for="hidden">Hidden</label>
-                    </div>
-                    <div class="filter-group hidden">
-                        <input
-                            type="checkbox"
-                            id="abnormal"
-                            name="abnormal"
-                            checked
-                        />
-                        <label for="abnormal">Abnormal</label>
+                        <div class="filter-group hidden">
+                            <input type="checkbox" id="hidden" name="hidden" />
+                            <label for="hidden">Hidden</label>
+                        </div>
+                        <div class="filter-group hidden">
+                            <input
+                                type="checkbox"
+                                id="abnormal"
+                                name="abnormal"
+                                checked
+                            />
+                            <label for="abnormal">Abnormal</label>
+                        </div>
                     </div>
                 </div>
 

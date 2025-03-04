@@ -224,6 +224,7 @@ body {
 
 #filters .foldable {
     width: 100%;
+    overflow: hidden;
 }
 
 .filter-section {
@@ -423,9 +424,10 @@ body {
 }
 
 .foldable {
-    overflow: hidden;
+    overflow: scroll;
     transition: max-height 0.3s ease;
     max-height: 1000px;
+    box-sizing: border-box;
 }
 
 #language-container {
