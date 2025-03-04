@@ -372,8 +372,6 @@ loadLabelPoints();
 
 const st101 = new Stage("st101", "Windward Plains", "./assets/map.glb", scene);
 const sprites = [];
-const st101 = new Stage("st101", "Windward Plains", "./assets/map.glb", scene);
-const sprites = [];
 gimmicks.forEach((value, key) => {
     value.data.points.forEach((point) => {
         if (point !== undefined) {
