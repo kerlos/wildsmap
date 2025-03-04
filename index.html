@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Wilds Map</title>
+        <title>Monster Hunter Wilds Map</title>
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <link rel="stylesheet" href="style.css" />
         <meta
@@ -12,6 +12,7 @@
     </head>
     <body>
         <div id="blurred-backdrop"></div>
+
         <div class="side-pane">
             <h1 id="map-title" style="display: none">Windward Plains</h1>
             <button class="close-menu-button">Close Menu</button>
@@ -30,15 +31,20 @@
                     </select>
                 </div>
                 <div class="foldable">
-                    <input
-                        type="text"
-                        class="search"
-                        id="search-filter"
-                        name="search-filter"
-                        placeholder="Search for items..."
-                    />
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            class="search"
+                            id="search-filter"
+                            name="search-filter"
+                            placeholder="Search for items..."
+                        />
+                    </div>
 
-                    <div class="filter-group toggle-all-group">
+                    <div
+                        class="filter-group toggle-all-group"
+                        style="display: none"
+                    >
                         <button
                             id="toggle-all-button"
                             class="toggle-all-button"
@@ -47,71 +53,87 @@
                         </button>
                     </div>
 
-                    <div class="filter-group">
-                        <input
-                            type="checkbox"
-                            id="collectable"
-                            name="collectable"
-                            checked
-                        />
-                        <label for="collectable">Gathering Points</label>
+                    <div class="filter-section">
+                        <h3 class="filter-section-title">Map Elements</h3>
+                        <div class="filter-group">
+                            <input
+                                type="checkbox"
+                                id="collectable"
+                                name="collectable"
+                                checked
+                            />
+                            <label for="collectable">Gathering Points</label>
+                        </div>
+                        <div class="filter-group">
+                            <input
+                                type="checkbox"
+                                id="endemic"
+                                name="endemic"
+                                checked
+                            />
+                            <label for="endemic">Endemic Life</label>
+                        </div>
+                        <div class="filter-group" style="display: none">
+                            <input type="checkbox" id="hidden" name="hidden" />
+                            <label for="hidden">Hidden</label>
+                        </div>
+                        <div class="filter-group">
+                            <input
+                                type="checkbox"
+                                id="non-filtering"
+                                name="non-filtering"
+                                checked
+                            />
+                            <label for="non-filtering">Camps & Villages</label>
+                        </div>
+                        <div class="filter-group" style="display: none">
+                            <input
+                                type="checkbox"
+                                id="areanumbers"
+                                name="areanumbers"
+                                checked
+                            />
+                            <label for="areanumbers">Area Numbers</label>
+                        </div>
+                        <div class="filter-group">
+                            <input
+                                type="checkbox"
+                                id="trap"
+                                name="trap"
+                                checked
+                            />
+                            <label for="trap">Environment</label>
+                        </div>
+                        <div class="filter-group">
+                            <input
+                                type="checkbox"
+                                id="slinger"
+                                name="slinger"
+                                checked
+                            />
+                            <label for="slinger">Slinger Ammo</label>
+                        </div>
                     </div>
-                    <div class="filter-group">
-                        <input
-                            type="checkbox"
-                            id="endemic"
-                            name="endemic"
-                            checked
-                        />
-                        <label for="endemic">Endemic Life</label>
-                    </div>
-                    <div class="filter-group" style="display: none">
-                        <input type="checkbox" id="hidden" name="hidden" />
-                        <label for="hidden">Hidden</label>
-                    </div>
-                    <div class="filter-group">
-                        <input
-                            type="checkbox"
-                            id="non-filtering"
-                            name="non-filtering"
-                            checked
-                        />
-                        <label for="non-filtering">Camps & Villages</label>
-                    </div>
-                    <div class="filter-group">
-                        <input
-                            type="checkbox"
-                            id="areanumbers"
-                            name="areanumbers"
-                            checked
-                        />
-                        <label for="areanumbers">Area Numbers</label>
-                    </div>
-                    <div class="filter-group">
-                        <input type="checkbox" id="trap" name="trap" checked />
-                        <label for="trap">Environment</label>
-                    </div>
-                    <div class="filter-group">
-                        <input
-                            type="checkbox"
-                            id="slinger"
-                            name="slinger"
-                            checked
-                        />
-                        <label for="slinger">Slinger Ammo</label>
-                    </div>
-                    <div class="filter-group" style="display: none">
-                        <input
-                            type="checkbox"
-                            id="fertility"
-                            name="fertility"
-                            checked
-                        />
-                        <label for="fertility">Fertility</label>
-                    </div>
-                    <div class="filter-group" style="display: none">
-                        <input type="checkbox" id="ruin" name="ruin" checked />
-                        <label for="ruin">Ruin</label>
+
+                    <div class="filter-section">
+                        <div class="filter-group" style="display: none">
+                            <input
+                                type="checkbox"
+                                id="fertility"
+                                name="fertility"
+                                checked
+                            />
+                            <label for="fertility">Fertility</label>
+                        </div>
+                        <div class="filter-group" style="display: none">
+                            <input
+                                type="checkbox"
+                                id="ruin"
+                                name="ruin"
+                                checked
+                            />
+                            <label for="ruin">Ruin</label>
+                        </div>
                     </div>
 
                     <!-- Hidden checkboxes for backward compatibility -->
@@ -155,7 +177,7 @@
                         <li>• Hover over icons for details</li>
                     </ul>
                 </div>
-                <div style="margin-top: 10px">
+                <div class="language-section">
                     <label for="language">Language:</label>
                     <select
                         class="language-dropdown"
@@ -178,17 +200,19 @@
             <div class="side-pane-item" id="selected-item"></div>
         </div>
 
-        <div class="side-pane">
-            <div class="side-pane-item" id="site-info" style="display: none">
+        <div class="side-pane footer-pane" style="display: none">
+            <div class="side-pane-item" id="site-info">
                 <span id="version"></span>
                 <span id="credits">
-                    <h3 style="margin: 0">Credits</h3>
+                    <h3 class="credits-title">Credits</h3>
                     <strong>NSA-Cloud</strong> - help with models<br />
                     <strong>PB472</strong> - help with models<br />
                     <strong>cola</strong> - map creator<br />
-                    <strong>keRLos - update up</strong><br />
+                    <strong>keRLos</strong> - update up<br />
                 </span>
-                <span>Note: things will be changing and possibly breaking</span>
+                <span class="note"
+                    >Note: things will be changing and possibly breaking</span
+                >
             </div>
         </div>
 

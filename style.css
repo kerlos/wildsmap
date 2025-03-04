@@ -1,6 +1,26 @@
+/* Monster Hunter Wilds Map - Styled by Claude */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap");
+
+:root {
+    --mh-primary: #e8b53a;
+    --mh-secondary: #a67c00;
+    --mh-dark: #1a1a1a;
+    --mh-darker: #0f0f0f;
+    --mh-light: #f0f0f0;
+    --mh-accent: #c45826;
+    --mh-border: rgba(232, 181, 58, 0.5);
+    --mh-panel-bg: rgba(15, 15, 15, 0.9);
+    --mh-panel-border: rgba(232, 181, 58, 0.3);
+    --mh-font-heading: "Cinzel", serif;
+    --mh-font-body: "Noto Sans Thai", sans-serif;
+}
+
 body {
     margin: 0;
     overflow: hidden;
+    font-family: var(--mh-font-body);
+    background-color: var(--mh-darker);
 }
 
 #blurred-backdrop {
@@ -12,6 +32,43 @@ body {
     background-position: center;
     z-index: -1;
     overflow: hidden;
+    filter: brightness(0.7) contrast(1.1);
+}
+
+/* Site Header */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 0;
+    text-align: center;
+    z-index: 10;
+    border-bottom: 1px solid var(--mh-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.site-title {
+    font-family: var(--mh-font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--mh-primary);
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.header-subtitle {
+    font-family: var(--mh-font-body);
+    font-size: 1rem;
+    color: var(--mh-light);
+    margin-top: 5px;
 }
 
 #webgl-canvas {
@@ -25,26 +82,34 @@ body {
 
 .tooltip {
     position: absolute;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    font-family: Arial, sans-serif;
-    font-size: 1.3rem;
+    background: var(--mh-panel-bg);
+    color: var(--mh-light);
+    padding: 0.8rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--mh-border);
+    font-family: var(--mh-font-body);
+    font-size: 1.1rem;
     pointer-events: none;
     display: none;
     max-width: 15rem;
     word-wrap: break-word;
     z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .tooltip-title {
+    font-family: var(--mh-font-heading);
     font-weight: bold;
-    color: cyan;
+    color: var(--mh-primary);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--mh-border);
+    padding-bottom: 5px;
 }
 
 .tooltip-sub {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    color: #ccc;
 }
 
 .tooltip-list {
@@ -55,6 +120,7 @@ body {
 .tooltip-list li {
     list-style-type: disc;
     margin-bottom: 5px;
+    color: #ddd;
 }
 
 .side-pane {
@@ -64,7 +130,7 @@ body {
     min-width: 15rem;
     padding: 0.5rem;
     font-size: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     flex-direction: column;
     word-wrap: break-word;
     z-index: 1;
@@ -72,16 +138,18 @@ body {
 }
 
 .side-pane-item {
-    color: white;
-    font-family: Arial, sans-serif;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 0.6rem;
-    margin: 0.1rem;
-    border-radius: 0.5rem;
+    color: var(--mh-light);
+    font-family: var(--mh-font-body);
+    background: var(--mh-panel-bg);
+    padding: 1rem;
+    margin: 0.2rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--mh-panel-border);
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .language-box {
@@ -94,8 +162,23 @@ body {
 
 .language-dropdown {
     max-width: 8rem;
-    text-align: center;
+    text-align: left;
     align-items: center;
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-family: var(--mh-font-body);
+}
+
+.language-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--mh-panel-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 #selected-item {
@@ -115,15 +198,17 @@ body {
     left: 0.5rem;
     flex-direction: column;
     align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.85);
-    border-radius: 10px;
+    background-color: var(--mh-panel-bg);
+    border: 1px solid var(--mh-panel-border);
+    border-radius: 5px;
     padding: 20px;
     width: 300px;
-    color: white;
-    font-family: Arial, sans-serif;
-    top: 55px;
-    max-height: 95vh;
+    color: var(--mh-light);
+    font-family: var(--mh-font-body);
+    top: 60px; /* Adjusted to account for header */
+    max-height: calc(95vh - 80px); /* Adjusted to account for header */
     overflow-y: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 #filters .toggleButton {
@@ -133,10 +218,25 @@ body {
     padding: 5px 0;
     width: 100%;
     justify-content: flex-start;
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
 }
 
 #filters .foldable {
     width: 100%;
+}
+
+.filter-section {
+    margin: 15px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--mh-panel-border);
+}
+
+.filter-section-title {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    font-size: 1.1rem;
+    margin: 10px 0;
 }
 
 .filter-group {
@@ -148,8 +248,8 @@ body {
 .filter-controls {
     margin: 15px 0;
     padding: 10px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid var(--mh-panel-border);
+    border-bottom: 1px solid var(--mh-panel-border);
 }
 
 .search-container {
@@ -161,7 +261,7 @@ body {
     margin-right: 10px;
     width: 18px;
     height: 18px;
-    accent-color: #3498db;
+    accent-color: var(--mh-primary);
 }
 
 #filters label {
@@ -173,15 +273,16 @@ body {
 }
 
 #search-filter {
-    padding: 8px;
-    color: white;
-    background: rgba(52, 73, 94, 0.7);
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    color: var(--mh-light);
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 3px;
+    border: 1px solid var(--mh-border);
     outline: none;
     width: 100%;
     font-size: 1rem;
     margin-bottom: 10px;
+    font-family: var(--mh-font-body);
 }
 
 .search::placeholder {
@@ -193,39 +294,71 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 15px;
-    color: white;
+    color: var(--mh-primary);
+    font-family: var(--mh-font-heading);
+    text-align: center;
+    border-bottom: 1px solid var(--mh-border);
+    padding-bottom: 10px;
+    width: 100%;
 }
 
 /* Close Menu Button */
 .close-menu-button {
-    background-color: rgba(0, 0, 0, 0.85);
-    color: white;
-    border: none;
-    border-radius: 5px;
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
     padding: 10px 15px;
     font-size: 1.1rem;
     cursor: pointer;
     margin-bottom: 15px;
     display: inline-block;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    font-family: var(--mh-font-body);
+    font-weight: 500;
 }
 
 .close-menu-button:hover {
-    background-color: rgba(52, 152, 219, 0.9);
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
 }
 
 /* Style for when menu is closed and button shows "Open Menu" */
 .close-menu-button.menu-closed {
-    background-color: rgba(52, 152, 219, 0.7);
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
+}
+
+/* Footer pane */
+.footer-pane {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0.5rem;
 }
 
 #site-info {
-    position: fixed;
     font-size: 0.8rem;
     display: flex;
-    bottom: 0.5rem;
     flex-direction: column;
     align-items: flex-start;
+    color: var(--mh-light);
+}
+
+.credits-title {
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+}
+
+#site-info strong {
+    color: var(--mh-primary);
+}
+
+.note {
+    margin-top: 10px;
+    font-style: italic;
+    color: #aaa;
 }
 
 @media (min-resolution: 2dppx) {
@@ -248,146 +381,201 @@ body {
         flex-direction: row;
         gap: 0.1rem;
         max-width: 40%;
-        justify-content: center;
-        width: 40%;
     }
-
     #language-container {
-        font-size: 0.8rem;
-        max-width: 12rem;
+        flex-direction: row;
+        gap: 0.1rem;
+        max-width: 40%;
     }
-
     #selected-item {
         max-width: 40%;
-        display: none;
     }
-
     #camera-position {
-        text-align: center;
-        align-items: center;
         max-width: 40%;
+    }
+    .site-title {
+        font-size: 1.5rem;
+    }
+    .header-subtitle {
+        font-size: 0.8rem;
     }
 }
 
 .toggleButton {
+    background: none;
+    border: none;
+    color: var(--mh-primary);
+    cursor: pointer;
     display: flex;
     align-items: center;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-    color: white;
-    border-radius: 5px;
-    width: 100%;
-    text-align: left;
+    font-family: var(--mh-font-heading);
+    font-weight: bold;
+    padding: 5px 0;
 }
+
 .toggleButton:hover {
-    background: rgba(52, 152, 219, 0.1); /* Slight hover effect */
+    color: var(--mh-accent);
 }
 
 .arrow {
-    margin-right: 8px;
-    transition: transform 0.2s ease;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
 }
 
 .foldable {
-    max-height: none;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: max-height 0.3s ease;
+    max-height: 1000px;
 }
 
-/* New styles for the language container at bottom right */
 #language-container {
-    position: fixed;
-    bottom: 0.5rem;
-    right: 0.5rem;
-    z-index: 10;
-    width: auto;
-    max-width: 16rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
 }
 
 #map-title {
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 2.2rem;
-    margin: 10px 0 5px 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: var(--mh-font-heading);
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--mh-primary);
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .map-section {
-    margin: 15px 0;
+    margin-bottom: 20px;
     width: 100%;
 }
 
 .map-section h2 {
-    font-size: 1.2rem;
-    margin: 0 0 10px 0;
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
 }
 
 .map-dropdown {
     width: 100%;
-    padding: 8px;
-    background-color: rgba(52, 73, 94, 0.7);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+    padding: 8px 10px;
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
+    font-family: var(--mh-font-body);
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .controls-section {
     margin-top: 20px;
+    border-top: 1px solid var(--mh-panel-border);
+    padding-top: 15px;
     width: 100%;
 }
 
 .controls-section h2 {
-    font-size: 1.5rem;
-    margin: 0 0 10px 0;
+    font-family: var(--mh-font-heading);
+    color: var(--mh-primary);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
 }
 
 .controls-list {
     list-style-type: none;
-    padding: 0;
-    margin: 0;
+    padding-left: 5px;
+    margin-top: 10px;
 }
 
 .controls-list li {
-    margin: 8px 0;
-    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #ddd;
 }
 
 .utility-pane {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 5;
+    right: 0.5rem;
+    top: 80px; /* Adjusted to account for header */
+    max-width: 20rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .toggle-all-group {
     display: flex;
     justify-content: center;
-    margin: 10px 0 15px 0;
     width: 100%;
+    margin: 15px 0;
 }
 
 .toggle-all-button {
-    background-color: rgba(52, 152, 219, 0.7);
-    color: white;
-    border: none;
-    border-radius: 5px;
+    background-color: var(--mh-dark);
+    color: var(--mh-light);
+    border: 1px solid var(--mh-border);
+    border-radius: 3px;
     padding: 8px 15px;
     font-size: 1rem;
     cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--mh-font-body);
+    font-weight: 500;
     width: 100%;
-    transition: background-color 0.2s ease;
+    text-align: center;
 }
 
 .toggle-all-button:hover {
-    background-color: rgba(52, 152, 219, 0.9);
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
 }
 
 .toggle-all-button.deselect-mode {
-    background-color: rgba(231, 76, 60, 0.7);
+    background-color: var(--mh-accent);
+    border-color: var(--mh-primary);
 }
 
 .toggle-all-button.deselect-mode:hover {
-    background-color: rgba(231, 76, 60, 0.9);
+    background-color: var(--mh-dark);
+}
+
+/* Custom scrollbar for the filters panel */
+#filters::-webkit-scrollbar {
+    width: 8px;
+}
+
+#filters::-webkit-scrollbar-track {
+    background: var(--mh-dark);
+    border-radius: 4px;
+}
+
+#filters::-webkit-scrollbar-thumb {
+    background: var(--mh-secondary);
+    border-radius: 4px;
+}
+
+#filters::-webkit-scrollbar-thumb:hover {
+    background: var(--mh-primary);
+}
+
+/* Styling for select dropdowns */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e8b53a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 30px;
+}
+
+/* Add a subtle border glow effect to panels */
+.side-pane-item {
+    box-shadow: 0 0 15px rgba(232, 181, 58, 0.1);
+}
+
+/* Style for when hovering over checkboxes and their labels */
+.filter-group:hover label {
+    color: var(--mh-primary);
 }
