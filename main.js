@@ -54,7 +54,13 @@ const camera = new THREE.PerspectiveCamera(
     3000
 );
 const canvas = document.getElementById("webgl-canvas");
-const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: true,
+    alpha: true,
+    preserveDrawingBuffer: true,
+    powerPreference: "high-performance",
+});
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(animate);
@@ -535,8 +541,21 @@ function isVisible(sprite) {
 }
 
 function getFirstIntersectingVisibleSprite(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    // Normalize coordinates for both mouse and touch events
+    let clientX = event.clientX;
+    let clientY = event.clientY;
+
+    // Handle touch events specifically
+    if (event.touches && event.touches.length > 0) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    } else if (event.changedTouches && event.changedTouches.length > 0) {
+        clientX = event.changedTouches[0].clientX;
+        clientY = event.changedTouches[0].clientY;
+    }
+
+    mouse.x = (clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(clientY / window.innerHeight) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(sprites);
@@ -573,6 +592,32 @@ window.addEventListener("mousemove", (event) => {
     }
 });
 
+// Add touch event handlers for mobile devices
+window.addEventListener(
+    "touchmove",
+    (event) => {
+        event.preventDefault(); // Prevent scrolling when interacting with the map
+        if (event.touches.length > 0) {
+            const touch = event.touches[0];
+            const touchEvent = {
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+            };
+            const res = getFirstIntersectingVisibleSprite(touchEvent);
+            if (res) {
+                tooltip.style.left = `${touch.clientX + 10}px`;
+                tooltip.style.top = `${touch.clientY + 10}px`;
+                setInfo(tooltip, hoveredSprite, "TOOLTIP");
+                tooltip.style.display = "block";
+            } else {
+                hoveredSprite = null;
+                tooltip.style.display = "none";
+            }
+        }
+    },
+    { passive: false }
+);
+
 const selectedItem = document.getElementById("selected-item");
 window.addEventListener("click", (event) => {
     const res = getFirstIntersectingVisibleSprite(event);
@@ -580,6 +625,23 @@ window.addEventListener("click", (event) => {
         selectedSprite = hoveredSprite;
         selectedItem.style.display = "flex";
         setInfo(selectedItem, selectedSprite, "EXTENDED");
+    }
+});
+
+// Add touch event for tap/click on mobile devices
+window.addEventListener("touchend", (event) => {
+    if (event.changedTouches.length > 0) {
+        const touch = event.changedTouches[0];
+        const touchEvent = {
+            clientX: touch.clientX,
+            clientY: touch.clientY,
+        };
+        const res = getFirstIntersectingVisibleSprite(touchEvent);
+        if (res) {
+            selectedSprite = hoveredSprite;
+            selectedItem.style.display = "flex";
+            setInfo(selectedItem, selectedSprite, "EXTENDED");
+        }
     }
 });
 
@@ -709,6 +771,14 @@ function initControls(camera) {
     controls.zoomSpeed = 1.5;
     controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
     controls.target.set(-700, 0, 1400);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.1;
+    controls.rotateSpeed = 0.7;
+    controls.panSpeed = 0.8;
+    controls.touches = {
+        ONE: THREE.TOUCH.ROTATE,
+        TWO: THREE.TOUCH.DOLLY_PAN,
+    };
     camera.lookAt(controls.target);
     return controls;
 }
@@ -718,6 +788,7 @@ controls.update();
 
 window.addEventListener("resize", onWindowResize);
 function animate() {
+    requestAnimationFrame(animate); // Add explicit animation frame request for iOS
     controls.update();
     renderer.clear();
     updateSprites();
@@ -731,14 +802,20 @@ function animate() {
 }
 
 function onWindowResize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    // Use a small timeout to ensure iOS has completed its orientation change
+    setTimeout(() => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(width, height);
+    }, 100);
 }
+
+// Add orientation change event listener specifically for mobile devices
+window.addEventListener("orientationchange", onWindowResize);
 
 document.querySelectorAll(".toggleButton").forEach((button) => {
     button.addEventListener("click", function () {
