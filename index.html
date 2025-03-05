@@ -19,6 +19,19 @@
         <meta name="format-detection" content="telephone=no" />
 
         <!-- iOS Detection Script -->
+        <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+        <script>
+            // Only initialize Eruda if debug=1 is in the query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const debugMode = urlParams.get("debug");
+
+            if (debugMode === "1") {
+                eruda.init();
+            } else {
+                // Don't initialize Eruda if not in debug mode
+                eruda = { init: function () {} };
+            }
+        </script>
         <script>
             function isIOS() {
                 // Check for iOS devices using multiple methods
