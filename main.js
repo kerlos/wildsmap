@@ -770,18 +770,32 @@ window.addEventListener("click", (event) => {
 });
 
 function updateSprites() {
-    const distance = Math.min(camera.position.distanceTo(controls.target), 800);
-    const scale = Math.max((32.0 * distance) / 700, 10.0);
+    // Calculate distance from camera to target
+    const distance = camera.position.distanceTo(controls.target);
+
+    // Create a more responsive scaling formula
+    // This will make sprites maintain a more consistent screen size regardless of zoom level
+    // Min distance is set in controls (10), max is 1500
+    // Map this range to a scale range
+    const normalizedDistance = Math.max(
+        0,
+        Math.min(1, (distance - 10) / (controls.maxDistance - 10))
+    );
+
+    // Use an inverse relationship - closer = smaller sprites, further = larger sprites
+    // This creates a more natural feel when zooming
+    const baseScale = 10 + 30 * normalizedDistance;
+
     sprites.forEach((sprite) => {
         if (sprite.type === "AREA_LABEL") {
             // For label points, maintain aspect ratio with larger scaling
-            const s = scale * sprite.baseScaling;
+            const s = baseScale * sprite.baseScaling;
             const width = s * (sprite.aspectRatio || 1);
             const height = s;
             sprite.scale.set(width, height, 1);
         } else {
             // For other sprites, use uniform scaling
-            const s = scale * sprite.baseScaling;
+            const s = baseScale * sprite.baseScaling;
             sprite.scale.set(s * sprite.aspectRatio, s, 1);
         }
     });
