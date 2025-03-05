@@ -784,7 +784,8 @@ function updateSprites() {
 
     // Use an inverse relationship - closer = smaller sprites, further = larger sprites
     // This creates a more natural feel when zooming
-    const baseScale = 10 + 30 * normalizedDistance;
+    // Increased by 20% from previous values (10 → 12, 30 → 36)
+    const baseScale = 12 + 36 * normalizedDistance;
 
     sprites.forEach((sprite) => {
         if (sprite.type === "AREA_LABEL") {
