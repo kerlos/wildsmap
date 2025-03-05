@@ -144,7 +144,7 @@ const GROUP_NAMES = ["COLLECT", "INVISIBLE"];
 // Add a loading manager to handle loading progress and errors
 const loadingManager = new THREE.LoadingManager();
 loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
-    console.log(`Loading file: ${url} (${itemsLoaded}/${itemsTotal})`);
+    //console.log(`Loading file: ${url} (${itemsLoaded}/${itemsTotal})`);
 };
 loadingManager.onError = function (url) {
     console.error(`Error loading: ${url}`);
@@ -233,11 +233,28 @@ class Stage {
             document.getElementById("trap")
         );
         this.categoryToggles.set(
+            "INVISIBLE",
+            document.getElementById("hidden")
+        );
+        this.categoryToggles.set(
+            "INVISIBLE_BEACON",
+            document.getElementById("hidden")
+        );
+        this.categoryToggles.set(
             "NON_FILTERING_TARGET",
             document.getElementById("non-filtering")
         );
         //this.categoryToggles.set('ALL', document.getElementById('all-category'));
         this.categoryToggles.set("SLINGER", document.getElementById("slinger"));
+        this.categoryToggles.set(
+            "FERTILITY",
+            document.getElementById("fertility")
+        );
+        this.categoryToggles.set("RUIN", document.getElementById("ruin"));
+        this.categoryToggles.set(
+            "ABNORMAL",
+            document.getElementById("abnormal")
+        );
 
         // stages
 
@@ -771,8 +788,6 @@ function updateSprites() {
 }
 
 const filters = document.getElementById("filters");
-const selectToggle = document.getElementById("selectall");
-const deselectToggle = document.getElementById("deselect");
 const endemicToggle = document.getElementById("endemic");
 const areaNumToggle = document.getElementById("areanumbers");
 
@@ -784,42 +799,31 @@ function getAllSearchableItems() {
     const items = [];
 
     // Add gimmicks
+    const addedNames = new Set();
     gimmicks.forEach((gimmick) => {
         if (gimmick.data.name_langs && gimmick.data.name_langs[lang]) {
-            items.push({
-                name: gimmick.data.name_langs[lang],
-                type: "GIMMICK",
-            });
+            const name = gimmick.data.name_langs[lang];
+            if (!addedNames.has(name)) {
+                items.push({
+                    name: name,
+                    type: "GIMMICK",
+                });
+                addedNames.add(name);
+            }
         }
     });
 
     // Add endemics
     endemics.forEach((endemic) => {
         if (endemic.data.name_langs && endemic.data.name_langs[lang]) {
-            items.push({
-                name: endemic.data.name_langs[lang],
-                type: "ENDEMIC",
-            });
-        }
-    });
-
-    // Add area numbers
-    areaNumbers.forEach((area) => {
-        if (area.data.name_langs && area.data.name_langs[lang]) {
-            items.push({
-                name: area.data.name_langs[lang],
-                type: "AREA_NUMBER",
-            });
-        }
-    });
-
-    // Add label points
-    labelPoints.forEach((label) => {
-        if (label.data.name_langs && label.data.name_langs[lang]) {
-            items.push({
-                name: label.data.name_langs[lang],
-                type: "AREA_LABEL",
-            });
+            const name = endemic.data.name_langs[lang];
+            if (!addedNames.has(name)) {
+                items.push({
+                    name: name,
+                    type: "ENDEMIC",
+                });
+                addedNames.add(name);
+            }
         }
     });
 
@@ -955,29 +959,6 @@ function updateToggles() {
                 .get(category)
                 .forEach((sprite) => (sprite.visible = toggle.checked));
     });
-
-    // st101.gimmicks.forEach((sprite) => {
-    //     const gimmick = gimmicks.get(sprite.gimmickId);
-    //     if (
-    //         gimmick.data.weather_environments !== undefined &&
-    //         !gimmick.data.weather_repop
-    //     ) {
-    //         const envs = gimmick.data.weather_environments;
-    //         if (
-    //             !(
-    //                 ((envs.includes("FERTILITY") &&
-    //                     st101.categoryToggles.get("FERTILITY").checked) ||
-    //                     (envs.includes("RUIN") &&
-    //                         st101.categoryToggles.get("RUIN").checked) ||
-    //                     (envs.includes("ABNORMAL") &&
-    //                         st101.categoryToggles.get("ABNORMAL").checked)) &&
-    //                 sprite.visible
-    //             )
-    //         ) {
-    //             sprite.visible = false;
-    //         }
-    //     }
-    // });
 }
 
 updateSearch();
@@ -998,8 +979,8 @@ camera.position.set(-600, 600, 1300);
 function initControls(camera) {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enable = true;
-    controls.minDistance = 100;
-    controls.maxDistance = 2000;
+    controls.minDistance = 10;
+    controls.maxDistance = 1500;
     controls.staticMoving = true;
     controls.zoomSpeed = 1.5;
     controls.mouseButtons.MIDDLE = THREE.MOUSE.PAN;
